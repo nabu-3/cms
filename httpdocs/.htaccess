@@ -1,0 +1,22 @@
+AuthType Basic
+AuthName 'Nabu 3 - CMS'
+AuthUserFile /etc/opt/nabu-3.conf.d/htpasswd
+#require valid-user
+
+<IfModule rewrite_module>
+    RewriteEngine On
+
+    RewriteCond "%{REQUEST_FILENAME}" !-f
+    RewriteCond "%{REQUEST_FILENAME}" !-d
+    RewriteRule ^index\.html$ nabu-3.php?__x_nb_path=/&%{QUERY_STRING} [L]
+
+    RewriteCond "%{REQUEST_FILENAME}" !-f
+    RewriteCond "%{REQUEST_FILENAME}" !-d
+    RewriteRule ^index\.php$ nabu-3.php?__x_nb_path=/&%{QUERY_STRING} [L]
+
+    RewriteCond "%{REQUEST_FILENAME}" !-f
+    RewriteCond "%{REQUEST_FILENAME}" !-d
+    RewriteRule ^(.*)$ nabu-3.php?__x_nb_path=/$1&%{QUERY_STRING} [L]
+
+    RewriteRule ^$ nabu-3.php?__x_nb_path=/&%{QUERY_STRING} [L]
+</IfModule>

@@ -1,0 +1,25 @@
+{
+    "type": "nabu-cms",
+    "name": "nabu-3/web-cms",
+    "description": "nabu-3 CMS Website to manage nabu-3 database framework entities and websites",
+    "keywords": [ "nabu-3", "nabu", "cms", "framework", "database", "web", "website", "websites" ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/nabu-3/web-cms"
+        }
+    ],
+    "version": "3.0.0",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Rafael Gutierrez",
+            "email": "ragutimar@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "nabu-3/composer-installer-plugin": "~3.0"
+    },
+    "prefer-stable": true
+}
