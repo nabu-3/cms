@@ -489,8 +489,20 @@ footer.navbar .navbar-nav > li > a + span {
 
 /** Panels **/
 .panel {
-    padding: 5px 10px;
     border-width: 2px;
+}
+
+.panel > .panel-heading {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 20px;
+}
+
+.panel > .panel-body {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.panel > .panel-body > p:last-child {
+    margin-bottom: 0;
 }
 
 .panel-default {
@@ -502,6 +514,11 @@ footer.navbar .navbar-nav > li > a + span {
     border-color: #268bd2;
     background-color: #D2E7F8;
     background-color: rgba(38,139,226, 0.2);
+}
+
+.panel.panel-info > .panel-heading {
+    background-color: #268bd2;
+    color: #fdf6e3;
 }
 
 /** Tables **/

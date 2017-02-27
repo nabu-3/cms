@@ -17,25 +17,23 @@
  *  limitations under the License.
  */
 
-namespace nabu\cms\plugins\sitetarget\catalogeditor;
+namespace nabu\cms\plugins\sitetarget\messagingeditor;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@wiscot.com>
- * @version 3.0.0 Surface
- * @package \nabu\cms\plugins\sitetarget
+ * @since 3.0.1 Surface
+ * @version 3.0.1 Surface
+ * @package \nabu\cms\plugins\sitetarget\messagingeditor
  */
-class CNabuCMSPluginCatalogList extends CNabuHTTPSiteTargetPluginAdapter
+class CNabuCMSPluginMessagingList extends CNabuHTTPSiteTargetPluginAdapter
 {
-    /**
-     * Catalog list
-     * @var array
-     */
-    private $catalog_data = null;
+    /** @var CNabuMessagingList $messaging_list Messaging list. */
+    private $messaging_list = null;
 
     public function prepareTarget()
     {
-        $this->catalog_data = $this->nb_work_customer->getCatalogs(true);
+        $this->messaging_list = $this->nb_work_customer->getMessagings(true);
 
         return true;
     }
@@ -43,8 +41,8 @@ class CNabuCMSPluginCatalogList extends CNabuHTTPSiteTargetPluginAdapter
     public function beforeDisplayTarget()
     {
         $render = $this->nb_response->getRender();
-        $render->smartyAssign('nb_languages', $this->nb_work_customer->getCatalogSetUsedLanguages());
-        $render->smartyAssign('data', $this->catalog_data, $this->nb_language);
+        //$render->smartyAssign('nb_languages', $this->nb_work_customer->getMessagingUsedLanguages());
+        $render->smartyAssign('data', $this->messaging_list, $this->nb_language);
 
         return true;
     }

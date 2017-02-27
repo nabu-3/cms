@@ -3,8 +3,6 @@
 {nabu_navbar fixed=top inverse=true class="navbar-inverse" container=fluid header=true collapsable=navbar brand=$main_menu.translation brand_name=$nb_site.translation.name}
     {nabu_navigation sitemap=$main_menu.childs type=navbar deep=1}
     <ul class="nav navbar-nav navbar-right">
-        {*<li><a href="#">Bookmark</a></li>
-        <li><a href="#">Book</a></li>*}
         {if $nb_user !== null}
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i>&nbsp;{"{$nb_user.first_name} {$nb_user.last_name}"|trim} <span class="caret"></span></a>

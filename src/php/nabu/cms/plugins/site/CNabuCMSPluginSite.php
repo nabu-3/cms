@@ -32,9 +32,7 @@ use providers\smarty\smarty\renders\CSmartyHTTPRender;
  */
 class CNabuCMSPluginSite extends CNabuHTTPSitePluginAdapter
 {
-    /**
-     * Customers list allowed for current User
-     */
+    /** @var CNabuCustomerList $nb_customer_list Customers list allowed for current User */
     private $nb_customer_list;
 
     public function prepareSite()

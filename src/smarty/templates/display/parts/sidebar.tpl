@@ -1,11 +1,13 @@
 {nabu_model model="bootstrap-3.3.7"}
 <div class="col-md-2 col-sm-3 sidebar">
     <aside class="panel panel-default">
-        {nabu_form vertical=true method=POST}
-            {nabu_form_select options=$nb_customer_list options_id=id options_name=fiscal_name label='Cliente'
-                              options_default_name='&lt;Elige un cliente&gt;'
-                              from=$nb_work_customer field=id name='__x_nb_wc' id=__x_nb_wc}
-        {/nabu_form}
+        <div class="panel-body">
+            {nabu_form vertical=true method=POST}
+                {nabu_form_select options=$nb_customer_list options_id=id options_name=fiscal_name label='Cliente'
+                                  options_default_name='&lt;Elige un cliente&gt;'
+                                  from=$nb_work_customer field=id name='__x_nb_wc' id=__x_nb_wc}
+            {/nabu_form}
+        </div>
     </aside>
     <aside>
         <h1>Menu</h1>
