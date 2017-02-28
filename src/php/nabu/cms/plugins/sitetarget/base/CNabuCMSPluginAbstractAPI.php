@@ -83,7 +83,7 @@ abstract class CNabuCMSPluginAbstractAPI extends CNabuHTTPSiteTargetPluginAdapte
     {
         $render = $this->nb_response->getRender();
         if ($render instanceof CNabuHTTPResponseJSONRender) {
-            if (!is_string($this->result)) {
+            if (!is_array($this->result)) {
                 $this->result = array(
                     'status' => 'ERROR',
                     'message' => 'Error 500: Internal server error'
