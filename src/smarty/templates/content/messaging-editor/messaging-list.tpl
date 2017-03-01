@@ -31,7 +31,7 @@
     {/if}
     <div class="btn-toolbar" role="toolbar" aria-label="Table actions">
         <div class="btn-group pull-right" role="group">
-            {nabu_open_modal type=success target=myModal anchor_text="<i class=\"fa fa-plus\"></i>&nbsp;{nabu_static key=btn_new_repository}"}
+            {nabu_open_modal type=success target=modal_new_repository anchor_text="<i class=\"fa fa-plus\"></i>&nbsp;{nabu_static key=btn_new_repository}"}
         </div>
     </div>
 </div>
@@ -39,7 +39,7 @@
 {nabu_assign var=modal_new_success section=new_repository_success}
 {nabu_assign var=modal_new_error section=new_repository_error}
 {nabu_assign var=api cta=new_repository}
-{nabu_modal id=myModal size=lg}
+{nabu_modal id=modal_new_repository size=lg}
     {nabu_form layout="horizontal:2:10" method="ajax-post" action=$api.translations[$nb_site.api_language_id].final_url|sprintf:""}
         <div class="modal-steps">
             <div class="modal-step" data-step="1">
