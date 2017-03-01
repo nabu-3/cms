@@ -88,14 +88,16 @@ label {
     bottom: 50px;
     display: flex;
     flex-flow: column wrap;
-    padding: 30px 15px;
+    padding: 30px 15px 15px;
     position: absolute;
     top: 50px;
 }
 
 .main .edit-zone {
-    flex: 1 1 0;
-    overflow: hidden;
+	flex: 1 1 0;
+	overflow: hidden;
+	display: flex;
+	flex-flow: column wrap;
 }
 
 .main .edit-zone > .tab-content {
@@ -595,6 +597,7 @@ footer.navbar .navbar-nav > li > a + span {
 
 .table-container + .btn-toolbar {
     margin-top: 20px;
+    flex: 0 1 auto;
 }
 
 .table:last-child {
