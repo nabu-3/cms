@@ -27,17 +27,6 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
  */
 class CNabuCMSPluginSiteList extends CNabuHTTPSiteTargetPluginAdapter
 {
-    /**
-     * Site Target key for API Call
-     * @var string
-     */
-    const TARGET_API_CALL = 'api_sites';
-    /**
-     * Site Target key for Users Profile editor.
-     * @var string
-     */
-    const TARGET_USER_EDIT = 'site_edit';
-
     private $site_data = null;
 
     public function prepareTarget()

@@ -589,8 +589,12 @@ footer.navbar .navbar-nav > li > a + span {
 /** Tables **/
 .table-container {
     flex: 1 1 0;
-    height: 100%;
+    max-height: 100%;
     overflow: auto;
+}
+
+.table-container + .btn-toolbar {
+    margin-top: 20px;
 }
 
 .table:last-child {

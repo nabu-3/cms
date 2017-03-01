@@ -12,7 +12,7 @@
                 title: 'Key'
                 order: 'alpha'
             ]
-            title: [
+            name: [
                 title: 'Nombre'
                 order: 'alpha'
             ]
@@ -37,7 +37,6 @@
 </div>
 {nabu_assign var=modal_new section=new_repository}
 {nabu_assign var=api cta=new_repository}
-<!--{$api|print_r:true}-->
 {nabu_modal id=myModal size=lg}
     {nabu_form layout="horizontal:2:10" method="ajax-post" action=$api.translations[$nb_site.api_language_id].final_url|sprintf:""}
         {nabu_modal_header dismiss=true}{$modal_new.translation.title}{/nabu_modal_header}
@@ -46,7 +45,7 @@
                 <aside class="col-sm-3">{$modal_new.translation.opening}</aside>
                 <section class="col-sm-9 col-sm-offset-3">
                     {nabu_form_textbox label=Key name=key maxlength=30 help="Establece una <b>key</b> para usar tu repositorio desde el código."}
-                    {nabu_form_textbox label=Nombre name=name index=$nb_language.id maxlength=100 help="Pon un nombre a tu repositorio para identificarlo en todo momento."}
+                    {nabu_form_textbox label=Nombre name=name index=$nb_language.id maxlength=100 help="Pon un <b>nombre</b> a tu repositorio para identificarlo en todo momento."}
                 </section>
             </div>
         {/nabu_modal_body}
