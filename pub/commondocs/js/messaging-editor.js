@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    /*
     $('#modal_new_repository form').get(0).reset();
     $('#modal_new_repository form').on('response.form.nabu', function(e, params) {
         $(this).find('.modal-steps').addClass('hide');
@@ -11,4 +12,5 @@ $(document).ready(function() {
             $(this).find('.modal-panels .modal-panel[data-action="error"]').removeClass('hide');
         }
     });
+    */
 });

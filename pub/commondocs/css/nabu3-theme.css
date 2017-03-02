@@ -13,7 +13,7 @@ orange:    #cb4b16 (S 89%) #c9c0bd (S 6%)
 red:       #dc322f
 magenta:   #d33682
 violet:    #6c71c4
-blue:      #268bd2
+blue:      #268bd2 (S 82%) #30acff (S 100%)
 cyan:      #2aa198
 green:     #859900 (V 60%) #a8bf00 (V 75%)
 */
@@ -58,7 +58,27 @@ label {
     color: #586e75;
 }
 
-.btn-success {
+.btn-info,
+.btn-info:active,
+.btn-info:focus {
+    background-color: #268bd2;
+    border: 1px solid #268bd2;
+    color: #fdf6e3;
+}
+
+.btn-info:hover {
+    border-color: #30acff;
+    background-color: #30acff;
+}
+
+.btn-info:active:hover {
+    border-color: #1e6ca0;
+    background-color: #1e6ca0;
+}
+
+.btn-success,
+.btn-success:active,
+.btn-success:focus {
     border-color: #859900;
     background-color: #859900;
 }
@@ -66,12 +86,6 @@ label {
 .btn-success:hover {
     border-color: #a8bf00;
     background-color: #a8bf00;
-}
-
-.btn-success:active,
-.btn-success:focus {
-    border-color: #859900;
-    background-color: #859900;
 }
 
 .btn-success:active:hover {
@@ -586,6 +600,10 @@ footer.navbar .navbar-nav > li > a + span {
 	border-top: 1px solid #cb4b16;
 	background-color: #c9c0bd;
     border-radius: 0 0 6px 6px;
+}
+
+.modal-footer .btn-link {
+    color: #fdf6e3;
 }
 
 /** Tables **/

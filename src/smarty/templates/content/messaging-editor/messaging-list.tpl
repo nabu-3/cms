@@ -21,7 +21,7 @@
 {/nabu_raw_assign}
 <div class="edit-zone">
     {if count($data)>0}
-        {nabu_table data=$data metadata=$table_metadata selectable=true
+        {nabu_table id=item_list data=$data metadata=$table_metadata selectable=true
                     bordered=true striped=true hover=true condensed=true
                     search=false pager=false size=25 column_selector=true
                     api=api_call editor=item_edit edit_button=line}
@@ -39,11 +39,12 @@
 {nabu_assign var=modal_new_success section=new_repository_success}
 {nabu_assign var=modal_new_error section=new_repository_error}
 {nabu_assign var=api cta=new_repository}
-{nabu_modal id=modal_new_repository size=lg}
+{nabu_assign var=editor cta=item_edit}
+{nabu_modal id=modal_new_repository size=lg caller=item_list aria_labelledby=modal_new_repository_head}
     {nabu_form layout="horizontal:2:10" method="ajax-post" action=$api.translations[$nb_site.api_language_id].final_url|sprintf:""}
         <div class="modal-steps">
             <div class="modal-step" data-step="1">
-                {nabu_modal_header dismiss=true}{$modal_new.translation.title}{/nabu_modal_header}
+                {nabu_modal_header dismiss=true aria_label_id=modal_new_repository_head}{$modal_new.translation.title}{/nabu_modal_header}
                 {nabu_modal_body}
                     <div class="row">
                         <aside class="col-sm-3">{$modal_new.translation.opening}</aside>
@@ -65,7 +66,7 @@
                 {nabu_modal_body}{$modal_new_success.translation.opening}{/nabu_modal_body}
                 {nabu_modal_footer}
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-info">Continuar</button>
+                    <a class="btn btn-info"{if is_array($editor) && count($editor)>0} data-toggle="modal-btn-editor" data-editor="{$editor.translation.final_url}"{/if}>Continuar</a>
                 {/nabu_modal_footer}
             </div>
             <div class="modal-panel" data-action="error">
