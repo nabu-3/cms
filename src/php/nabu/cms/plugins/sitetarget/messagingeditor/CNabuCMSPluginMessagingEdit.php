@@ -19,6 +19,7 @@
 
 namespace nabu\cms\plugins\sitetarget\messagingeditor;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
+use nabu\provider\CNabuProviderFactory;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@wiscot.com>
@@ -42,13 +43,14 @@ class CNabuCMSPluginMessagingEdit extends CNabuHTTPSiteTargetPluginAdapter
         if (is_array($fragments) && count($fragments) === 2) {
             $id = $fragments[1];
             $this->title_part = '#' . $id;
-            if (($this->edit_messaging = $this->nb_work_customer->getMessaging($id)) !== false &&
-                ($translation = $this->edit_messaging->getTranslation($this->nb_language)) !== false &&
-                (strlen($this->title_part = $translation->getName()) === 0) &&
-                (strlen($this->title_part = $this->edit_messaging->getKey()) === 0)
-            ) {
+            if (($this->edit_messaging = $this->nb_work_customer->getMessaging($id)) !== false) {
                 $this->edit_messaging->refresh();
-                $this->title_part = '#' . $id;
+                if (($translation = $this->edit_messaging->getTranslation($this->nb_language)) !== false &&
+                    (strlen($this->title_part = $translation->getName()) === 0) &&
+                    (strlen($this->title_part = $this->edit_messaging->getKey()) === 0)
+                ) {
+                    $this->title_part = '#' . $id;
+                }
             }
             $this->breadcrumb_part['messaging_edit'] = array(
                 'title' => $this->title_part,
@@ -65,7 +67,11 @@ class CNabuCMSPluginMessagingEdit extends CNabuHTTPSiteTargetPluginAdapter
         $render->smartyAssign('edit_messaging', $this->edit_messaging, $this->nb_language);
         $render->smartyAssign('title_part', $this->title_part);
         $render->smartyAssign('breadcrumb_part', $this->breadcrumb_part);
-
+        $render->smartyAssign(
+            'account_interfaces',
+            $this->nb_engine->getProvidersInterfaceDescriptors(CNabuProviderFactory::INTERFACE_MESSAGING_ACCOUNT),
+            $this->nb_language
+        );
         return true;
     }
 }
