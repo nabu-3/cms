@@ -68,8 +68,8 @@ class CNabuCMSPluginMessagingEdit extends CNabuHTTPSiteTargetPluginAdapter
         $render->smartyAssign('title_part', $this->title_part);
         $render->smartyAssign('breadcrumb_part', $this->breadcrumb_part);
         $render->smartyAssign(
-            'account_interfaces',
-            $this->nb_engine->getProvidersInterfaceDescriptors(CNabuProviderFactory::INTERFACE_MESSAGING_ACCOUNT),
+            'service_interfaces',
+            $this->nb_engine->getProvidersInterfaceDescriptors(CNabuProviderFactory::INTERFACE_MESSAGING_SERVICE),
             $this->nb_language
         );
         return true;

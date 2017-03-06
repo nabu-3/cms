@@ -8,7 +8,7 @@
 <div id="edit_zone" class="edit-zone">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">{nabu_static key=tab_main}</a></li>
-        <li role="presentation"><a href="#accounts" aria-controls="accounts" role="tab" data-toggle="tab">{nabu_static key=tab_accounts}</a></li>
+        <li role="presentation"><a href="#services" aria-controls="services" role="tab" data-toggle="tab">{nabu_static key=tab_services}</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" role="tabpanel" id="main">
@@ -22,13 +22,13 @@
                             {if is_array($edit_messaging)}
                                 {strip}
                                     <dl class="list-messages">
-                                        {if !array_key_exists('accounts', $edit_messaging) || count($edit_messaging.accounts) === 0}
-                                            {nabu_assign var=accounts_empty section=accounts_empty}
-                                            <dt class="text-danger">{$accounts_empty.translation.title}</dt>
-                                            <dd>{$accounts_empty.translation.content}<br>
+                                        {if !array_key_exists('services', $edit_messaging) || count($edit_messaging.services) === 0}
+                                            {nabu_assign var=services_empty section=services_empty}
+                                            <dt class="text-danger">{$services_empty.translation.title}</dt>
+                                            <dd>{$services_empty.translation.content}<br>
                                                 <ul class="list-inline">
                                                     <li>
-                                                        {nabu_open_modal type=link target=modal_new_account anchor_text="<i class=\"fa fa-plus\"></i>&nbsp;{nabu_static key=btn_new_account}"}
+                                                        {nabu_open_modal type=link target=modal_new_service anchor_text="<i class=\"fa fa-plus\"></i>&nbsp;{nabu_static key=btn_new_service}"}
                                                     </li>
                                                 </ul>
                                             </dd>
@@ -41,12 +41,12 @@
                 </div>
                 <div class="col-sm-3">
                     <aside class="box box-info">
-                        {if !isset($account_interfaces) || count($account_interfaces) === 0}
-                            {nabu_assign var=section section=account_modules_empty}
+                        {if !isset($service_interfaces) || count($service_interfaces) === 0}
+                            {nabu_assign var=section section=service_modules_empty}
                             <div class="box-heading">{$section.translation.title}</div>
                             <div class="box-body"><div class="help-block">{$section.translation.opening}</div></div>
                         {else}
-                            {nabu_assign var=section section=account_modules_available}
+                            {nabu_assign var=section section=service_modules_available}
                             <div class="box-heading">{$section.translation.title}</div>
                             <div class="box-body">
                                 <div class="help-block">{$section.translation.opening}</div>
@@ -60,7 +60,7 @@
                                         ]
                                     ]
                                 {/nabu_raw_assign}
-                                {nabu_table id=item_list data=$account_interfaces metadata=$table_metadata selectable=false
+                                {nabu_table id=item_list data=$service_interfaces metadata=$table_metadata selectable=false
                                             bordered=true striped=true hover=true condensed=true
                                             search=false pager=false size=25 column_selector=true
                                             api=api_call editor=item_edit edit_button=line}
@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane" role="tabpanel" id="accounts">
+        <div class="tab-pane" role="tabpanel" id="services">
         </div>
     </div>
     <div class="btn-toolbar" role="toolbar" aria-label="Table actions">
@@ -79,15 +79,15 @@
         </div>
     </div>
 </div>
-{nabu_assign var=modal_new section=new_account}
-{nabu_assign var=modal_new_success section=new_account_success}
-{nabu_assign var=modal_new_error section=new_account_error}
-{nabu_assign var=api cta=new_account}
-{nabu_modal id=modal_new_account size=lg caller=edit_zone aria_labelledby=modal_new_account_head}
+{nabu_assign var=modal_new section=new_service}
+{nabu_assign var=modal_new_success section=new_service_success}
+{nabu_assign var=modal_new_error section=new_service_error}
+{nabu_assign var=api cta=new_service}
+{nabu_modal id=modal_new_service size=lg caller=edit_zone aria_labelledby=modal_new_service_head}
     {nabu_form layout="horizontal:2:10" method="ajax-post" action=$api.translations[$nb_site.api_language_id].final_url|sprintf:""}
         <div class="modal-steps">
             <div class="modal-step" data-step="1">
-                {nabu_modal_header dismiss=true aria_label_id=modal_new_account_head}{$modal_new.translation.title}{/nabu_modal_header}
+                {nabu_modal_header dismiss=true aria_label_id=modal_new_service_head}{$modal_new.translation.title}{/nabu_modal_header}
                 {nabu_modal_body}
                     <div class="row">
                         <aside class="col-sm-3">{$modal_new.translation.opening}</aside>

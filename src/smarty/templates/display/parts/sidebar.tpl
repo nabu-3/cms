@@ -10,7 +10,7 @@
         </div>
     </aside>
     <aside>
-        <h1>Menu</h1>
+        <h3>Menu</h3>
         {nabu_assign var=sidebar_menu sitemap=main_menu level=1}
         {nabu_navigation sitemap=$sidebar_menu.childs type=pill position=stacked}
     </aside>
