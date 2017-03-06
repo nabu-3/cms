@@ -114,9 +114,19 @@ label {
 	flex-flow: column wrap;
 }
 
+.main .edit-zone > .nab-tabs {
+    flex: 0 1 auto;
+}
+
 .main .edit-zone > .tab-content {
     display: block;
-    height: calc(100% - 43px);
+    max-height: 100%; /*calc(100% - 43px);*/
+    flex: 1 1 0;
+}
+
+.main .edit-zone > .tab-content + .btn-toolbar {
+    margin-top: 20px;
+    flex: 0 1 auto;
 }
 
 .main .edit-zone > .tab-content > .tab-pane {
@@ -702,6 +712,45 @@ footer.navbar .navbar-nav > li > a + span {
     min-width: 60px;
     white-space: nowrap;
     width: 1%;
+}
+
+/** Lists **/
+.list-messages .text-danger::before {
+	content: "\f057";
+    font-family: "FontAwesome";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: inherit;
+    font-stretch: normal;
+	text-rendering: auto;
+	-moz-osx-font-smoothing: grayscale;
+    position: relative;
+    width: 24px;
+    display: inline-block;
+}
+
+.list-messages > dd {
+    margin-left: 24px;
+    font-family: 'Roboto Condensed';
+}
+
+.list-messages > dd > .list-inline {
+    visibility: hidden;
+    font-family: 'Droid Sans', sans-serif;
+}
+
+.list-messages > dt:hover + dd > .list-inline {
+    visibility: visible;
+}
+
+.list-messages > dd:hover > .list-inline {
+    visibility: visible;
+}
+
+.list-messages > dd > .list-inline a {
+	color: #6c71c4;
+	font-size: 14px;
 }
 
 /** Trees **/

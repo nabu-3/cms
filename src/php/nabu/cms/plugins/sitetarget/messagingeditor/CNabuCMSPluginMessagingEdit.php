@@ -47,6 +47,7 @@ class CNabuCMSPluginMessagingEdit extends CNabuHTTPSiteTargetPluginAdapter
                 (strlen($this->title_part = $translation->getName()) === 0) &&
                 (strlen($this->title_part = $this->edit_messaging->getKey()) === 0)
             ) {
+                $this->edit_messaging->refresh();
                 $this->title_part = '#' . $id;
             }
             $this->breadcrumb_part['messaging_edit'] = array(
