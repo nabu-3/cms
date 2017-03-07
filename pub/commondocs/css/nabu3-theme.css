@@ -720,8 +720,10 @@ footer.navbar .navbar-nav > li > a + span {
 }
 
 /** Lists **/
-.list-messages .text-danger::before {
-	content: "\f057";
+.list-messages .text-danger::before,
+.list-messages .text-warning::before,
+.list-messages .text-success::before,
+.list-messages .text-info::before {
     font-family: "FontAwesome";
     font-style: normal;
     font-weight: normal;
@@ -735,6 +737,14 @@ footer.navbar .navbar-nav > li > a + span {
     display: inline-block;
 }
 
+.list-messages .text-danger::before {
+	content: "\f057";
+}
+
+.list-messages .text-warning::before {
+	content: "\f06a";
+}
+
 .list-messages > dd {
     margin-left: 24px;
     font-family: 'Roboto Condensed';
@@ -743,6 +753,7 @@ footer.navbar .navbar-nav > li > a + span {
 .list-messages > dd > .list-inline {
     visibility: hidden;
     font-family: 'Droid Sans', sans-serif;
+    margin: 0;
 }
 
 .list-messages > dt:hover + dd > .list-inline {
@@ -753,9 +764,18 @@ footer.navbar .navbar-nav > li > a + span {
     visibility: visible;
 }
 
+.list-messages > dd > .list-inline > li:first-child {
+    padding-left: 0;
+}
+
+.list-messages > dd > .list-inline > li + li {
+    margin-left: 10px;
+}
+
 .list-messages > dd > .list-inline a {
 	color: #6c71c4;
 	font-size: 14px;
+    padding: 0;
 }
 
 /** Trees **/

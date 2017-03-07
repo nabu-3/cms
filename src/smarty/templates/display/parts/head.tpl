@@ -13,7 +13,8 @@
             {$nb_site_target.translation.head_title}
         {/if}
     {/strip}</title>
-    <!--link href="/images/logo-transparent-256x256.png" rel="icon" type="image/png"-->
+    <link href="/images/logo-transparent-256x256.png" rel="icon" type="image/png" sizes="256x256">
+    <!--link href="/images/logo-256x256.png" rel="icon" type="image/png" sizes="256x256"-->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/css/nabu3-theme.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -21,5 +22,4 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link href="/assets/css/font-awesome.css" rel="stylesheet">
-    <link rel="icon" type="image/png" sizes="256x256" href="/images/logo-256x256.png">
 </head>

@@ -37,6 +37,7 @@ class CNabuCMSPluginMessagingAPI extends CNabuCMSPluginAbstractAPI
     {
         if (count($fragments = $this->nb_request->getRegExprURLFragments()) === 2) {
             if (is_numeric($fragments[1])) {
+                $this->nb_messaging = $this->nb_work_customer->getMessaging($fragments[1]);
             } elseif (!$fragments[1]) {
                 $this->nb_messaging = new CNabuMessaging();
                 $this->nb_messaging->setCustomer($this->nb_work_customer);
@@ -53,10 +54,12 @@ class CNabuCMSPluginMessagingAPI extends CNabuCMSPluginAbstractAPI
             $this->nb_request->updateObjectFromPost(
                 $this->nb_messaging,
                 array(
-                    'key' => 'nb_messaging_key'
+                    'key' => 'nb_messaging_key',
+                    'hash' => 'nb_messaging_hash',
+                    'default_lang_id' => 'nb_messaging_default_language_id'
                 )
             );
-            if ($this->nb_messaging->save(true)) {
+            if ($this->nb_messaging->save()) {
                 $languages = $this->nb_request->getCombinedPostIndexes(array('name'));
                 if (count($languages) > 0) {
                     foreach ($languages as $lang_id) {
@@ -70,14 +73,14 @@ class CNabuCMSPluginMessagingAPI extends CNabuCMSPluginAbstractAPI
                         $this->nb_request->updateObjectFromPost(
                             $nb_translation,
                             array(
-                                'name' => 'nb_messaging_lang_name'
+                                'name' => 'nb_messaging_lang_name',
+                                'templates_status' => 'nb_messaging_templates_status'
                             ),
                             null,
                             null,
                             $lang_id
                         );
                         $nb_translation->save(true);
-
                     }
                 }
                 $this->setStatusOK();

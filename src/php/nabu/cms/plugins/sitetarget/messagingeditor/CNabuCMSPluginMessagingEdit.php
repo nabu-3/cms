@@ -18,6 +18,7 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\messagingeditor;
+use nabu\data\lang\CNabuLanguage;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 use nabu\provider\CNabuProviderFactory;
 
@@ -70,6 +71,11 @@ class CNabuCMSPluginMessagingEdit extends CNabuHTTPSiteTargetPluginAdapter
         $render->smartyAssign(
             'service_interfaces',
             $this->nb_engine->getProvidersInterfaceDescriptors(CNabuProviderFactory::INTERFACE_MESSAGING_SERVICE),
+            $this->nb_language
+        );
+        $render->smartyAssign(
+            'nb_all_languages',
+            CNabuLanguage::getNaturalLanguages(),
             $this->nb_language
         );
         return true;
