@@ -12,7 +12,11 @@
                         title: 'Key'
                         order: 'alpha'
                     ]
-                    interface: [
+                    provider: [
+                        title: "Módulo"
+                        order: 'alpha'
+                    ]
+                    name: [
                         title: 'Servicio'
                         order: 'alpha'
                     ]
@@ -29,6 +33,9 @@
             {nabu_panel type=info title=$info_section}{$info_section.translation.opening}{/nabu_panel}
         {/if}
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-6" id="service_edit">
+        {include file="content/parts/myst.tpl"}
+        <div class="panel panel-info">Selecciona un elemento de la tabla para editarlo.</div>
+        <div class="edit-container hide"></div>
     </div>
 </div>

@@ -6,7 +6,7 @@
             <div class="box-heading">{$section.translation.title}</div>
             <div class="box-body">
                 <div class="help-block">{$section.translation.opening}</div>
-                {capture assign=dlCapture}
+                {capture assign=dlCapture}{strip}
                     {assign var=total_alerts value=0}
                     {if !array_key_exists('services', $edit_messaging) || count($edit_messaging.services) === 0}
                         {nabu_assign var=services_empty section=services_empty}
@@ -28,10 +28,20 @@
                                 <li role="presentation"><a href="#config" class="btn btn-link" aria-controls="config" role="link" data-toggle="nabu-tab-link" data-tags="#main_tabs"><i class="fa fa-cog"></i>&nbsp;{nabu_static key=btn_assign}</a></li>
                             </ul>
                         </dd>
-                        {assign var=total_alerts value=$total_alerts+1}
                     {/if}
-                {/capture}
-                {strip}{if strlen($dlCapture)>0}<dl class="list-messages">{$dlCapture}</dl>{/if}{/strip}
+                {/strip}{/capture}
+                {strip}
+                    {if $total_alert>0}
+                        <dl class="list-messages">{$dlCapture}</dl>
+                    {else}
+                        {nabu_assign var=messaging_success section=messaging_success}
+                        <dl class="list-messages">
+                            {$dlCapture}
+                            <dt class="text-success">{$messaging_success.translation.title}</dt>
+                            <dd>{$messaging_success.translation.content}</dd>
+                        </dl>
+                    {/if}
+                {/strip}
             </div>
         </div>
     </div>

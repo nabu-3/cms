@@ -137,6 +137,23 @@ label {
     display: inline;
 }
 
+/* Typography */
+.text-danger {
+    color: #dc322f;
+}
+
+.text-warning {
+    color: #b58900;
+}
+
+.text-success {
+    color: #859900;
+}
+
+.text-info {
+    color: #268bd2;
+}
+
 /** Myst **/
 .myst {
     background-color: #666666;
@@ -743,6 +760,14 @@ footer.navbar .navbar-nav > li > a + span {
 
 .list-messages .text-warning::before {
 	content: "\f06a";
+}
+
+.list-messages .text-success::before {
+    content: "\f058";
+}
+
+.list-messages .text-info::before {
+    content: "\f05a";
 }
 
 .list-messages > dd {
