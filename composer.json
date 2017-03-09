@@ -1,15 +1,15 @@
 {
-    "type": "nabu-cms",
-    "name": "nabu-3/web-cms",
+    "type": "nabu-public",
+    "name": "nabu-3/cms",
     "description": "nabu-3 CMS Website to manage nabu-3 database framework entities and websites",
-    "keywords": [ "nabu-3", "nabu", "cms", "framework", "database", "web", "website", "websites" ],
+    "keywords": [ "nabu-3", "nabu", "cms", "framework", "database", "web", "website", "websites", "web builder" ],
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/nabu-3/web-cms"
+            "url": "https://github.com/nabu-3/cms"
         }
     ],
-    "version": "3.0.0",
+    "version": "3.0.1",
     "license": "Apache-2.0",
     "authors": [
         {
