@@ -14,6 +14,7 @@
         <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab"><i class="fa fa-home"></i>&nbsp;{nabu_static key=tab_main}</a></li>
         <li role="presentation"><a href="#languages" aria-controls="languages" role="tab" data-toggle="tab"><i class="fa fa-language"></i>&nbsp;{nabu_static key=tab_languages}</a></li>
         <li role="presentation"><a href="#services" aria-controls="services" role="tab" data-toggle="tab"><i class="fa fa-cube"></i>&nbsp;{nabu_static key=tab_services}</a></li>
+        <li role="presentation"><a href="#templates" aria-controls="templates" role="tab" data-toggle="tab"><i class="fa fa-file-text"></i>&nbsp;{nabu_static key=tab_templates}</a></li>
         <li role="presentation"><a href="#config" aria-controls="config" role="tab" data-toggle="tab"><i class="fa fa-cog"></i>&nbsp;{nabu_static key=tab_config}</a></li>
     </ul>
     <div class="tab-content">
@@ -25,6 +26,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="services">
             {include file="content/messaging-editor/parts/messaging-edit-services.tpl"}
+        </div>
+        <div class="tab-pane" role="tabpanel" id="templates">
+            {include file="content/messaging-editor/parts/messaging-edit-templates.tpl"}
         </div>
         <div class="tab-pane edit-container" role="tabpanel" id="config">
             {include file="content/messaging-editor/parts/messaging-edit-config.tpl"}
