@@ -25,13 +25,27 @@
                         <dt class="text-warning">{$default_lang_empty.translation.title}</dt>
                         <dd>{$default_lang_empty.translation.content}<br>
                             <ul class="list-inline">
-                                <li role="presentation"><a href="#config" class="btn btn-link" aria-controls="config" role="link" data-toggle="nabu-tab-link" data-tags="#main_tabs"><i class="fa fa-cog"></i>&nbsp;{nabu_static key=btn_assign}</a></li>
+                                <li role="presentation">
+                                    <a href="#config" class="btn btn-link" aria-controls="config" role="link" data-toggle="nabu-tab-link" data-tags="#main_tabs"><i class="fa fa-cog"></i>&nbsp;{nabu_static key=btn_assign}</a>
+                                </li>
                             </ul>
                         </dd>
                     {/if}
+                    {if !array_key_exists('templates', $edit_messaging) || count($edit_messaging.templates) === 0}
+                        {nabu_assign var=templates_empty section=templates_empty}
+                        <dt class="text-warning">{$templates_empty.translation.title}</dt>
+                        <dd>{$templates_empty.translation.content}<br>
+                            <ul class="list-inline">
+                                <li>
+                                    <a href="#templates" class="btn btn-link" aria-controls="templates" role="link" data-toggle="nabu-tab-link" data-tags="#main_tabs"><i class="fa fa-plus"></i>&nbsp;{nabu_static key=btn_new_template}</a>
+                                </li>
+                            </ul>
+                        </dd>
+                        {assign var=total_alerts value=$total_alerts+1}
+                    {/if}
                 {/strip}{/capture}
                 {strip}
-                    {if $total_alert>0}
+                    {if $total_alerts>0}
                         <dl class="list-messages">{$dlCapture}</dl>
                     {else}
                         {nabu_assign var=messaging_success section=messaging_success}

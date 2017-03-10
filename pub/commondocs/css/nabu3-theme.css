@@ -999,3 +999,25 @@ footer.navbar .navbar-nav > li > a + span {
 	background-color: #268bd2;
 	color: #fdf6e3;
 }
+
+/* Split Pane */
+.split-panels {
+    position: relative;
+	display: flex;
+	flex-flow: row;
+    height: 100%;
+    width: 100%;
+}
+
+.split-content {
+	flex: 1 1 0;
+}
+
+.split-separator {
+	width: 18px;
+	cursor: col-resize;
+    background-color: #eee;
+	background-color: rgba(0,0,0,0.1);
+	outline: 1px dashed black;
+	outline-offset: 0;
+}
