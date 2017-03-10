@@ -6,4 +6,8 @@
     </div>
     <div class="split-content">
     </div>
+    <div class="split-separator">
+    </div>
+    <div class="split-content">
+    </div>
 </div>
