@@ -93,48 +93,24 @@ label {
     background-color: #657200;
 }
 
+.btn-danger,
+.btn-danger:active,
+.btn-danger:focus {
+    color: #fdf6e3;
+    border-color: #dc322f;
+    background-color: #dc322f;
+}
+
+.btn-default,
+.btn-default:active,
+.btn-default:focus {
+    /*border-color: #fdf6e3;*/
+    background-color: #fdf6e3;
+}
+
 .col-sm-3 > img {
     max-height: 100%;
     max-width: 100%;
-}
-
-.main {
-    bottom: 50px;
-    display: flex;
-    flex-flow: column wrap;
-    padding: 30px 15px 15px;
-    position: absolute;
-    top: 50px;
-}
-
-.main .edit-zone {
-	flex: 1 1 0;
-	overflow: hidden;
-	display: flex;
-	flex-flow: column wrap;
-}
-
-.main .edit-zone > .nab-tabs {
-    flex: 0 1 auto;
-}
-
-.main .edit-zone > .tab-content {
-    display: block;
-    max-height: 100%; /*calc(100% - 43px);*/
-    flex: 1 1 0;
-}
-
-.main .edit-zone > .tab-content + .btn-toolbar {
-    margin-top: 20px;
-    flex: 0 1 auto;
-}
-
-.main .edit-zone > .tab-content > .tab-pane {
-    height: 100%;
-}
-
-.inline {
-    display: inline;
 }
 
 /* Typography */
@@ -152,6 +128,46 @@ label {
 
 .text-info {
     color: #268bd2;
+}
+
+/* Main block */
+.main {
+    bottom: 50px;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 30px 15px 15px;
+    position: absolute;
+    top: 50px;
+}
+
+.main .edit-zone {
+	flex: 1 1 0;
+	overflow: hidden;
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.main .edit-zone > .nab-tabs {
+    flex: 0 1 auto;
+}
+
+.main .edit-zone > .tab-content {
+    display: block;
+    max-height: 100%;
+    flex: 1 1 0;
+}
+
+.main .edit-zone > .tab-content + .btn-toolbar {
+    margin-top: 20px;
+    flex: 0 1 auto;
+}
+
+.main .edit-zone > .tab-content > .tab-pane {
+    height: 100%;
+}
+
+.inline {
+    display: inline;
 }
 
 /** Myst **/
@@ -210,6 +226,15 @@ span + .flag {
     width: calc(100% - 25px);
     text-align: left;
     overflow: hidden;
+}
+
+.dropdown .btn-default {
+    background-color: #fff;
+}
+
+.dropdown .dropdown-toggle {
+    background-color: #073642;
+    color: #fdf6e3;
 }
 
 /** Dropdown Menus **/
@@ -643,6 +668,8 @@ footer.navbar .navbar-nav > li > a + span {
     flex: 1 1 0;
     max-height: 100%;
     overflow: auto;
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 .table-container + .btn-toolbar {
@@ -684,7 +711,11 @@ footer.navbar .navbar-nav > li > a + span {
   background-color: #eee8d5;
 }
 
-.table-hover > tbody > tr:hover {
+.table-hover > tbody > tr.table-empty-row {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.table-hover > tbody > tr:hover:not(.table-empty-row) {
   background-color: #93a1a1;
   color: #fdf6e3;
 }
@@ -711,6 +742,43 @@ footer.navbar .navbar-nav > li > a + span {
 .table-controls .table-columns-selector .dropdown-menu {
     left: auto;
     right: 0;
+}
+
+.table-toolbar {
+    margin-left: 0;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+    background-color: #586e75;
+}
+
+.table-toolbar > .btn-group:first-child:not(.pull-right),
+.table-toolbar > .btn-group.pull-right + .btn-group:not(.pull-right) {
+    margin-left: 0;
+}
+
+.table-toolbar .table-columns-selector .btn-columns {
+    background-color: #268bd2;
+    color: #fdf6e3;
+}
+
+.table-toolbar .table-columns-selector .btn-columns + .btn-columns {
+    border-left-color: #586e75;
+}
+
+.table-toolbar .table-search input[type="search"] {
+    -moz-border-radius: 15px 0 0 15px;
+    -webkit-border-radius: 0 0 15px 15px;
+    border-radius: 15px 0 0 15px;
+    border-color: #cb4b16;
+}
+
+.table-toolbar .table-search .btn-search {
+    -moz-border-radius: 0 15px 15px 0;
+    -webkit-border-radius: 15px 15px 0 0;
+    border-radius: 0 15px 15px 0;
+    background-color: #cb4b16;
+    border-color: #cb4b16;
+    color: #fdf6e3;
 }
 
 .table .col-selectable {
@@ -1000,6 +1068,20 @@ footer.navbar .navbar-nav > li > a + span {
 	color: #fdf6e3;
 }
 
+.box-default {
+    border-color: #586e75;
+}
+
+.box-default > .box-heading {
+    background-color: #586e75;
+    color: #fdf6e3;
+}
+
+/* Toolbars */
+.btn-toolbar-inverse {
+	background-color: #586e75;
+}
+
 /* Split Pane */
 .split-panels {
     position: relative;
@@ -1011,13 +1093,26 @@ footer.navbar .navbar-nav > li > a + span {
 
 .split-content {
 	flex: 1 1 0;
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 .split-separator {
-	width: 18px;
+	width: 20px;
 	cursor: col-resize;
+    background-color: transparent;
+}
+
+.split-separator:hover {
     background-color: #eee;
 	background-color: rgba(0,0,0,0.1);
-	outline: 1px dashed black;
-	outline-offset: 0;
+}
+
+.split-separator > .split-separator-inner {
+	display: block;
+	height: 100%;
+	width: 0px;
+	border-left: 1px solid #586e75;
+	border-right: 1px solid #fdf6e3;
+	margin-left: 9px;
 }

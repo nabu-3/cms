@@ -1,9 +1,61 @@
-{nabu_model model="bootstrap-3.3.7"}
-<div class="split-panels" data-toggle="nabu-split-panels" data-split-direction="horizontal" data-split-method="flex">
-    <div class="split-content">
-    </div>
-    <div class="split-separator">
-    </div>
-    <div class="split-content">
-    </div>
-</div>
+{nabu_raw_assign}
+    table_metadata: [
+        toolbar: [
+            groups: [
+                1: [
+                    buttons: [
+                        add: [
+                            type: "default"
+                            icon: "fa fa-plus"
+                            apply: "all"
+                        ]
+                    ]
+                ]
+                2: [
+                    buttons: [
+                        test: [
+                            type: "default"
+                            icon: "fa fa-share"
+                            apply: "single"
+                        ]
+                    ]
+                ]
+                3: [
+                    buttons: [
+                        delete: [
+                            type: "danger"
+                            icon: "fa fa-trash"
+                            apply: "multiple"
+                        ]
+                    ]
+                ]
+            ]
+        ]
+        fields: [
+            id: [
+                title: "ID"
+                order: "alpha"
+                lookup: $nb_all_languages
+                lookup_field_name: "name"
+                lookup_field_image: "flag_url"
+                lookup_field_image_class: "flag"
+            ]
+            key: [
+                title: "Key"
+                order: "alpha"
+            ]
+            name: [
+                title: "Nombre"
+                order: "alpha"
+            ]
+        ]
+        translations: [
+            search_button: "Buscar"
+            columns_button: "Columnas"
+            show_all_columns: "Mostrar todas"
+            hide_all_columns: "Ocultar todas"
+        ]
+    ]
+{/nabu_raw_assign}
+{include file="content/parts/table-splitted-panels.tpl"
+         data=$edit_messaging.templates metadata=$table_metadata section=templates_empty}
