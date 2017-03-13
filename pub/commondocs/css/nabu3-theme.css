@@ -587,6 +587,11 @@ footer.navbar .navbar-nav > li > a + span {
     border-top-left-radius: 0;
 }
 
+.input-group[lang] .flag {
+    width: 24px;
+    height: 16px;
+}
+
 .help-block {
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 14px;

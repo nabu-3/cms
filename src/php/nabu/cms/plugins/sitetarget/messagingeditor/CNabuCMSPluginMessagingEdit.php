@@ -26,7 +26,7 @@ use nabu\provider\CNabuProviderFactory;
  * @author Rafael Gutierrez <rgutierrez@wiscot.com>
  * @since 3.0.1 Surface
  * @version 3.0.1 Surface
- * @package \nabu\cms\plugins\sitetarget
+ * @package \nabu\cms\plugins\sitetarget\messagingeditor
  */
 class CNabuCMSPluginMessagingEdit extends CNabuHTTPSiteTargetPluginAdapter
 {

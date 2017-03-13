@@ -1,6 +1,33 @@
 {nabu_model model="bootstrap-3.3.7"}
 {nabu_raw_assign}
     table_metadata: [
+        toolbar: [
+            groups: [
+                1: [
+                    buttons: [
+                        add: [
+                            type: "default"
+                            icon: "fa fa-plus"
+                            apply: "all"
+                        ]
+                        edit: [
+                            type: "default"
+                            icon: "fa fa-pencil"
+                            apply: "single"
+                        ]
+                    ]
+                ]
+                3: [
+                    buttons: [
+                        delete: [
+                            type: "danger"
+                            icon: "fa fa-trash"
+                            apply: "multiple"
+                        ]
+                    ]
+                ]
+            ]
+        ]
         fields: [
             id: [
                 title: 'ID'
@@ -17,11 +44,17 @@
                 order: 'alpha'
             ]
         ]
+        translations: [
+            search_button: "{nabu_static key=btn_search}"
+            columns_button: "{nabu_static key=btn_columns}"
+            show_all_columns: "{nabu_static key=sel_show_all}"
+            hide_all_columns: "{nabu_static key=sel_hide_all}"
+        ]
     ]
 {/nabu_raw_assign}
 <div class="edit-zone">
     {if count($data)>0}
-        {nabu_table id=item_list data=$data metadata=$table_metadata selectable=true
+        {nabu_table id=messaging_list data=$data metadata=$table_metadata selectable=true
                     bordered=true striped=true hover=true condensed=true
                     search=false pager=false size=25 column_selector=true
                     api=api_call editor=item_edit edit_button=line}

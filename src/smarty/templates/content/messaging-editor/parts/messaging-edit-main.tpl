@@ -82,7 +82,7 @@
                     {/nabu_raw_assign}
                     {nabu_table id=item_list data=$service_interfaces metadata=$table_metadata selectable=false
                                 bordered=true striped=true hover=true condensed=true
-                                search=false pager=false size=25 column_selector=true
+                                search=false pager=false size=25 column_selector=false
                                 api=api_call editor=item_edit edit_button=line}
                 </div>
             {/if}

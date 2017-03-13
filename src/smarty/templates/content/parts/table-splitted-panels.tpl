@@ -15,17 +15,19 @@
                 {/if}
             {/if}
         {/strip}
-        {nabu_table id=item_list data=$data metadata=$metadata
-                    selectable=true draw_empty=true empty_message=$empty_message
+        {nabu_table selectable=true draw_empty=true empty_message=$empty_message
                     bordered=true striped=true hover=true condensed=true
                     search=true pager=true size=10 column_selector=true
-                    api=api_call editor=item_edit edit_button=line}
+                    editor_mode=ajax editor_container="{$id}_editor" edit_button=line}
     </div>
     <div class="split-separator"><div class="split-separator-inner"></div></div>
-    <div class="split-content">
-        <div class="box box-default">
-            <div class="box-heading">Hola</div>
-            <div class="box-body">Lorem ipsum dolor sit amet.</div>
+    <div class="split-content"{if isset($id) && strlen($id)>0} id="{$id}_editor"{/if}>
+        {include file="content/parts/myst.tpl"}
+        <div{if isset($id) && strlen($id)>0} id="{$id}_editor_0"{/if}>
+            <div class="box box-default">
+                <div class="box-heading">Hola</div>
+                <div class="box-body">Lorem ipsum dolor sit amet.</div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,42 +1,62 @@
-{nabu_model model="bootstrap-3.3.7"}
-<div class="row">
-    <div class="col-sm-6">
-        {nabu_raw_assign}
-            table_metadata: [
-                fields: [
-                    language_id: [
-                        title: 'Idioma'
-                        order: 'alpha'
-                        lookup: $nb_all_languages
-                        lookup_field_name: 'name'
-                        lookup_field_image: 'flag_url'
-                        lookup_field_image_class: 'flag'
+{nabu_raw_assign}
+    table_metadata: [
+        toolbar: [
+            groups: [
+                1: [
+                    buttons: [
+                        add: [
+                            type: "default"
+                            icon: "fa fa-plus"
+                            apply: "all"
+                        ]
+                        edit: [
+                            type: "default"
+                            icon: "fa fa-pencil"
+                            apply: "single"
+                        ]
                     ]
-                    name: [
-                        title: 'Nombre'
-                        order: 'alpha'
-                    ]
-                    templates_status: [
-                        title: 'Activo'
-                        order: 'alpha'
-                        lookup: [
-                            D: {nabu_static key=lbl_no}
-                            E: {nabu_static key=lbl_yes}
+                ]
+                2: [
+                    buttons: [
+                        delete: [
+                            type: "danger"
+                            icon: "fa fa-trash"
+                            apply: "multiple"
                         ]
                     ]
                 ]
             ]
-        {/nabu_raw_assign}
-        {if count($edit_messaging.translations)>0}
-            {nabu_table id=item_list data=$edit_messaging.translations metadata=$table_metadata selectable=true
-                        bordered=true striped=true hover=true condensed=true
-                        search=false pager=false size=25 column_selector=true
-                        api=api_call editor=item_edit edit_button=line}
-        {else}
-            {nabu_assign var=info_section section=empty_data}
-            {nabu_panel type=info title=$info_section}{$info_section.translation.opening}{/nabu_panel}
-        {/if}
-    </div>
-    <div class="col-sm-6">
-    </div>
-</div>
+        ]
+        fields: [
+            language_id: [
+                title: 'Idioma'
+                order: 'alpha'
+                lookup: $nb_all_languages
+                lookup_field_name: 'name'
+                lookup_field_image: 'flag_url'
+                lookup_field_image_class: 'flag'
+                id: true
+            ]
+            name: [
+                title: 'Nombre'
+                order: 'alpha'
+            ]
+            templates_status: [
+                title: 'Activo'
+                order: 'alpha'
+                lookup: [
+                    D: {nabu_static key=lbl_no}
+                    E: {nabu_static key=lbl_yes}
+                ]
+            ]
+        ]
+        translations: [
+            search_button: "{nabu_static key=btn_search}"
+            columns_button: "{nabu_static key=btn_columns}"
+            show_all_columns: "{nabu_static key=sel_show_all}"
+            hide_all_columns: "{nabu_static key=sel_hide_all}"
+        ]
+    ]
+{/nabu_raw_assign}
+{include file="content/parts/table-splitted-panels.tpl" id=languages_list
+         data=$edit_messaging.translations metadata=$table_metadata section=languages_empty}

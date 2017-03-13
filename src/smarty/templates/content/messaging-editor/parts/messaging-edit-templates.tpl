@@ -15,7 +15,7 @@
                     buttons: [
                         test: [
                             type: "default"
-                            icon: "fa fa-share"
+                            icon: "fa fa-envelope"
                             apply: "single"
                         ]
                     ]
@@ -35,10 +35,7 @@
             id: [
                 title: "ID"
                 order: "alpha"
-                lookup: $nb_all_languages
-                lookup_field_name: "name"
-                lookup_field_image: "flag_url"
-                lookup_field_image_class: "flag"
+                id: true
             ]
             key: [
                 title: "Key"
@@ -50,12 +47,14 @@
             ]
         ]
         translations: [
-            search_button: "Buscar"
-            columns_button: "Columnas"
-            show_all_columns: "Mostrar todas"
-            hide_all_columns: "Ocultar todas"
+            search_button: "{nabu_static key=btn_search}"
+            columns_button: "{nabu_static key=btn_columns}"
+            show_all_columns: "{nabu_static key=sel_show_all}"
+            hide_all_columns: "{nabu_static key=sel_hide_all}"
         ]
     ]
 {/nabu_raw_assign}
-{include file="content/parts/table-splitted-panels.tpl"
+{nabu_assign var=ajax_editor cta=ajax_templates}
+{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_messaging.id:'%s'}"}
+{include file="content/parts/table-splitted-panels.tpl" id=templates_list editor=$ajax_editor editor_mode=ajax
          data=$edit_messaging.templates metadata=$table_metadata section=templates_empty}
