@@ -9,13 +9,18 @@
                             icon: "fa fa-plus"
                             apply: "all"
                         ]
+                        edit: [
+                            type: "default"
+                            icon: "fa fa-pencil"
+                            apply: "single"
+                        ]
                     ]
                 ]
                 2: [
                     buttons: [
                         test: [
                             type: "default"
-                            icon: "fa fa-envelope"
+                            icon: "fa fa-paper-plane"
                             apply: "single"
                         ]
                     ]
