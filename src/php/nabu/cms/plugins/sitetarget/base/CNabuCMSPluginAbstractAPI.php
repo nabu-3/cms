@@ -46,6 +46,15 @@ abstract class CNabuCMSPluginAbstractAPI extends CNabuHTTPSiteTargetPluginAdapte
         $this->page = null;
     }
 
+    /**
+     * Gets the response status
+     * @return bool|string Returns the status if setted, or false if not.
+     */
+    public function getStatus()
+    {
+        return is_array($this->result) && array_key_exists('status', $this->result) ? $this->result['status'] : false;
+    }
+
     public function setStatusError(string $message)
     {
         $this->result = array(
@@ -63,19 +72,37 @@ abstract class CNabuCMSPluginAbstractAPI extends CNabuHTTPSiteTargetPluginAdapte
 
     public function setData(array $data = null)
     {
-        $this->data = $data;
+        if ($this->getStatus() === 'OK') {
+            $this->data = $data;
+        }
     }
 
     public function setPage(int $count, int $offset, int $next_page, string $update_url = null)
     {
-        $this->page = array(
-            'count' => $count,
-            'offset' => $offset,
-            'next_page' => $next_page
-        );
+        if ($this->getStatus() === 'OK') {
+            $this->page = array(
+                'count' => $count,
+                'offset' => $offset,
+                'next_page' => $next_page
+            );
 
-        if ($update_url !== null) {
-            $this->page['update_url'] = $update_url;
+            if ($update_url !== null) {
+                $this->page['update_url'] = $update_url;
+            }
+        }
+    }
+
+    public function setAPICall(string $url)
+    {
+        if ($this->getStatus() === 'OK') {
+            $this->result['api'] = $url;
+        }
+    }
+
+    public function setEditorCall(array $url)
+    {
+        if ($this->getStatus() === 'OK') {
+            $this->result['editor'] = $url;
         }
     }
 
@@ -92,9 +119,11 @@ abstract class CNabuCMSPluginAbstractAPI extends CNabuHTTPSiteTargetPluginAdapte
                 $this->page = null;
             }
             $render->setValue('result', $this->result);
-            $render->setValue('data', $this->data);
-            if (is_array($this->page)) {
-                $render->setValue('page', $this->page);
+            if ($this->getStatus() === 'OK' && is_array($this->data)) {
+                $render->setValue('data', $this->data);
+                if (is_array($this->page)) {
+                    $render->setValue('page', $this->page);
+                }
             }
         }
 

@@ -42,11 +42,14 @@ class CNabuCMSPluginMessagingTemplateAjax extends CNabuHTTPSiteTargetPluginAdapt
         $this->nb_messaging_template = null;
 
         $fragments = $this->nb_request->getRegExprURLFragments();
-        if (is_array($fragments) && count($fragments) === 3) {
+        error_log(print_r($fragments, true));
+        if (is_array($fragments) && count($fragments) === 3 && is_numeric($fragments[1])) {
             $this->nb_messaging = $this->nb_work_customer->getMessaging($fragments[1]);
             if ($this->nb_messaging instanceof CNabuMessaging) {
                 $this->nb_messaging->refresh();
-                $this->nb_messaging_template = $this->nb_messaging->getTemplates()->getItem($fragments[2]);
+                if (is_numeric($fragments[2])) {
+                    $this->nb_messaging_template = $this->nb_messaging->getTemplates()->getItem($fragments[2]);
+                }
             }
         }
 
@@ -58,6 +61,7 @@ class CNabuCMSPluginMessagingTemplateAjax extends CNabuHTTPSiteTargetPluginAdapt
         $render = $this->nb_response->getRender();
 
         if ($render instanceof CSmartyHTTPRender) {
+            $render->smartyAssign('nb_messaging', $this->nb_messaging, $this->nb_language);
             $render->smartyAssign('edit_template', $this->nb_messaging_template, $this->nb_language);
             $render->smartyAssign('nb_all_languages', $this->nb_messaging->getLanguages());
         }

@@ -22,6 +22,7 @@ use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
 use nabu\data\messaging\CNabuMessaging;
 use nabu\data\messaging\CNabuMessagingTemplate;
 use nabu\data\messaging\CNabuMessagingTemplateLanguage;
+use nabu\data\site\CNabuSiteTargetCTAList;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@wiscot.com>
@@ -87,8 +88,7 @@ class CNabuCMSPluginMessagingTemplateAPI extends CNabuCMSPluginAbstractAPI
                 $languages = $this->nb_request->getCombinedPostIndexes(array('name'));
                 if (count($languages) > 0) {
                     foreach ($languages as $lang_id) {
-                        $nb_translation = $this->nb_messaging_template->getTranslations()->getItem($lang_id);
-                        error_log(print_r($nb_translation->getTreeData(), true));
+                        $nb_translation = $this->nb_messaging_template->getTranslation($lang_id);
                         if (!$nb_translation) {
                             $nb_translation = new CNabuMessagingTemplateLanguage();
                             $nb_translation->setMessagingTemplateId($this->nb_messaging_template->getId());
@@ -116,5 +116,25 @@ class CNabuCMSPluginMessagingTemplateAPI extends CNabuCMSPluginAbstractAPI
         }
 
         return true;
+    }
+
+    public function beforeDisplayTarget()
+    {
+        $render = $this->nb_response->getRender();
+        if ($this->getStatus() === 'OK') {
+            $api_mask = $this->nb_site_target->getFullyQualifiedURL($this->nb_language, true);
+            $api_url = sprintf($api_mask, $this->nb_messaging->getId(), $this->nb_messaging_template->getId());
+            $this->setAPICall($api_url);
+            $editor_cta = $this->nb_site_target->getCTAs()->getItem('ajax_templates', CNabuSiteTargetCTAList::INDEX_KEY);
+            $editor_cta->canonize();
+            $urls = array();
+            $editor_cta->getTranslations()->iterate(function ($key, $translation) use(&$urls) {
+                $editor_mask = $translation->getFinalURL();
+                $urls[$key] = sprintf($editor_mask, $this->nb_messaging->getId(), $this->nb_messaging_template->getId());
+            });
+            $this->setEditorCall($urls);
+        }
+
+        return parent::beforeDisplayTarget();
     }
 }

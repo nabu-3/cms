@@ -45,8 +45,8 @@
                 title: 'Activo'
                 order: 'alpha'
                 lookup: [
-                    D: {nabu_static key=lbl_no}
-                    E: {nabu_static key=lbl_yes}
+                    D: "{nabu_static key=lbl_no}"
+                    E: "{nabu_static key=lbl_yes}"
                 ]
             ]
         ]
