@@ -19,7 +19,13 @@
         }
     ],
     "require": {
-        "nabu-3/composer-installer-plugin": "~3.0"
+        "nabu-3/composer-installer-plugin": "~3.0",
+        "nabu-3/provider-smarty-smarty": "~0.0",
+        "nabu-3/runtime-nbfw-lib": "~3.0"
     },
-    "prefer-stable": true
+    "require-dev": {
+        "nabu-3/composer-installer-plugin": "dev-master",
+        "nabu-3/provider-smarty-smarty": "dev-master",
+        "nabu-3/runtime-nbfw-lib": "dev-master"
+    }
 }
