@@ -58,5 +58,7 @@
         ]
     ]
 {/nabu_raw_assign}
-{include file="content/parts/table-splitted-panels.tpl" id=services_list
+{nabu_assign var=ajax_editor cta=ajax_services}
+{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_messaging.id:'%s'}"}
+{include file="content/parts/table-splitted-panels.tpl" id=services_list editor=$ajax_editor editor_mode=ajax
          data=$edit_messaging.services metadata=$table_metadata section=services_empty}

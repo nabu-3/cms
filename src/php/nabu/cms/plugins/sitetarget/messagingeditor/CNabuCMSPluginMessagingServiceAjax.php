@@ -19,7 +19,7 @@
 
 namespace nabu\cms\plugins\sitetarget\messagingeditor;
 use nabu\data\messaging\CNabuMessaging;
-use nabu\data\messaging\CNabuMessagingTemplate;
+use nabu\data\messaging\CNabuMessagingService;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 use providers\smarty\smarty\renders\CSmartyHTTPRender;
 
@@ -29,17 +29,17 @@ use providers\smarty\smarty\renders\CSmartyHTTPRender;
  * @version 3.0.1 Surface
  * @package \nabu\cms\plugins\sitetarget\messagingeditor
  */
-class CNabuCMSPluginMessagingTemplateAjax extends CNabuHTTPSiteTargetPluginAdapter
+class CNabuCMSPluginMessagingServiceAjax extends CNabuHTTPSiteTargetPluginAdapter
 {
     /** @var CNabuMessaging $nb_messaging Messaging selected */
     private $nb_messaging = null;
-    /** @var CNabuMessagingTemplate $nb_messaging_template Template selected */
-    private $nb_messaging_template = null;
+    /** @var CNabuMessagingService $nb_messaging_service Service selected */
+    private $nb_messaging_service = null;
 
     public function prepareTarget()
     {
         $this->nb_messaging = null;
-        $this->nb_messaging_template = null;
+        $this->nb_messaging_service = null;
 
         $fragments = $this->nb_request->getRegExprURLFragments();
         if (is_array($fragments) && count($fragments) === 3 && is_numeric($fragments[1])) {
@@ -47,7 +47,7 @@ class CNabuCMSPluginMessagingTemplateAjax extends CNabuHTTPSiteTargetPluginAdapt
             if ($this->nb_messaging instanceof CNabuMessaging) {
                 $this->nb_messaging->refresh();
                 if (is_numeric($fragments[2])) {
-                    $this->nb_messaging_template = $this->nb_messaging->getTemplates()->getItem($fragments[2]);
+                    $this->nb_messaging_service = $this->nb_messaging->getServices()->getItem($fragments[2]);
                 }
             }
         }
@@ -61,7 +61,7 @@ class CNabuCMSPluginMessagingTemplateAjax extends CNabuHTTPSiteTargetPluginAdapt
 
         if ($render instanceof CSmartyHTTPRender) {
             $render->smartyAssign('nb_messaging', $this->nb_messaging, $this->nb_language);
-            $render->smartyAssign('edit_template', $this->nb_messaging_template, $this->nb_language);
+            $render->smartyAssign('edit_service', $this->nb_messaging_service, $this->nb_language);
             $render->smartyAssign('nb_all_languages', $this->nb_messaging->getLanguages());
         }
 

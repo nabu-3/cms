@@ -23,11 +23,5 @@
     <div class="split-separator"><div class="split-separator-inner"></div></div>
     <div class="split-content"{if isset($id) && strlen($id)>0} id="{$id}_editor"{/if}>
         {include file="content/parts/myst.tpl"}
-        <div{if isset($id) && strlen($id)>0} id="{$id}_editor_0"{/if}>
-            <div class="box box-default">
-                <div class="box-heading">Hola</div>
-                <div class="box-body">Lorem ipsum dolor sit amet.</div>
-            </div>
-        </div>
     </div>
 </div>
