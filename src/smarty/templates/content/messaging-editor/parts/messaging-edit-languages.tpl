@@ -41,7 +41,7 @@
                 title: 'Nombre'
                 order: 'alpha'
             ]
-            templates_status: [
+            languages_status: [
                 title: 'Activo'
                 order: 'alpha'
                 lookup: [
@@ -58,5 +58,7 @@
         ]
     ]
 {/nabu_raw_assign}
-{include file="content/parts/table-splitted-panels.tpl" id=languages_list
+{nabu_assign var=ajax_editor cta=ajax_languages}
+{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_messaging.id:'%s'}"}
+{include file="content/parts/table-splitted-panels.tpl" id=languages_list editor=$ajax_editor editor_mode=ajax
          data=$edit_messaging.translations metadata=$table_metadata section=languages_empty}

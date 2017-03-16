@@ -1,7 +1,7 @@
 {nabu_model model="bootstrap-3.3.7"}
 {nabu_assign var=api cta=api_templates}
 <div class="box box-default">
-    <div class="box-heading">Plantilla [{$edit_template.translation.name}]</div>
+    <div class="box-heading">{$nb_site_target.translation.title|sprintf:$edit_template.name}</div>
     <div class="box-body">
         {if is_array($api) && array_key_exists('translations', $api) && is_array($api.translations) && array_key_exists($nb_site.api_language_id, $api.translations)}
             {if $edit_template!==null}
