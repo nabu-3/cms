@@ -41,7 +41,7 @@
                 title: 'Nombre'
                 order: 'alpha'
             ]
-            languages_status: [
+            templates_status: [
                 title: 'Activo'
                 order: 'alpha'
                 lookup: [

@@ -40,3 +40,4 @@
         </div>
     </div>
 </div>
+{include file="content/messaging-editor/modals/test-service.tpl"}

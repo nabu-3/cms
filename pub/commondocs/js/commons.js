@@ -31,4 +31,17 @@ $(document).ready(function()
         var url = $.sprintf(base, id);
         document.location = url;
     });
+
+    modals = $('.modal .modal-steps').closest('.modal');
+    modals.on('show.bs.modal', function(e) {
+        var modal = $(this);
+        modal.find('.modal-panels').addClass('hide');
+        modal.find('.modal-panels .modal-panel').addClass('hide');
+        modal.find('.modal-steps').removeClass('hide');
+        modal.find('.modal-steps .modal-step').addClass('hide');
+        modal.find('.modal-steps .modal-step[data-step="1"]').removeClass('hide');
+        modal.find('form').each(function() {
+            this.reset();
+        });
+    });
 });

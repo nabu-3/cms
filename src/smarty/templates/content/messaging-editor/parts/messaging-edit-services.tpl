@@ -9,6 +9,11 @@
                             icon: "fa fa-plus"
                             apply: "all"
                         ]
+                        edit: [
+                            type: "default"
+                            icon:" fa fa-pencil"
+                            apply: "single"
+                        ]
                     ]
                 ]
                 2: [
@@ -17,6 +22,7 @@
                             type: "default"
                             icon: "fa fa-envelope"
                             apply: "single"
+                            modal: "modal_test_service"
                         ]
                     ]
                 ]

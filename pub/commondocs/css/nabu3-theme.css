@@ -135,7 +135,7 @@ label {
     bottom: 50px;
     display: flex;
     flex-flow: column nowrap;
-    padding: 30px 15px 15px;
+    padding: 15px;
     position: absolute;
     top: 50px;
 }
@@ -352,7 +352,7 @@ footer.navbar .navbar-nav > li > a + span {
 .page-header {
     color: #dc322f;
     border-bottom: 2px solid #dc322f;
-    margin-top: 20px;
+    margin: 15px 0;
     font-size: 30px;
 }
 
