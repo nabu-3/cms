@@ -5,7 +5,7 @@
 {nabu_assign var=api cta=api_messaging_services}
 {if is_array($api) && array_key_exists('translations', $api) && is_array($api.translations) && array_key_exists($nb_site.api_language_id, $api.translations)}
     {nabu_modal id=modal_test_service size=lg caller=edit_zone aria_labelledby=modal_test_service_head}
-        {nabu_form layout="horizontal:2:10" method="ajax-get" action_template="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$edit_messaging.id:'%s'}?action=test"}
+        {nabu_form layout="horizontal:2:10" method="ajax-post" action_template="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$edit_messaging.id:'%s'}?action=test"}
             <div class="modal-steps">
                 <div class="modal-step" data-step="1">
                     {nabu_modal_header dismiss=true aria_label_id=modal_test_service_head}{$modal_test.translation.title}{/nabu_modal_header}
@@ -43,7 +43,14 @@
                 </div>
                 <div class="modal-panel" data-action="error">
                     {nabu_modal_header dismiss=true}{$modal_test_error.translation.title}{/nabu_modal_header}
-                    {nabu_modal_body}{$modal_test_error.translation.opening}{/nabu_modal_body}
+                    {nabu_modal_body}
+                        <div class="row">
+                            <aside class="col-sm-3">{$modal_test.translation.opening}</aside>
+                            <section class="col-sm-9 col-sm-offset-3">
+                                <div class="alert alert-danger">{$modal_test_error.translation.opening}</div>
+                            </section>
+                        </div>
+                    {/nabu_modal_body}
                     {nabu_modal_footer}
                         <button type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button>
                     {/nabu_modal_footer}

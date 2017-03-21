@@ -54,15 +54,11 @@
     ]
 {/nabu_raw_assign}
 <div class="edit-zone">
-    {if count($data)>0}
-        {include file="content/parts/flag-selector.tpl" lang_list=$nb_languages default_lang=$nb_language.id}
-        {nabu_table id=messaging_list data=$data metadata=$table_metadata selectable=true
-                    bordered=true striped=true hover=true condensed=true scrolled=true
-                    search=false pager=true size=25 column_selector=true
-                    api=api_call editor=item_edit edit_button=line}
-    {else}
-        {nabu_assign var=info_section section=empty_data}
-        {nabu_panel type=info title=$info_section}{$info_section.translation.opening}{/nabu_panel}
-    {/if}
+    {include file="content/parts/flag-selector.tpl" lang_list=$nb_languages default_lang=$nb_language.id}
+    {nabu_assign var=info_section section=empty_data}
+    {nabu_table id=messaging_list data=$data metadata=$table_metadata selectable=true
+                bordered=true striped=true hover=true condensed=true scrolled=true
+                search=false pager=true size=25 column_selector=true draw_empty=true
+                api=api_call editor=item_edit edit_button=line empty_message=$info_section.translation.opening}
 </div>
 {include file="content/messaging-editor/modals/new-messaging.tpl"}

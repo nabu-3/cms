@@ -19,6 +19,7 @@
 
 namespace nabu\cms\plugins\sitetarget\messagingeditor;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
+use nabu\core\CNabuEngine;
 use nabu\data\messaging\CNabuMessaging;
 use nabu\data\messaging\CNabuMessagingService;
 use nabu\data\site\CNabuSiteTargetCTAList;
@@ -72,6 +73,24 @@ class CNabuCMSPluginMessagingServiceAPI extends CNabuCMSPluginAbstractAPI
 
     public function methodPOST()
     {
+        if ($this->nb_request->hasGETField('action')) {
+            $action = $this->nb_request->getGETField('action');
+            switch (strtolower($action)) {
+                case 'test':
+                    $this->doTest();
+                    break;
+                default:
+                    $this->setStatusError(sprintf('Action [%s] not supported', $action));
+            }
+        } else {
+            $this->doPOSTSave();
+        }
+
+        return true;
+    }
+
+    private function doPOSTSave()
+    {
         if ($this->nb_messaging_service instanceof CNabuMessagingService) {
             $this->nb_request->updateObjectFromPost(
                 $this->nb_messaging_service,
@@ -92,8 +111,18 @@ class CNabuCMSPluginMessagingServiceAPI extends CNabuCMSPluginAbstractAPI
                 $this->setData($this->nb_messaging_service->getTreeData(null, true));
             }
         }
+    }
 
-        return true;
+    private function doTest()
+    {
+        if ($this->nb_messaging_service instanceof CNabuMessagingService) {
+            $vendor = explode(":", $this->nb_messaging_service->getProvider());
+            $nb_messaging_manager = $this->nb_engine->getProviderManager($vendor[0], $vendor[1]);
+            $nb_service = $nb_messaging_manager->getServiceInterface($this->nb_messaging_service->getInterface());
+            error_log(print_r($nb_service, true));
+            
+            $this->setStatusOK();
+        }
     }
 
     public function beforeDisplayTarget()
