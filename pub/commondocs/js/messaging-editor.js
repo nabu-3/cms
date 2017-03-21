@@ -1,5 +1,10 @@
 $(document).ready(function() {
-    $('languages_list')
+    $('#messaging_list')
+        .on('pressed.add.toolbar.table.nabu', function(e, params) {
+            //$('#modal_new_repository').modal('show');
+        })
+    ;
+    $('#languages_list')
         .on('pressed.add.toolbar.table.nabu', function(e, params) {
             console.log('Add');
             this.nabuTable.editor();

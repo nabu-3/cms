@@ -13,7 +13,7 @@
                         <div class="row">
                             <aside class="col-sm-3">{$modal_test.translation.opening}</aside>
                             <section class="col-sm-9 col-sm-offset-3">
-                                {$modal_test.translation.content}
+                                <div class="alert alert-info">{$modal_test.translation.content}</div>
                                 {nabu_form_textbox label=De name=from_mail maxlength=256 help="Escribe la dirección de correo del remitente."}
                                 {nabu_form_textbox label=Para name=to_mail maxlength=256 help="Escribe la dirección de correo del destinatario."}
                                 {nabu_form_textbox type=textarea rows=5 label=Mensaje name=message help="Escribe un texto de prueba para enviarlo."}

@@ -22,7 +22,8 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@wiscot.com>
- * @version 3.0.0 Surface
+ * @since 3.0.0 Surface
+ * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget
  */
 class CNabuCMSPluginSiteList extends CNabuHTTPSiteTargetPluginAdapter
@@ -44,6 +45,7 @@ class CNabuCMSPluginSiteList extends CNabuHTTPSiteTargetPluginAdapter
     public function beforeDisplayTarget()
     {
         $render = $this->nb_response->getRender();
+        $render->smartyAssign('nb_languages', $this->nb_work_customer->getSiteSetUsedLanguages());
         $render->smartyAssign('data', $this->site_data, $this->nb_language);
 
         return true;

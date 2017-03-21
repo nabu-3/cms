@@ -17,13 +17,14 @@
  *  limitations under the License.
  */
 
-namespace nabu\cms\plugins\sitetarget;
+namespace nabu\cms\plugins\sitetarget\mediotecaeditor;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@wiscot.com>
- * @version 3.0.0 Surface
- * @package \nabu\cms\plugins\sitetarget
+ * @since 3.0.0 Surface
+ * @version 3.0.2 Surface
+ * @package \nabu\cms\plugins\sitetarget\mediotecaeditor
  */
 class CNabuCMSPluginMediotecaEdit extends CNabuHTTPSiteTargetPluginAdapter
 {

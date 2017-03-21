@@ -17,36 +17,38 @@
  *  limitations under the License.
  */
 
-namespace nabu\cms\plugins\sitetarget;
+namespace nabu\cms\plugins\sitetarget\commerceeditor;
 
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@wiscot.com>
- * @version 3.0.0 Surface
- * @package \nabu\cms\plugins\sitetarget
+ * @since 3.0.0 Surface
+ * @version 3.0.2 Surface
+ * @package \nabu\cms\plugins\sitetarget\commerceeditor
  */
-class CNabuCMSPluginMediotecaList extends CNabuHTTPSiteTargetPluginAdapter
+class CNabuCMSPluginCommerceList extends CNabuHTTPSiteTargetPluginAdapter
 {
     /**
      * Site Target key for API Call
      * @var string
      */
-    const TARGET_API_CALL = 'api_mediotecas';
+    const TARGET_API_CALL = 'api_commerces';
     /**
      * Site Target key for Users Profile editor.
      * @var string
      */
-    const TARGET_USER_EDIT = 'medioteca_edit';
+    const TARGET_USER_EDIT = 'commerce_edit';
 
-    private $medioteca_data = null;
-    private $api_call = null;
+    /**
+     * Commerce list
+     * @var array
+     */
+    private $commerce_data = null;
 
     public function prepareTarget()
     {
-        $nb_site_target = $this->nb_site->getTargetByKey(self::TARGET_API_CALL);
-
-        $this->medioteca_data = $this->nb_work_customer->getMediotecas(true);
+        $this->commerce_data = $this->nb_work_customer->getCommerces(true);
 
         return true;
     }
@@ -59,7 +61,8 @@ class CNabuCMSPluginMediotecaList extends CNabuHTTPSiteTargetPluginAdapter
     public function beforeDisplayTarget()
     {
         $render = $this->nb_response->getRender();
-        $render->smartyAssign('data', $this->medioteca_data, $this->nb_language);
+        $render->smartyAssign('nb_languages', $this->nb_work_customer->getCommerceSetUsedLanguages());
+        $render->smartyAssign('data', $this->commerce_data, $this->nb_language);
 
         return true;
     }

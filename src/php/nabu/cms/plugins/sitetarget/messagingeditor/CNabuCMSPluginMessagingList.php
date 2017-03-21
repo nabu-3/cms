@@ -18,12 +18,13 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\messagingeditor;
+use nabu\data\messaging\CNabuMessagingList;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@wiscot.com>
  * @since 3.0.1 Surface
- * @version 3.0.1 Surface
+ * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget\messagingeditor
  */
 class CNabuCMSPluginMessagingList extends CNabuHTTPSiteTargetPluginAdapter
@@ -41,7 +42,7 @@ class CNabuCMSPluginMessagingList extends CNabuHTTPSiteTargetPluginAdapter
     public function beforeDisplayTarget()
     {
         $render = $this->nb_response->getRender();
-        //$render->smartyAssign('nb_languages', $this->nb_work_customer->getMessagingUsedLanguages());
+        $render->smartyAssign('nb_languages', $this->nb_work_customer->getMessagingSetUsedLanguages());
         $render->smartyAssign('data', $this->messaging_list, $this->nb_language);
 
         return true;

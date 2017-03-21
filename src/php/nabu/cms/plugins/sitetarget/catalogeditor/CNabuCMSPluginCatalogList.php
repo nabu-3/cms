@@ -22,7 +22,8 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@wiscot.com>
- * @version 3.0.0 Surface
+ * @since 3.0.0 Surface
+ * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget
  */
 class CNabuCMSPluginCatalogList extends CNabuHTTPSiteTargetPluginAdapter
