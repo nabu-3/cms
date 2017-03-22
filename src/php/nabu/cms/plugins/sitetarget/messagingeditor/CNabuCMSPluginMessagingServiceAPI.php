@@ -118,8 +118,12 @@ class CNabuCMSPluginMessagingServiceAPI extends CNabuCMSPluginAbstractAPI
         if ($this->nb_messaging_service instanceof CNabuMessagingService) {
             $vendor = explode(":", $this->nb_messaging_service->getProvider());
             $nb_messaging_manager = $this->nb_engine->getProviderManager($vendor[0], $vendor[1]);
-            $nb_service = $nb_messaging_manager->getServiceInterface($this->nb_messaging_service->getInterface());
-            error_log(print_r($nb_service, true));
+            $nb_service_interface =
+                $nb_messaging_manager->createServiceInterface($this->nb_messaging_service->getInterface());
+            $nb_service_interface->connect($this->nb_messaging_service);
+
+            $nb_service_interface->disconnect();
+            $nb_messaging_manager->releaseServiceInterface($nb_service_interface);
             
             $this->setStatusOK();
         }
