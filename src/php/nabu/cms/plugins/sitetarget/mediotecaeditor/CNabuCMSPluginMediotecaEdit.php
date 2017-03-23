@@ -18,6 +18,7 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\mediotecaeditor;
+use nabu\data\lang\CNabuLanguage;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
@@ -65,6 +66,12 @@ class CNabuCMSPluginMediotecaEdit extends CNabuHTTPSiteTargetPluginAdapter
         $render->smartyAssign('edit_medioteca', $this->nb_medioteca);
         $render->smartyAssign('title_part', $this->title_part);
         $render->smartyAssign('breadcrumb_part', $this->breadcrumb_part);
+
+        $render->smartyAssign(
+            'nb_all_languages',
+            CNabuLanguage::getNaturalLanguages(),
+            $this->nb_language
+        );
 
         return true;
     }

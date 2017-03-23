@@ -20,6 +20,7 @@
         <div role="tabpanel" class="tab-pane active" id="main">
         </div>
         <div role="tabpanel" class="tab-pane" id="languages">
+            {include file="content/medioteca-editor/parts/medioteca-edit-languages.tpl"}
         </div>
         <div role="tabpanel" class="tab-pane" id="items">
             {include file="content/medioteca-editor/parts/medioteca-edit-items.tpl"}
