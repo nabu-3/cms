@@ -17,7 +17,7 @@
         {/strip}
         {nabu_table selectable=true draw_empty=true empty_message=$empty_message
                     bordered=true striped=true hover=true condensed=true
-                    search=true pager=true size=10 column_selector=true
+                    search=true pager=false size=10 column_selector=true
                     editor_mode=ajax editor_container="{$id}_editor" edit_button=line}
     </div>
     <div class="split-separator"><div class="split-separator-inner"></div></div>

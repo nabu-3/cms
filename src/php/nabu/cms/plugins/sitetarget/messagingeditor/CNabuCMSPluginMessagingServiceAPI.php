@@ -19,7 +19,6 @@
 
 namespace nabu\cms\plugins\sitetarget\messagingeditor;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
-use nabu\core\CNabuEngine;
 use nabu\data\messaging\CNabuMessaging;
 use nabu\data\messaging\CNabuMessagingService;
 use nabu\data\site\CNabuSiteTargetCTAList;
@@ -124,7 +123,7 @@ class CNabuCMSPluginMessagingServiceAPI extends CNabuCMSPluginAbstractAPI
 
             $nb_service_interface->disconnect();
             $nb_messaging_manager->releaseServiceInterface($nb_service_interface);
-            
+
             $this->setStatusOK();
         }
     }
