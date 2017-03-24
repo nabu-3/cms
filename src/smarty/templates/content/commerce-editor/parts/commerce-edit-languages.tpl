@@ -1,4 +1,3 @@
-{nabu_model model="bootstrap-3.3.7"}
 {nabu_raw_assign}
     table_metadata: [
         toolbar: [
@@ -9,7 +8,6 @@
                             type: "default"
                             icon: "fa fa-plus"
                             apply: "all"
-                            modal: "modal_new_repository"
                         ]
                         edit: [
                             type: "default"
@@ -18,7 +16,7 @@
                         ]
                     ]
                 ]
-                3: [
+                2: [
                     buttons: [
                         delete: [
                             type: "danger"
@@ -30,19 +28,26 @@
             ]
         ]
         fields: [
-            id: [
-                title: 'ID'
-                order: 'number'
-                align: 'right'
-                id: true
-            ]
-            key: [
-                title: 'Key'
+            language_id: [
+                title: 'Idioma'
                 order: 'alpha'
+                lookup: $nb_all_languages
+                lookup_field_name: 'name'
+                lookup_field_image: 'flag_url'
+                lookup_field_image_class: 'flag'
+                id: true
             ]
             name: [
                 title: 'Nombre'
                 order: 'alpha'
+            ]
+            templates_status: [
+                title: 'Activo'
+                order: 'alpha'
+                lookup: [
+                    D: "{nabu_static key=lbl_no}"
+                    E: "{nabu_static key=lbl_yes}"
+                ]
             ]
         ]
         translations: [
@@ -53,11 +58,7 @@
         ]
     ]
 {/nabu_raw_assign}
-<div class="edit-zone">
-    {include file="content/parts/flag-selector.tpl" lang_list=$nb_languages default_lang=$nb_language.id}
-    {nabu_assign var=info_section section=empty_data}
-    {nabu_table id=messaging_list data=$data metadata=$table_metadata selectable=true
-                bordered=true striped=true hover=true condensed=true scrolled=true
-                search=false pager=true size=25 column_selector=true draw_empty=true
-                api=api_call editor=item_edit edit_button=line empty_message=$info_section.translation.opening}
-</div>
+{nabu_assign var=ajax_editor cta=ajax_languages}
+{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_commerce.id:'%s'}"}
+{include file="content/parts/table-splitted-panels.tpl" id=languages_list editor=$ajax_editor editor_mode=ajax
+         data=$edit_commerce.translations metadata=$table_metadata section=languages_empty}
