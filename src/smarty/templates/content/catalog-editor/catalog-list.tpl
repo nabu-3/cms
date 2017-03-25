@@ -1,4 +1,5 @@
 {nabu_model model="bootstrap-3.3.7"}
+{nabu_assign var=info_section section=empty_data}
 {nabu_raw_assign}
     table_metadata: [
         toolbar: [
@@ -54,18 +55,15 @@
             columns_button: "{nabu_static key=btn_columns}"
             show_all_columns: "{nabu_static key=sel_show_all}"
             hide_all_columns: "{nabu_static key=sel_hide_all}"
+            empty_message: "{"\""|str_replace:"\\\"":$info_section.translation.content}"
+            translation_not_available: "{nabu_static key=lbl_translation_not_available}"
         ]
     ]
 {/nabu_raw_assign}
 <div class="edit-zone">
-    {if count($data)>0}
-        {include file="content/parts/flag-selector.tpl" lang_list=$nb_languages default_lang=$nb_language.id}
-        {nabu_table id=catalog_list data=$data metadata=$table_metadata selectable=true
-                    bordered=true striped=true hover=true condensed=true
-                    search=false pager=false size=25 column_selector=true
-                    api=api_call editor=item_edit edit_button=line}
-    {else}
-        {nabu_assign var=info_section section=empty_data}
-        {nabu_panel type=info title=$info_section}{$info_section.translation.opening}{/nabu_panel}
-    {/if}
+    {include file="content/parts/flag-selector.tpl" lang_list=$nb_languages default_lang=$nb_language.id}
+    {nabu_table id=catalog_list data=$data metadata=$table_metadata selectable=true languages=$nb_languages
+                bordered=true striped=true hover=true condensed=true scrolled=true
+                search=false pager=false size=25 column_selector=true draw_empty=true
+                api=api_call editor=item_edit edit_button=line}
 </div>

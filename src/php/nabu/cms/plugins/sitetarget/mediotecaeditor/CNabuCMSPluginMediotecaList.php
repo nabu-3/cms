@@ -52,11 +52,6 @@ class CNabuCMSPluginMediotecaList extends CNabuHTTPSiteTargetPluginAdapter
         return true;
     }
 
-    public function methodGET()
-    {
-        return true;
-    }
-
     public function beforeDisplayTarget()
     {
         $render = $this->nb_response->getRender();

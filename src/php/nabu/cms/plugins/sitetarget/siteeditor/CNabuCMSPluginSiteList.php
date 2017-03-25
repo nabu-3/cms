@@ -28,17 +28,13 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
  */
 class CNabuCMSPluginSiteList extends CNabuHTTPSiteTargetPluginAdapter
 {
+    /** @var array Site instances array */
     private $site_data = null;
 
     public function prepareTarget()
     {
         $this->site_data = $this->nb_work_customer->getSites(true);
 
-        return true;
-    }
-
-    public function methodGET()
-    {
         return true;
     }
 
