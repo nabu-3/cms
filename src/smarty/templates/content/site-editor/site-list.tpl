@@ -60,6 +60,6 @@
     {include file="content/parts/flag-selector.tpl" lang_list=$nb_languages default_lang=$nb_language.id}
     {nabu_table id=site_list data=$data metadata=$table_metadata selectable=true languages=$nb_languages
                 bordered=true striped=true hover=true condensed=true scrolled=true
-                search=false pager=false size=25 column_selector=true draw_empty=true
+                search=false pager=true size=25 column_selector=true draw_empty=true
                 api=api_call editor=item_edit edit_button=line}
 </div>
