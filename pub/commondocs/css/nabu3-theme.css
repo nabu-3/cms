@@ -130,6 +130,10 @@ label {
     color: #268bd2;
 }
 
+h2, .h2 {
+    font-size: 24px;
+}
+
 /* Main block */
 .main {
     bottom: 50px;
