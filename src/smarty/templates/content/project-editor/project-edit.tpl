@@ -1,3 +1,4 @@
+{nabu_model model="bootstrap-3.3.7"}
 <div class="opening">
     {$edit_project.translation.opening}
 </div>
@@ -17,7 +18,13 @@
                 {/if}
             </div>
             <div class="box-footer">
+                <div class="btn-toolbar">
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal_new_version">Nueva versión</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+{include file="content/project-editor/modals/new-version.tpl"}
