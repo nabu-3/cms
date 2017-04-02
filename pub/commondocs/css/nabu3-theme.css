@@ -754,6 +754,7 @@ footer.navbar .navbar-nav > li > a + span {
     background-color: #859900;
     color: #fdf6e3;
     font-weight: normal;
+    vertical-align: top;
 }
 
 .table-scrolled {
@@ -763,12 +764,14 @@ footer.navbar .navbar-nav > li > a + span {
 
 .table-scrolled > thead {
     display: block;
+    height: 34px;
+    overflow: hidden;
 }
 
 .table-scrolled > tbody {
     display: block;
     overflow: scroll;
-    max-height: 100%;
+    max-height: calc(100% - 34px);
 }
 
 .table-bordered tr + tr td {
@@ -1175,8 +1178,37 @@ footer.navbar .navbar-nav > li > a + span {
 .split-separator > .split-separator-inner {
 	display: block;
 	height: 100%;
-	width: 0px;
+	width: 0;
 	border-left: 1px solid #586e75;
 	border-right: 1px solid #fdf6e3;
 	margin-left: 9px;
+}
+
+.split-content > .table-container {
+    overflow: hidden;
+}
+
+.split-content > .table-container > .table-toolbar {
+    flex: 0 0 40px;
+}
+
+.split-content > .table-container > .table {
+    flex: 1 1 0;
+    overflow: hidden;
+    margin: 0;
+}
+
+.split-content > .table-container > .table-pager {
+    flex: 0 0 34px;
+    margin-top: 15px;
+}
+
+.split-content > .table-container > .table-pager > nav {
+    height: 34px;
+}
+
+.split-content > .table-container > .table-pager .pagination {
+    margin-bottom: 0;
+    margin-top: 0;
+    height: 34px;
 }

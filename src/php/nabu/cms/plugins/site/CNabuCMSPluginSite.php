@@ -19,6 +19,7 @@
 
 namespace nabu\cms\plugins\site;
 use nabu\data\customer\CNabuCustomer;
+use nabu\data\customer\CNabuCustomerList;
 use nabu\data\security\CNabuRole;
 use nabu\data\security\CNabuUser;
 use nabu\data\site\CNabuSiteUser;
@@ -57,7 +58,6 @@ class CNabuCMSPluginSite extends CNabuHTTPSitePluginAdapter
 
     public function afterLogin(CNabuUser $nb_user, CNabuRole $nb_role, CNabuSiteUser $nb_site_user)
     {
-        error_log("HOLA afterLogin");
         return true;
     }
 

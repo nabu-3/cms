@@ -16,7 +16,7 @@
             {/if}
         {/strip}
         {nabu_table selectable=true draw_empty=true empty_message=$empty_message
-                    bordered=true striped=true hover=true condensed=true
+                    bordered=true striped=true hover=true condensed=true scrolled=true
                     search=true pager=false size=10 column_selector=true
                     editor_mode=ajax editor_container="{$id}_editor" edit_button=line}
     </div>

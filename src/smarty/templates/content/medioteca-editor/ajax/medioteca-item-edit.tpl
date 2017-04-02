@@ -9,7 +9,7 @@
             {else}
                 {assign var=url value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$nb_medioteca.id:''}"}
             {/if}
-            {nabu_form method="ajax-post" layout=vertical multiform=":root:item:{if $edit_item!==null}{$edit_item.id}{else}_new{/if}" action=$url}
+            {nabu_form method="ajax-post" layout=vertical multiform=":root:item:{if $edit_item!==null}{$edit_item.id}{else}%s{/if}" action=$url}
                 {nabu_form_fieldset title="{nabu_static key=tit_references}"}
                     {nabu_form_row}
                         {nabu_form_textbox from=$edit_item field=key name=key label="Key" class="col-sm-5"}
@@ -19,7 +19,7 @@
                 {nabu_form_fieldset title="{nabu_static key=tit_visibility}"}
                     {nabu_form_row}
                         <div class="col-sm-2">
-                            {nabu_form_checkbox from=$edit_item field=visible name=visible check='T' label="{nabu_static key=lbl_visible}"}
+                            {nabu_form_checkbox from=$edit_item field=visible name=visible check='T' uncheck='F' label="{nabu_static key=lbl_visible}"}
                         </div>
                         {nabu_form_textbox from=$edit_item field=order label="{nabu_static key=lbl_position}" class="col-sm-2"}
                     {/nabu_form_row}
@@ -41,7 +41,6 @@
                     {nabu_form_row}
                         {nabu_form_textbox type=textarea from=$edit_item field=html_object label="{nabu_static key=lbl_html_object}" multilang=$nb_all_languages class="col-sm-12"}
                     {/nabu_form_row}
-                    {nabu_form_row}
                 {/nabu_form_fieldset}
                 {nabu_form_fieldset title="{nabu_static key=tit_content}"}
                     {nabu_form_row}

@@ -19,6 +19,7 @@
 
 namespace nabu\cms\plugins\sitetarget\mediotecaeditor;
 use nabu\data\lang\CNabuLanguage;
+use nabu\data\medioteca\CNabuMedioteca;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
@@ -29,8 +30,11 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
  */
 class CNabuCMSPluginMediotecaEdit extends CNabuHTTPSiteTargetPluginAdapter
 {
+    /** @var CNabuMedioteca $nb_medioteca Medioteca instance to be edited. */
     private $nb_medioteca;
+    /** @var string $title_part Title fragment to be added to the page header title. */
     private $title_part;
+    /** @var array $breadcrumb_part Array of breadcrumb parts. */
     private $breadcrumb_part;
 
     public function prepareTarget()
@@ -43,8 +47,7 @@ class CNabuCMSPluginMediotecaEdit extends CNabuHTTPSiteTargetPluginAdapter
         if (is_array($fragments) && count($fragments) > 1) {
             $id = $fragments[1];
             $this->title_part = '#' . $id;
-            $nb_manager = $this->nb_application->getMediotecasManager();
-            if (($this->nb_medioteca = $nb_manager->getMedioteca($id)) !== false &&
+            if (($this->nb_medioteca = $this->nb_work_customer->getMedioteca($id)) !== false &&
                 ($translation = $this->nb_medioteca->getTranslation($this->nb_language)) !== false &&
                 (strlen($this->title_part = $translation->getTitle()) === 0) &&
                 (strlen($this->title_part = $this->nb_medioteca->getKey()) === 0)
@@ -57,7 +60,9 @@ class CNabuCMSPluginMediotecaEdit extends CNabuHTTPSiteTargetPluginAdapter
             );
         }
 
-        return true;
+        return ($this->nb_medioteca instanceof CNabuMedioteca)
+               ? true
+               : $this->nb_site->getTargetByKey('medioteca_list');
     }
 
     public function beforeDisplayTarget()
