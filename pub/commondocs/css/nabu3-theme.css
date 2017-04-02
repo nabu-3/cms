@@ -17,9 +17,6 @@ blue:      #268bd2 (S 82%) #30acff (S 100%)
 cyan:      #2aa198
 green:     #859900 (V 60%) #a8bf00 (V 75%)
 */
-@import url('https://fonts.googleapis.com/css?family=Droid+Sans|Josefin+Sans:400,400i,700|Roboto+Condensed:300,400');
-@import url('https://fonts.googleapis.com/css?family=Baloo|Lato&subset=latin-ext');
-@import url('/assets/css/font-awesome.min.css');
 
 body {
     font-family: 'Droid Sans', sans-serif;
@@ -863,6 +860,14 @@ footer.navbar .navbar-nav > li > a + span {
     cursor: pointer;
 }
 
+.table-striped > tbody > .editing:nth-of-type(2n+1),
+.table-striped > tbody > .editing:nth-of-type(2n+2),
+.table > tbody .editing,
+.table > tbody .editing:hover {
+    background-color: #586e75;
+    color: #fdf6e3;
+}
+
 .table > tbody > tr > td[data-name="id"],
 .table > tbody > tr > td[data-name$="_id"],
 .table > tbody > tr > td[data-name="level"] {
@@ -1113,6 +1118,20 @@ footer.navbar .navbar-nav > li > a + span {
     border-width: 2px;
     border-style: solid;
     background-color: #fdf6e3;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.modal-open .box.maximized {
+  bottom: 20px;
+  height: calc(100% - 40px);
+  left: 20px;
+  overflow: scroll;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  z-index: 2000;
 }
 
 .box > .box-heading {
@@ -1120,10 +1139,23 @@ footer.navbar .navbar-nav > li > a + span {
     padding: 5px 10px;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 18px;
+    flex: 0 0 auto;
+}
+
+.box > .box-heading > .btn-toolbar .btn {
+    background-color: transparent;
+    color: #fdf6e3;
+}
+
+.box > .box-heading > .btn-toolbar .btn:hover {
+    color: #2aa198;
 }
 
 .box > .box-body {
     padding: 5px 10px;
+    flex: 1 1 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .box-info {
@@ -1162,6 +1194,7 @@ footer.navbar .navbar-nav > li > a + span {
 	flex: 1 1 0;
     display: flex;
     flex-flow: column nowrap;
+    overflow: hidden;
 }
 
 .split-separator {
@@ -1198,6 +1231,10 @@ footer.navbar .navbar-nav > li > a + span {
     margin: 0;
 }
 
+.split-content > .table-container > .table .edited {
+    margin-top: 3px;
+}
+
 .split-content > .table-container > .table-pager {
     flex: 0 0 34px;
     margin-top: 15px;
@@ -1211,4 +1248,9 @@ footer.navbar .navbar-nav > li > a + span {
     margin-bottom: 0;
     margin-top: 0;
     height: 34px;
+}
+
+.split-content > div[id] {
+    height: 100%;
+    overflow: hidden;
 }

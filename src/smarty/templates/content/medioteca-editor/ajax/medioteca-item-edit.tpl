@@ -1,7 +1,18 @@
 {nabu_model model="bootstrap-3.3.7"}
 {nabu_assign var=api cta=api_items}
 <div class="box box-default">
-    <div class="box-heading">{$nb_site_target.translation.title|sprintf:$edit_item.key}</div>
+    <div class="box-heading">
+        {$nb_site_target.translation.title|sprintf:$edit_item.key}
+        <div class="btn-toolbar pull-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-link btn-xs" data-toggle="box-maximize"><i class="fa fa-window-maximize"></i></button>
+                <button type="button" class="btn btn-link btn-xs hide" data-toggle="box-restore"><i class="fa fa-window-restore"></i></button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-link btn-xs" data-toggle="box-close"><i class="fa fa-window-close-o"></i></button>
+            </div>
+        </div>
+    </div>
     <div class="box-body">
         {if is_array($api) && array_key_exists('translations', $api) && is_array($api.translations) && array_key_exists($nb_site.api_language_id, $api.translations)}
             {if $edit_item!==null}
