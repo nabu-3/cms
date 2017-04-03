@@ -1,6 +1,5 @@
 {nabu_model model="bootstrap-3.3.7"}
 {nabu_assign var=api_project cta=api_project}
-<!--{$api_project|print_r:true}-->
 <div class="opening">
     {$edit_project.translation.opening}
 </div>
@@ -32,7 +31,7 @@
                     <div class="btn-toolbar">
                         {if is_numeric($edit_project.current_version_id) && is_array($edit_project.versions) && array_key_exists($edit_project.current_version_id, $edit_project.versions)}
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modal_send_version">Enviar test</button>
+                                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modal_send_test">Enviar test</button>
                                 <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal_send_emailing">Enviar e-Mailing</button>
                             </div>
                         {/if}
@@ -46,4 +45,4 @@
     </div>
 </div>
 {include file="content/project-editor/modals/new-version.tpl"}
-{include file="content/project-editor/modals/send-email.tpl"}
+{include file="content/project-editor/modals/send-test.tpl"}
