@@ -11,19 +11,29 @@ $(document).ready(function()
         this.reset();
     });
 
-    modals.find('form').on('response.form.nabu', function(e, params)
-    {
-        $(this).find('.modal-steps').addClass('hide');
-        $(this).find('.modal-panels').removeClass('hide');
-        $(this).find('.modal-panels .modal-panel').addClass('hide');
-        var json = params.response.json;
-        if (json.result.status==='OK') {
-            $(this).find('.modal-panels .modal-panel[data-action="success"]').removeClass('hide');
-        } else {
-            $(this).find('.modal-panels .modal-panel[data-action="error"]').removeClass('hide');
-        }
-        $(this).data("id", json.data.id);
-    });
+    modals.find('form')
+        .on('response.form.nabu', function(e, params) {
+            $(this).find('.modal-steps').addClass('hide');
+            $(this).find('.modal-panels').removeClass('hide');
+            $(this).find('.modal-panels .modal-panel').addClass('hide');
+            var json = params.response.json;
+            if (json.result.status==='OK') {
+                $(this).find('.modal-panels .modal-panel[data-action="success"]').removeClass('hide');
+            } else {
+                $(this).find('.modal-panels .modal-panel[data-action="error"]').removeClass('hide');
+            }
+            $(this).data("id", json.data.id);
+        })
+        .on('beforesubmit.form.nabu', function(e, params) {
+            console.log('beforesubmit');
+            if (CKEDITOR) {
+                for(var name in CKEDITOR.instances) {
+                    CKEDITOR.instances[name].updateElement();
+                }
+            }
+            return true;
+        })
+    ;
 
     modals.find('form [data-toggle="modal-btn-editor"]').on("click", function() {
         var id = $(this).closest('form').data("id");

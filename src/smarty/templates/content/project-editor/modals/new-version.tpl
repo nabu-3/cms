@@ -14,7 +14,7 @@
                         <aside class="col-sm-3">{$modal_new.translation.opening}</aside>
                         <section class="col-sm-9 col-sm-offset-3" data-toggle="ckeditor">
                             {nabu_form_textbox horizontal=":2:3" label="Versión" name=code maxlength=30 help="Introduce el número de versión."}
-                            {nabu_form_textbox size=9 label="Nombre" name=ver_name index=$nb_language.id maxlength=30 help="Introduce el nombre de la versión."}
+                            {nabu_form_textbox size=9 label="Nombre" name="name" index=$nb_language.id maxlength=30 help="Introduce el nombre de la versión."}
                             {nabu_form_textbox id=new_version_description type=textarea label="Descripción" name=description index=$nb_language.id rows=8 help="Describe los elementos que incluye esta versión."}
                         </section>
                     </div>
@@ -31,7 +31,6 @@
                 {nabu_modal_body}{$modal_new_success.translation.opening}{/nabu_modal_body}
                 {nabu_modal_footer}
                     <button type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button>
-                    <a class="btn btn-info"{if is_array($editor) && count($editor)>0} data-toggle="modal-btn-editor" data-editor="{$editor.translation.final_url}"{/if}>Continuar</a>
                 {/nabu_modal_footer}
             </div>
             <div class="modal-panel" data-action="error">

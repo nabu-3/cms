@@ -215,6 +215,10 @@ span + .flag {
 }
 
 /** Dropdown **/
+.form-inline .form-group .dropdown {
+    display: inline-block;
+}
+
 .dropdown .btn-group {
     width: 100%;
 }
@@ -1114,6 +1118,14 @@ footer.navbar .navbar-nav > li > a + span {
 }
 
 /* Boxes */
+.box-grid > .row {
+    height: 300px;
+}
+
+.box-grid > .row > .col {
+    height: 100%;
+}
+
 .box {
     border-width: 2px;
     border-style: solid;
@@ -1158,6 +1170,12 @@ footer.navbar .navbar-nav > li > a + span {
     overflow-x: hidden;
 }
 
+.box > .box-footer {
+    padding: 5px 10px;
+    flex: 0 0 auto;
+    border-top: 2px solid;
+}
+
 .box-info {
     border-color: #268bd2;
 }
@@ -1174,6 +1192,11 @@ footer.navbar .navbar-nav > li > a + span {
 .box-default > .box-heading {
     background-color: #586e75;
     color: #fdf6e3;
+}
+
+.box-default > .box-footer {
+    border-top-color: #586e75;
+    background-color: #eee8d5;
 }
 
 /* Toolbars */
