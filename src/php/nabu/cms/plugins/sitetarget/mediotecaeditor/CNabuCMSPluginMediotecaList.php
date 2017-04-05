@@ -19,6 +19,7 @@
 
 namespace nabu\cms\plugins\sitetarget\mediotecaeditor;
 
+use nabu\data\site\CNabuSiteTarget;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
@@ -40,7 +41,9 @@ class CNabuCMSPluginMediotecaList extends CNabuHTTPSiteTargetPluginAdapter
      */
     const TARGET_USER_EDIT = 'medioteca_edit';
 
+    /** @var array $medioteca_data Array with all available Mediotecas. */
     private $medioteca_data = null;
+    /** @var CNabuSiteTarget $api_call API Site Target to edit Mediotecas. */
     private $api_call = null;
 
     public function prepareTarget()

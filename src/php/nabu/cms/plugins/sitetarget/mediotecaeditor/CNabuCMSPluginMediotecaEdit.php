@@ -48,6 +48,7 @@ class CNabuCMSPluginMediotecaEdit extends CNabuHTTPSiteTargetPluginAdapter
             $id = $fragments[1];
             $this->title_part = '#' . $id;
             if (($this->nb_medioteca = $this->nb_work_customer->getMedioteca($id)) !== false &&
+                $this->nb_medioteca->refresh(true, true) &&
                 ($translation = $this->nb_medioteca->getTranslation($this->nb_language)) !== false &&
                 (strlen($this->title_part = $translation->getTitle()) === 0) &&
                 (strlen($this->title_part = $this->nb_medioteca->getKey()) === 0)
