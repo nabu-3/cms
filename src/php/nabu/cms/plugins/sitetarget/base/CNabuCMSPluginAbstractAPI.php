@@ -124,6 +124,8 @@ abstract class CNabuCMSPluginAbstractAPI extends CNabuHTTPSiteTargetPluginAdapte
                 if (is_array($this->page)) {
                     $render->setValue('page', $this->page);
                 }
+            } elseif ($this->getStatus() === 'ERROR') {
+                $this->nb_response->setHTTPResponseCode(500);
             }
         }
 

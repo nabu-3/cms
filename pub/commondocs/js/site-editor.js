@@ -1,4 +1,33 @@
 $(document).ready(function() {
+    $('#site_list')
+        .on('pressed.download.toolbar.table.nabu', function (e, params) {
+            if (params.action==="download" &&
+                e.currentTarget &&
+                e.currentTarget.nabuTable &&
+                e.currentTarget.nabuTable instanceof Nabu.UI.Table
+            ) {
+                var nb_table = e.currentTarget.nabuTable;
+                var placeholder = $('#modal_download #sites_placeholder');
+                var form = placeholder.closest('[data-toggle="nabu-form"]');
+                if (form.length === 1 && form[0].nabuForm && placeholder.length === 1) {
+                    nb_form = form[0].nabuForm;
+                    placeholder.empty();
+                    for (i in params.selection) {
+                        var idx = params.selection[i];
+                        var text = nb_table.getCell(idx, 'name');
+                        if (text !== null) {
+                            placeholder.append(
+                                '<label>' +
+                                '<input type="checkbox" value="' + idx + '" name="ids[' + idx + ']" data-form-mandatory="yes" data-form-rule="checked">' +
+                                '&nbsp;#' + idx + '&nbsp;' + text + '</label>');
+                        }
+                    }
+                    nb_form.locateFields();
+                }
+            }
+        })
+    ;
+
     $('#tree_sitemap').bind('click.tree.nabu', function(e, id) {
         if (typeof id !== 'undefined') {
             $('#sitemap_edit > .panel-info').addClass('hide');

@@ -19,12 +19,28 @@
                         ]
                     ]
                 ]
-                3: [
+                2: [
                     buttons: [
                         delete: [
                             type: "danger"
                             icon: "fa fa-trash"
                             apply: "multiple"
+                        ]
+                    ]
+                ]
+                3: [
+                    buttons: [
+                        download: [
+                            type: "default"
+                            icon: "fa fa-download"
+                            apply: "multiple"
+                            modal: "modal_download"
+                        ]
+                        upload: [
+                            type: "danger"
+                            icon: "fa fa-upload"
+                            apply: "all"
+                            modal: "modal_upload"
                         ]
                     ]
                 ]
@@ -51,7 +67,7 @@
             columns_button: "{nabu_static key=btn_columns}"
             show_all_columns: "{nabu_static key=sel_show_all}"
             hide_all_columns: "{nabu_static key=sel_hide_all}"
-            empty_message: $info_section.translation.opening
+            empty_message: "{"\""|str_replace:"\\\"":$info_section.translation.content}"
             translation_not_available: "{nabu_static key=lbl_translation_not_available}"
         ]
     ]
@@ -61,5 +77,6 @@
     {nabu_table id=site_list data=$data metadata=$table_metadata selectable=true languages=$nb_languages
                 bordered=true striped=true hover=true condensed=true scrolled=true
                 search=false pager=true size=25 column_selector=true draw_empty=true
-                api=api_call editor=item_edit edit_button=line}
+                api=api_site editor=item_edit edit_button=line}
 </div>
+{include file="content/site-editor/modals/download-site.tpl"}

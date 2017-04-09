@@ -653,6 +653,10 @@ footer.navbar .navbar-nav > li > a + span {
 	color: #fdf6e3;
 }
 
+.modal-lg .modal-body {
+    min-height: 180px;
+}
+
 .modal .modal-body aside {
 	background-color: #eee8d5;
 	font-family: 'Roboto Condensed';
