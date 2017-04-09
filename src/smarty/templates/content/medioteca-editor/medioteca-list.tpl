@@ -19,12 +19,28 @@
                         ]
                     ]
                 ]
-                3: [
+                2: [
                     buttons: [
                         delete: [
                             type: "danger"
                             icon: "fa fa-trash"
                             apply: "multiple"
+                        ]
+                    ]
+                ]
+                3: [
+                    buttons: [
+                        download: [
+                            type: "default"
+                            icon: "fa fa-download"
+                            apply: "multiple"
+                            modal: "modal_download"
+                        ]
+                        upload: [
+                            type: "danger"
+                            icon: "fa fa-upload"
+                            apply: "all"
+                            modal: "modal_upload"
                         ]
                     ]
                 ]
