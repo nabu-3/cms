@@ -18,6 +18,7 @@
  */
 
 namespace nabu\cms\plugins\sitetarget;
+use nabu\data\security\CNabuUser;
 use nabu\http\CNabuHTTPRequest;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
@@ -29,9 +30,25 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
 {
     private $edit_user = null;
+
     public function prepareTarget()
     {
-        $this->edit_user = $this->nb_user;
+        if ($this->nb_site_target->getKey() === 'my_profile') {
+            $this->edit_user = $this->nb_user;
+            $this->edit_user->refresh();
+        } elseif ($this->nb_site_target->isURLRegExpExpression()) {
+            error_log("URL Expression");
+            if (count($fragments = $this->nb_request->getRegExprURLFragments()) === 2 &&
+                is_numeric($fragments[1])
+            ) {
+                $this->edit_user = new CNabuUser($fragments[1]);
+                if (!$this->edit_user->validateCustomer($this->nb_customer)) {
+                    $this->edit_user = null;
+                }
+            }
+        } else {
+            error_log("Unexpected");
+        }
 
         return true;
     }
@@ -46,6 +63,15 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
                     'last_name' => 'nb_user_last_name'
                 )
             );
+            if (is_string($pass_1 = $this->nb_request->getPOSTField('pass_1')) &&
+                strlen($pass_1) > 0 &&
+                is_string($pass_2 = $this->nb_request->getPOSTField('pass_2')) &&
+                $pass_1 === $pass_2
+            ) {
+                error_log("HOLA");
+                $this->edit_user->setPassword($pass_1);
+            }
+
             $this->edit_user->save();
         }
 
@@ -54,6 +80,9 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
 
     public function beforeDisplayTarget()
     {
+        $render = $this->nb_response->getRender();
+        $render->smartyAssign('edit_user', $this->edit_user);
+
         return true;
     }
 }
