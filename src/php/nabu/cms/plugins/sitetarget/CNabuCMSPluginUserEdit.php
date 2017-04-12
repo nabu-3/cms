@@ -24,11 +24,13 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@wiscot.com>
- * @version 3.0.0 Surface
+ * @since 3.0.0 Surface
+ * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget
  */
 class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
 {
+    /** @var CNabuUser $edit_user User instance to be edited. */
     private $edit_user = null;
 
     public function prepareTarget()
@@ -37,17 +39,15 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
             $this->edit_user = $this->nb_user;
             $this->edit_user->refresh();
         } elseif ($this->nb_site_target->isURLRegExpExpression()) {
-            error_log("URL Expression");
             if (count($fragments = $this->nb_request->getRegExprURLFragments()) === 2 &&
                 is_numeric($fragments[1])
             ) {
                 $this->edit_user = new CNabuUser($fragments[1]);
-                if (!$this->edit_user->validateCustomer($this->nb_customer)) {
+                if ($this->edit_user->isNew() || !$this->edit_user->validateCustomer($this->nb_customer)) {
+                    error_log(print_r($this->edit_user, true));
                     $this->edit_user = null;
                 }
             }
-        } else {
-            error_log("Unexpected");
         }
 
         return true;
@@ -68,7 +68,6 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
                 is_string($pass_2 = $this->nb_request->getPOSTField('pass_2')) &&
                 $pass_1 === $pass_2
             ) {
-                error_log("HOLA");
                 $this->edit_user->setPassword($pass_1);
             }
 
