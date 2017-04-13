@@ -32,9 +32,15 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
 {
     /** @var CNabuUser $edit_user User instance to be edited. */
     private $edit_user = null;
+    /** @var string Title part with the visible name of current user. */
+    private $title_part;
+    /** @var array Breadcrumb part of current user. */
+    private $breadcrumb_part;
 
     public function prepareTarget()
     {
+        $retval = true;
+
         if ($this->nb_site_target->getKey() === 'my_profile') {
             $this->edit_user = $this->nb_user;
             $this->edit_user->refresh();
@@ -42,15 +48,29 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
             if (count($fragments = $this->nb_request->getRegExprURLFragments()) === 2 &&
                 is_numeric($fragments[1])
             ) {
-                $this->edit_user = new CNabuUser($fragments[1]);
+                $id = $fragments[1];
+                $this->edit_user = new CNabuUser($id);
                 if ($this->edit_user->isNew() || !$this->edit_user->validateCustomer($this->nb_customer)) {
-                    error_log(print_r($this->edit_user, true));
                     $this->edit_user = null;
+                    $retval = $this->nb_site->getTargetByKey('user_list');
+                } else {
+                    $this->title_part = '#' . $id;
+                    $name = trim($this->edit_user->getFirstName() . ' ' . $this->edit_user->getLastName());
+                    if (strlen($name) === 0) {
+                        $name = $this->edit_user->getLogin();
+                    }
+                    if (strlen($name) > 0) {
+                        $this->title_part = $name;
+                    }
+                    $this->breadcrumb_part['user_edit'] = array(
+                        'title' => $this->title_part,
+                        'slug' => $id
+                    );
                 }
             }
         }
 
-        return true;
+        return $retval;
     }
 
     public function commandUpdate()
@@ -81,6 +101,8 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
     {
         $render = $this->nb_response->getRender();
         $render->smartyAssign('edit_user', $this->edit_user);
+        $render->smartyAssign('title_part', $this->title_part);
+        $render->smartyAssign('breadcrumb_part', $this->breadcrumb_part);
 
         return true;
     }
