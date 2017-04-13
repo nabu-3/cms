@@ -20,7 +20,11 @@
 namespace nabu\cms\plugins\sitetarget\siteeditor;
 use nabu\data\site\CNabuSite;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
+use nabu\data\site\CNabuSiteList;
 use nabu\http\CNabuHTTPRequest;
+use nabu\http\renders\CNabuHTTPResponseFileRender;
+use nabu\sdk\builders\xml\CNabuXMLBuilder;
+use nabu\xml\site\CNabuXMLSiteList;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@wiscot.com>
@@ -76,7 +80,35 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
     private function doDownload()
     {
         if ($this->nb_request->hasPOSTField('ids')) {
-            $this->setStatusOK();
+            $ids = $this->nb_request->getPOSTField('ids');
+            if (is_numeric($ids)) {
+                $ids = array($ids);
+            } else if (is_string($ids)) {
+                $ids = preg_split('/\s*,\s*/', $ids);
+            }
+
+            if (is_array($ids) && count($ids) > 0) {
+                $sites_list = new CNabuSiteList($this->nb_customer);
+                foreach ($ids as $nb_site_id) {
+                    $nb_site = $this->nb_work_customer->getSite($nb_site_id);
+                    if ($nb_site instanceof CNabuSite) {
+                        $sites_list->addItem($nb_site);
+                    }
+                }
+                if ($sites_list->getSize() === count($ids)) {
+                    $file = new CNabuXMLBuilder();
+                    $file->addFragment(new CNabuXMLSiteList($sites_list));
+                    $file->create();
+                    $filename = tempnam('/tmp', 'nb_site_export_');
+                    $file->exportToFile($filename);
+                    $render = new CNabuHTTPResponseFileRender($this->nb_application);
+                    $this->nb_response->setRender($render);
+                    $this->nb_response->setMimetype('text/xml');
+                    //$this->nb_response->setHeader('Content-Disposition', 'attachment; filename=sites.xml');
+                    $render->setSourceFile($filename);
+                    $render->unlinkSourceFileAfterRender();
+                }
+            }
         } else {
             $this->setStatusError("Ids array not found");
         }

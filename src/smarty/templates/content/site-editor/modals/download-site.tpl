@@ -4,7 +4,7 @@
 {nabu_assign var=modal_download_error section=modal_download_error}
 {nabu_assign var=api_site cta=api_site}
 {nabu_modal id=modal_download size=lg caller=site_list aria_labelledby=modal_download_head}
-    {nabu_form layout="horizontal:2:10" method="ajax-post" action=$api_site.translations[$nb_site.api_language_id].final_url|sprintf:"?action=download"}
+    {nabu_form layout="horizontal:2:10" method="post" action=$api_site.translations[$nb_site.api_language_id].final_url|sprintf:"?action=download"}
         <div class="modal-steps">
             <div class="modal-step" data-step="1">
                 {nabu_modal_header dismiss=true aria_label_id=modal_download_head}{$modal_download.translation.title}{/nabu_modal_header}
