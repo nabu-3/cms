@@ -41,7 +41,7 @@ class CNabuCMSPluginSite extends CNabuHTTPSitePluginAdapter
         return true;
     }
 
-    public function validateCORSOrigin($origin)
+    public function validateCORSOrigin(string $origin) : bool
     {
         return true;
     }
@@ -51,7 +51,7 @@ class CNabuCMSPluginSite extends CNabuHTTPSitePluginAdapter
         return true;
     }
 
-    public function targetNotFound($path)
+    public function targetNotFound(string $path)
     {
         return true;
     }
