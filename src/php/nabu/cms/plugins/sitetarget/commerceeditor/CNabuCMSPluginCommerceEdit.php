@@ -23,7 +23,7 @@ use nabu\data\lang\CNabuLanguage;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
- * @author Rafael Gutierrez <rgutierrez@wiscot.com>
+ * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
  * @since 3.0.1 Surface
  * @version 3.0.1 Surface
  * @package \nabu\cms\plugins\sitetarget\commerceeditor

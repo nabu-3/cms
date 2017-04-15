@@ -27,7 +27,7 @@ use nabu\http\adapters\CNabuHTTPSitePluginAdapter;
 use providers\smarty\smarty\renders\CSmartyHTTPRender;
 
 /**
- * @author Rafael Gutierrez <rgutierrez@wiscot.com>
+ * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
  * @version 3.0.0 Surface
  * @package \nabu\cms\plugins\site
  */

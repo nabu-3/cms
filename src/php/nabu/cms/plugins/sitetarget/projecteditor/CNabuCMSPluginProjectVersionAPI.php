@@ -25,7 +25,7 @@ use nabu\data\project\CNabuProjectVersionLanguage;
 use nabu\data\site\CNabuSiteTargetCTAList;
 
 /**
- * @author Rafael Gutierrez <rgutierrez@wiscot.com>
+ * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
  * @since 3.0.2 Surface
  * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget\projecteditor

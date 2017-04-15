@@ -22,7 +22,7 @@ use nabu\data\catalog\CNabuCatalog;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
- * @author Rafael Gutierrez <rgutierrez@wiscot.com>
+ * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
  * @version 3.0.0 Surface
  * @package \nabu\cms\plugins\sitetarget
  */

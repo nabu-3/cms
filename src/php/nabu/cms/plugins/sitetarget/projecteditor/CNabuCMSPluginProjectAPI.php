@@ -23,7 +23,7 @@ use nabu\data\project\CNabuProject;
 use nabu\data\project\CNabuProjectLanguage;
 
 /**
- * @author Rafael Gutierrez <rgutierrez@wiscot.com>
+ * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
  * @since 3.0.2 Surface
  * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget\projecteditor

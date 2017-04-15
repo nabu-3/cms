@@ -18,16 +18,20 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\siteeditor;
+use nabu\data\lang\CNabuLanguageList;
+use nabu\data\security\CNabuRoleList;
 use nabu\data\site\CNabuSite;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
 use nabu\data\site\CNabuSiteList;
 use nabu\http\CNabuHTTPRequest;
 use nabu\http\renders\CNabuHTTPResponseFileRender;
 use nabu\sdk\builders\xml\CNabuXMLBuilder;
+use nabu\xml\lang\CNabuXMLLanguageList;
+use nabu\xml\security\CNabuXMLRoleList;
 use nabu\xml\site\CNabuXMLSiteList;
 
 /**
- * @author Rafael Gutierrez <rgutierrez@wiscot.com>
+ * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
  * @since 3.0.2 Surface
  * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget\siteeditor
@@ -89,14 +93,20 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
 
             if (is_array($ids) && count($ids) > 0) {
                 $sites_list = new CNabuSiteList($this->nb_customer);
+                $languages_list = new CNabuLanguageList();
+                $roles_list = new CNabuRoleList();
                 foreach ($ids as $nb_site_id) {
                     $nb_site = $this->nb_work_customer->getSite($nb_site_id);
                     if ($nb_site instanceof CNabuSite) {
                         $sites_list->addItem($nb_site);
+                        $languages_list->merge($nb_site->getLanguages(true));
+                        $roles_list->merge($nb_site->getRoles(true));
                     }
                 }
                 if ($sites_list->getSize() === count($ids)) {
                     $file = new CNabuXMLBuilder();
+                    $file->addFragment(new CNabuXMLLanguageList($languages_list));
+                    $file->addFragment(new CNabuXMLRoleList($roles_list));
                     $file->addFragment(new CNabuXMLSiteList($sites_list));
                     $file->create();
                     $filename = tempnam('/tmp', 'nb_site_export_');
