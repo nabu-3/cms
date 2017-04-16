@@ -1,5 +1,5 @@
 AuthType Basic
-AuthName 'Nabu 3 - CMS'
+AuthName 'nabu-3 - CMS'
 AuthUserFile /etc/opt/nabu-3.conf.d/htpasswd
 #require valid-user
 

@@ -97,6 +97,7 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                 $roles_list = new CNabuRoleList();
                 foreach ($ids as $nb_site_id) {
                     $nb_site = $this->nb_work_customer->getSite($nb_site_id);
+                    $nb_site->refresh(true, true);
                     if ($nb_site instanceof CNabuSite) {
                         $sites_list->addItem($nb_site);
                         $languages_list->merge($nb_site->getLanguages(true));
