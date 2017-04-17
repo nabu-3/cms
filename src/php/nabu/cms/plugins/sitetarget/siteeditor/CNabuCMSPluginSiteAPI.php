@@ -18,17 +18,11 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\siteeditor;
-use nabu\data\lang\CNabuLanguageList;
-use nabu\data\security\CNabuRoleList;
 use nabu\data\site\CNabuSite;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
-use nabu\data\site\CNabuSiteList;
 use nabu\http\CNabuHTTPRequest;
 use nabu\http\renders\CNabuHTTPResponseFileRender;
-use nabu\sdk\builders\xml\CNabuXMLBuilder;
-use nabu\xml\lang\CNabuXMLLanguageList;
-use nabu\xml\security\CNabuXMLRoleList;
-use nabu\xml\site\CNabuXMLSiteList;
+use nabu\sdk\package\CNabuPackage;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
@@ -92,33 +86,17 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
             }
 
             if (is_array($ids) && count($ids) > 0) {
-                $sites_list = new CNabuSiteList($this->nb_customer);
-                $languages_list = new CNabuLanguageList();
-                $roles_list = new CNabuRoleList();
-                foreach ($ids as $nb_site_id) {
-                    $nb_site = $this->nb_work_customer->getSite($nb_site_id);
-                    $nb_site->refresh(true, true);
-                    if ($nb_site instanceof CNabuSite) {
-                        $sites_list->addItem($nb_site);
-                        $languages_list->merge($nb_site->getLanguages(true));
-                        $roles_list->merge($nb_site->getRoles(true));
-                    }
-                }
-                if ($sites_list->getSize() === count($ids)) {
-                    $file = new CNabuXMLBuilder();
-                    $file->addFragment(new CNabuXMLLanguageList($languages_list));
-                    $file->addFragment(new CNabuXMLRoleList($roles_list));
-                    $file->addFragment(new CNabuXMLSiteList($sites_list));
-                    $file->create();
-                    $filename = tempnam('/tmp', 'nb_site_export_');
-                    $file->exportToFile($filename);
-                    $render = new CNabuHTTPResponseFileRender($this->nb_application);
-                    $this->nb_response->setRender($render);
-                    $this->nb_response->setMimetype('text/xml');
-                    //$this->nb_response->setHeader('Content-Disposition', 'attachment; filename=sites.xml');
-                    $render->setSourceFile($filename);
-                    $render->unlinkSourceFileAfterRender();
-                }
+                $nb_package = new CNabuPackage($this->nb_work_customer);
+                $nb_package->addSites($ids);
+                $filename = tempnam('/tmp', 'nb_site_export_');
+                $nb_package->export($filename);
+
+                $render = new CNabuHTTPResponseFileRender($this->nb_application);
+                $this->nb_response->setRender($render);
+                $this->nb_response->setMimetype('text/xml');
+                //$this->nb_response->setHeader('Content-Disposition', 'attachment; filename=sites.xml');
+                $render->setSourceFile($filename);
+                $render->unlinkSourceFileAfterRender();
             }
         } else {
             $this->setStatusError("Ids array not found");
