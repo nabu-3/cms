@@ -93,8 +93,8 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
 
                 $render = new CNabuHTTPResponseFileRender($this->nb_application);
                 $this->nb_response->setRender($render);
-                $this->nb_response->setMimetype('text/xml');
-                //$this->nb_response->setHeader('Content-Disposition', 'attachment; filename=sites.xml');
+                $this->nb_response->setMimetype('application/nak');
+                $this->nb_response->setHeader('Content-Disposition', 'attachment; filename=nabu-3-dump.nak');
                 $render->setSourceFile($filename);
                 $render->unlinkSourceFileAfterRender();
             }
