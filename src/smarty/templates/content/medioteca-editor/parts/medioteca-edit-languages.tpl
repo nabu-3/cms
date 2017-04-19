@@ -1,3 +1,4 @@
+{nabu_assign var=info_section section=empty_languages}
 {nabu_raw_assign}
     table_metadata: [
         toolbar: [
@@ -41,20 +42,14 @@
                 title: 'Nombre'
                 order: 'alpha'
             ]
-            templates_status: [
-                title: 'Activo'
-                order: 'alpha'
-                lookup: [
-                    D: "{nabu_static key=lbl_no}"
-                    E: "{nabu_static key=lbl_yes}"
-                ]
-            ]
         ]
         translations: [
             search_button: "{nabu_static key=btn_search}"
             columns_button: "{nabu_static key=btn_columns}"
             show_all_columns: "{nabu_static key=sel_show_all}"
             hide_all_columns: "{nabu_static key=sel_hide_all}"
+            empty_message: "{"\""|str_replace:"\\\"":$info_section.translation.content}"
+            translation_not_available: "{nabu_static key=lbl_translation_not_available}"
         ]
     ]
 {/nabu_raw_assign}

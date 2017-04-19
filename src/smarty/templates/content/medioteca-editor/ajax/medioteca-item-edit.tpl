@@ -17,10 +17,14 @@
         {if is_array($api) && array_key_exists('translations', $api) && is_array($api.translations) && array_key_exists($nb_site.api_language_id, $api.translations)}
             {if $edit_item!==null}
                 {assign var=url value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$nb_medioteca.id:$edit_item.id}"}
+                {assign var=url_tpl value=null}
+                {assign var=url_field value=null}
             {else}
-                {assign var=url value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$nb_medioteca.id:''}"}
+                {assign var=url value=null}
+                {assign var=url_tpl value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$nb_medioteca.id:'%s'}"}
+                {assign var=url_field value=id}
             {/if}
-            {nabu_form method="ajax-post" layout=vertical multiform=":root:item:{if $edit_item!==null}{$edit_item.id}{else}%s{/if}" action=$url}
+            {nabu_form method="ajax-post" layout=vertical multiform=":root:item:{if $edit_item!==null}{$edit_item.id}{else}%s{/if}" action=$url action_template=$url_tpl action_template_field=$url_field}
                 {nabu_form_fieldset title="{nabu_static key=tit_references}"}
                     {nabu_form_row}
                         {nabu_form_textbox from=$edit_item field=key name=key label="Key" class="col-sm-5"}

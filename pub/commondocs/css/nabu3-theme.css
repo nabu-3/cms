@@ -1169,7 +1169,7 @@ footer.navbar .navbar-nav > li > a + span {
 
 .box > .box-body {
     padding: 5px 10px;
-    flex: 1 1 0;
+    flex: 1 1 auto;
     overflow-y: scroll;
     overflow-x: hidden;
 }

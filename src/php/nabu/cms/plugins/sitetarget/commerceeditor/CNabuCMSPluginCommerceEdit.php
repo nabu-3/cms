@@ -47,8 +47,9 @@ class CNabuCMSPluginCommerceEdit extends CNabuHTTPSiteTargetPluginAdapter
         if (is_array($fragments) && count($fragments) === 2) {
             $id = $fragments[1];
             $this->title_part = '#' . $id;
-            if (($this->edit_commerce = $this->nb_work_customer->getCommerce($id)) !== false) {
-                $this->edit_commerce->refresh();
+            if (($this->edit_commerce = $this->nb_work_customer->getCommerce($id)) instanceof CNabuCommerce) {
+                $this->edit_commerce->refresh(true, true);
+                $this->edit_commerce->getLanguages(true);
                 if (($translation = $this->edit_commerce->getTranslation($this->nb_language)) !== false &&
                     (strlen($this->title_part = $translation->getName()) === 0) &&
                     (strlen($this->title_part = $this->edit_commerce->getKey()) === 0)
