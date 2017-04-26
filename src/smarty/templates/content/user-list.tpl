@@ -40,6 +40,12 @@
                             icon: "fa fa-unlock"
                             apply: "multiple"
                         ]
+                        email: [
+                            type: "default"
+                            icon: "fa fa-envelope"
+                            apply: "multiple"
+                            modal: "modal_send_email"
+                        ]
                     ]
                 ]
             ]
@@ -79,3 +85,4 @@
                 search=false pager=false size=25 column_selector=true draw_empty=true
                 api=api_call editor=item_edit edit_button=line}
 </div>
+{include file="content/security-editor/modals/send-user-email.tpl"}

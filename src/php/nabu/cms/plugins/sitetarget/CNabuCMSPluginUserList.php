@@ -32,7 +32,7 @@ class CNabuCMSPluginuserList extends CNabuHTTPSiteTargetPluginAdapter
      * Site Target key for API Call
      * @var string
      */
-    const TARGET_API_CALL = 'api_users';
+    const TARGET_API_CALL = 'ajax_users';
     /**
      * Site Target key for Users Profile editor.
      * @var string
