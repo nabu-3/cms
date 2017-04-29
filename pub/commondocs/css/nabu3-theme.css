@@ -38,7 +38,7 @@ b, strong {
 
 label {
     color: #586e75;
-    font-family: 'Roboto Condensed';
+    font-family: 'Roboto Condensed', sans-serif;
     font-weight: normal;
     font-size: 14px;
 }
@@ -378,7 +378,7 @@ footer.navbar .navbar-nav > li > a + span {
     border-radius: 0;
     padding: 0;
     margin-bottom: 0;
-    font-family: "Roboto Condensed", sans-serif;;
+    font-family: "Roboto Condensed", sans-serif;
     font-weight: 300;
 }
 
@@ -659,7 +659,7 @@ footer.navbar .navbar-nav > li > a + span {
 
 .modal .modal-body aside {
 	background-color: #eee8d5;
-	font-family: 'Roboto Condensed';
+	font-family: 'Roboto Condensed', sans-serif;
 	font-size: 14px;
 	padding-top: 15px;
 	padding-bottom: 15px;
@@ -920,7 +920,7 @@ footer.navbar .navbar-nav > li > a + span {
 
 .list-messages > dd {
     margin-left: 24px;
-    font-family: 'Roboto Condensed';
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .list-messages > dd > .list-inline {
