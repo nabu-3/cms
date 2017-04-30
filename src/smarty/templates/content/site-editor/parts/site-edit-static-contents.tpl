@@ -1,4 +1,4 @@
-{nabu_assign var=info_section section=empty_languages}
+{nabu_assign var=info_section section=empty_static_contents}
 {nabu_raw_assign}
     table_metadata: [
         toolbar: [
@@ -29,27 +29,28 @@
             ]
         ]
         fields: [
-            language_id: [
-                title: 'Idioma'
-                order: 'alpha'
-                lookup: $nb_all_languages
-                lookup_field_name: 'name'
-                lookup_field_image: 'flag_url'
-                lookup_field_image_class: 'flag'
+            id: [
+                title: "ID"
+                order: "number"
+                align: "right"
                 id: true
             ]
-            status: [
-                title: 'Estado'
-                order: 'alpha'
-                align: 'center'
+            key: [
+                title: "Key"
+                order: "alpha"
+            ]
+            type: [
+                title: "Tipo"
+                order: "alpha"
+                align: "center"
                 lookup: [
-                    E: 'Activo'
-                    D: 'Bloqueado'
+                    H: "HTML"
+                    P: "Plano"
                 ]
             ]
-            title: [
-                title: 'Nombre'
-                order: 'alpha'
+            text: [
+                title: "Contenido"
+                order: "alpha"
             ]
         ]
         translations: [
@@ -62,7 +63,7 @@
         ]
     ]
 {/nabu_raw_assign}
-{nabu_assign var=ajax_editor cta=ajax_languages}
-{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_medioteca.id:'%s'}"}
-{include file="content/parts/table-splitted-panels.tpl" id=languages_list editor=$ajax_editor editor_mode=ajax
-         data=$edit_medioteca.translations metadata=$table_metadata section=languages_empty}
+{nabu_assign var=ajax_editor cta=ajax_static_contents}
+{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_site.id:'%s'}"}
+{include file="content/parts/table-splitted-panels.tpl" id=statics_list editor=$ajax_editor editor_mode=ajax
+         data=$edit_statics metadata=$table_metadata languages=$edit_site.languages}

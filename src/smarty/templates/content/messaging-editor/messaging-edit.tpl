@@ -1,12 +1,6 @@
 {nabu_model model="bootstrap-3.3.7"}
 <div class="label-list">
-    {if is_array($edit_messaging)}
-        {if $edit_messaging.is_fetched}
-            <span class="label label-info">ID #{$edit_messaging.id}</span>
-            {if nb_isValidGUID($edit_messaging.hash)}<span class="label label-info">GUID {$edit_messaging.hash}</span>{/if}
-            {if nb_isValidKey($edit_messaging.key)}<span class="label label-info">KEY {$edit_messaging.key}</span>{/if}
-        {/if}
-    {/if}
+    {include file="content/parts/common-labels.tpl" data=$edit_messaging}
 </div>
 <div id="edit_zone" class="edit-zone" data-toggle="nabu-multiform">
     {include file="content/parts/flag-selector.tpl" lang_list=$edit_messaging.languages default_lang=$edit_messaging.default_language_id}

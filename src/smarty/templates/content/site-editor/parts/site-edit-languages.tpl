@@ -38,18 +38,19 @@
                 lookup_field_image_class: 'flag'
                 id: true
             ]
-            status: [
+            enabled: [
                 title: 'Estado'
                 order: 'alpha'
                 align: 'center'
                 lookup: [
-                    E: 'Activo'
-                    D: 'Bloqueado'
+                    T: 'Activo'
+                    F: 'Bloqueado'
                 ]
             ]
-            title: [
+            name: [
                 title: 'Nombre'
                 order: 'alpha'
+                align: 'left'
             ]
         ]
         translations: [
@@ -63,6 +64,6 @@
     ]
 {/nabu_raw_assign}
 {nabu_assign var=ajax_editor cta=ajax_languages}
-{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_medioteca.id:'%s'}"}
+{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_site.id:'%s'}"}
 {include file="content/parts/table-splitted-panels.tpl" id=languages_list editor=$ajax_editor editor_mode=ajax
-         data=$edit_medioteca.translations metadata=$table_metadata section=languages_empty}
+         data=$edit_site.translations metadata=$table_metadata}

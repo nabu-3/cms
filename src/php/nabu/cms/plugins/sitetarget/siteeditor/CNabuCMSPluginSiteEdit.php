@@ -18,6 +18,7 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\siteeditor;
+use nabu\data\lang\CNabuLanguage;
 use nabu\data\site\CNabuSite;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
@@ -46,6 +47,7 @@ class CNabuCMSPluginSiteEdit extends CNabuHTTPSiteTargetPluginAdapter
             $id = $fragments[1];
             $this->title_part = '#' . $id;
             if (($this->edit_site = $this->nb_work_customer->getSite($id)) !== false &&
+                $this->edit_site->refresh(true, true) &&
                 ($translation = $this->edit_site->getTranslation($this->nb_language)) !== false &&
                 (strlen($this->title_part = $translation->getName()) === 0) &&
                 (strlen($this->title_part = $this->edit_site->getKey()) === 0)
@@ -70,6 +72,12 @@ class CNabuCMSPluginSiteEdit extends CNabuHTTPSiteTargetPluginAdapter
         $render->smartyAssign('edit_sitemaps', $this->edit_site->getSiteMaps(), $this->nb_language);
         $render->smartyAssign('title_part', $this->title_part);
         $render->smartyAssign('breadcrumb_part', $this->breadcrumb_part);
+
+        $render->smartyAssign(
+            'nb_all_languages',
+            CNabuLanguage::getAllLanguages(),
+            $this->nb_language
+        );
 
         return true;
     }

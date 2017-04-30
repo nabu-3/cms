@@ -5,6 +5,19 @@ $(document).ready(function()
         $(this).closest('form').get(0).submit();
     });
 
+    $('[data-toggle="nabu-table"]').each(function() {
+        var Self = this;
+        nabu.loadLibrary('Table', function() {
+            if (Self.nabuTable) {
+                Self.nabuTable.addEventListener(new Nabu.Event({
+                    onLoadEditor: function(e) {
+                        $('[data-toggle="nabu-lang-selector"]').nabuLangSelector('refresh');
+                    }
+                }));
+            }
+        });
+    });
+
     var modals = $('.modal form').closest('.modal');
     modals.find('form').each(function()
     {
