@@ -20,7 +20,7 @@
             {include file="content/site-editor/parts/site-edit-languages.tpl"}
         </div>
         <div role="tabpanel" class="tab-pane" id="targets">
-            {include file="content/site-editor/parts/site-target-list.tpl"}
+            {include file="content/site-editor/parts/site-edit-targets.tpl"}
         </div>
         <div role="tabpanel" class="tab-pane" id="sitemaps">
             {include file="content/site-editor/parts/site-map-tree.tpl"}
@@ -37,3 +37,4 @@
         </div>
     </div>
 </div>
+{include file="content/site-editor/modals/target-visual-editor.tpl"}

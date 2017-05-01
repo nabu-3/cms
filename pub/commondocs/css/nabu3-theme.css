@@ -638,6 +638,35 @@ footer.navbar .navbar-nav > li > a + span {
 }
 
 /** Modals **/
+.modal-full {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: auto;
+	margin: 0;
+}
+
+.modal-full .modal-content {
+    height: 100%;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -o-border-radius: 0;
+    border-radius: 0;
+    border: 1px solid #268bd2;
+    background-color: #fdf6e3;
+}
+
+.modal-full .modal-header {
+    background-color: #268bd2;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -o-border-radius: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #268bd2;
+}
+
 .modal-content {
 	border: 1px solid #cb4b16;
 }
