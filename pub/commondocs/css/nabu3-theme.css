@@ -649,7 +649,8 @@ footer.navbar .navbar-nav > li > a + span {
 }
 
 .modal-full .modal-content {
-    height: 100%;
+    position: relative;
+    height: calc(100% - 2px);
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     -o-border-radius: 0;
@@ -665,6 +666,12 @@ footer.navbar .navbar-nav > li > a + span {
     -o-border-radius: 0;
     border-radius: 0;
     border-bottom: 1px solid #268bd2;
+    height: 57px;
+}
+
+.modal-full .modal-body {
+    height: calc(100% - 57px);
+    padding: 0;
 }
 
 .modal-content {

@@ -15,10 +15,10 @@
     "require": {
         "nabu-3/composer-installer-plugin": ">=3.0",
         "nabu-3/provider-smarty-smarty": ">=0.0",
+        "nabu-3/provider-mxgraph-mxgraph": "3.7.2",
         "nabu-3/runtime-nbfw-lib": ">=3.0",
         "nabu-3/runtime-assets-ckeditor": ">=0.0",
-        "nabu-3/runtime-assets-papaparse": ">=0.0",
-        "nabu-3/runtime-assets-mxgraph": ">=0.0"
+        "nabu-3/runtime-assets-papaparse": ">=0.0"
     },
     "repositories": [
         {
