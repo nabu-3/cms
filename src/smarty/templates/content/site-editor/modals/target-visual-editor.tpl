@@ -4,7 +4,7 @@
     {nabu_modal_body}
         {nabu_assign var=cta_source cta=api_target_visual_editor}
         {if array_key_exists($nb_site.api_language_id, $cta_source.translations)}
-            {assign var=source_url value="{$cta_source.translations[$nb_site.api_language_id].final_url|sprintf:$nb_site.id}?lang={$nb_language.id}"}
+            {assign var=source_url value="{$cta_source.translations[$edit_site.api_language_id].final_url|sprintf:$edit_site.id}?lang={$nb_language.id}"}
             <div data-toggle="visual-editor" style="width: 100%; height: 100%;" data-source="{$source_url}"></div>
         {/if}
     {/nabu_modal_body}
