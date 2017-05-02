@@ -18,7 +18,11 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\siteeditor;
+use nabu\cms\visualeditor\site\CNabuCMSVisualEditorSiteBuilder;
+use nabu\data\lang\CNabuLanguage;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
+
+require_once "providers/mxgraph/mxgraph/3.7.2/mxServer.php";
 
 /**
  * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
@@ -28,13 +32,26 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
  */
 class CNabuCMSPluginSiteTargetVisualEditor extends CNabuHTTPSiteTargetPluginAdapter
 {
+    private $xml = null;
+
     public function prepareTarget()
     {
+        $lang = new CNabuLanguage($this->nb_request->getGETField('lang'));
+        $builder = new CNabuCMSVisualEditorSiteBuilder();
+
+        $builder->create();
+        $builder->fillFromSite($this->nb_site, $lang);
+
+        $this->xml = $builder->getModelAsXML();
+
         return true;
     }
 
     public function beforeDisplayTarget()
     {
+        $render = $this->nb_response->getRender();
+        $render->setXML($this->xml);
+
         return true;
     }
 }
