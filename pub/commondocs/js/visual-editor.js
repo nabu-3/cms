@@ -29,7 +29,10 @@ $(document).ready(function() {
                                     graph.setGridEnabled(true);
                                     graph.setGridSize(20);
                                     new mxRubberband(graph);
-                                    var layout = new mxHierarchicalLayout(graph, mxConstants.DIRECTION_WEST);
+                                    var layout = new mxHierarchicalLayout(graph, mxConstants.DIRECTION_NORTH);
+                                    /*var first = new mxFastOrganicLayout(graph);
+                                    var second = new mxParallelEdgeLayout(graph);
+                                    var layout = new mxCompositeLayout(graph, [first, second], first);*/
                                     var executeLayout = function(change, post)
                     				{
                     					graph.getModel().beginUpdate();
@@ -237,3 +240,31 @@ DocumentMultiShape.prototype.redrawPath = function(path, x, y, w, h, isForegroun
     }
 }
 mxCellRenderer.prototype.defaultShapes['document-multi'] = DocumentMultiShape;
+
+function ConditionalSelectorShape()
+{
+    mxCylinder.call(this);
+}
+mxUtils.extend(ConditionalSelectorShape, mxCylinder);
+ConditionalSelectorShape.prototype.redrawPath = function(path, x, y, w, h, isForeground)
+{
+    var fold = (w > 0 ? Math.round(w / 4) : 0);
+
+    if (isForeground) {
+
+    } else {
+        path.moveTo(fold, 0);
+        path.lineTo(w - fold, 0);
+        path.lineTo(w, h);
+        path.lineTo(0, h);
+        path.close();
+    }
+}
+mxCellRenderer.prototype.defaultShapes['conditional-selector'] = ConditionalSelectorShape;
+
+function ClusterShape()
+{
+    mxEllipse.call(this);
+}
+mxUtils.extend(ClusterShape, mxEllipse);
+mxCellRenderer.prototype.defaultShapes['cluster'] = ClusterShape;

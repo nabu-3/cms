@@ -23,7 +23,9 @@ use nabu\core\CNabuObject;
 use nabu\data\lang\CNabuLanguage;
 use nabu\data\lang\interfaces\INabuTranslation;
 use nabu\data\site\CNabuSite;
+use nabu\data\site\CNabuSiteMap;
 use nabu\data\site\CNabuSiteTarget;
+use nabu\data\site\CNabuSiteMapTree;
 
 require_once "providers/mxgraph/mxgraph/3.7.2/mxServer.php";
 
@@ -66,11 +68,11 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
 
     public function fillFromSite(CNabuSite $nb_site, CNabuLanguage $nb_language)
     {
-        $nb_target_list = $nb_site->getTargets();
-
         $parent = $this->graph->getDefaultParent();
 
         $this->model->beginUpdate();
+
+        $nb_target_list = $nb_site->getTargets();
 
         $nb_target_list->iterate(function($key, $nb_site_target) use ($nb_site, $nb_language, $parent) {
             if (($nb_translation = $nb_site_target->getTranslation($nb_language)) instanceof INabuTranslation ||
@@ -87,7 +89,7 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 $name = '#' . $nb_site_target->getId();
             }
             $shape = ($nb_site_target->getURLFilter() === CNabuSiteTarget::URL_TYPE_REGEXP ? 'page-multi' : 'page');
-            $this->graph->insertVertex($parent, 'st-' . $key, $name, 20, 20, 120, 160, "shape=$shape");
+            $this->graph->insertVertex($parent, 'st-' . $key, $name, 20, 20, 120, 160, "portConstraint=northsouth;shape=$shape");
             return true;
         });
 
@@ -103,7 +105,59 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
             return true;
         });
 
+        $nb_map_list = $nb_site->getSiteMaps();
+        $this->paintMaps($nb_site, $nb_language, $nb_map_list);
+
         $this->model->endUpdate();
+    }
+
+    private function paintMaps(CNabuSite $nb_site, CNabuLanguage $nb_language, CNabuSiteMapTree $nb_map_list)
+    {
+        $parent = $this->graph->getDefaultParent();
+
+        $nb_map_list->iterate(function($key, CNabuSiteMap $nb_site_map) use ($nb_site, $nb_language, $parent) {
+            if (($nb_translation = $nb_site_map->getTranslation($nb_language)) instanceof INabuTranslation ||
+                ($nb_translation = $nb_site_map->getTranslation($nb_site->getDefaultLanguageId())) instanceof INabuTranslation ||
+                ($nb_translation = $nb_site_map->getTranslation($nb_site->getApiLanguageId())) instanceof INabuTranslation
+            ) {
+                if (strlen($name = $nb_translation->getContent()) === 0 &&
+                    strlen($name = $nb_translation->getTitle()) === 0 &&
+                    strlen($name = $nb_translation->getKey()) === 0
+                ) {
+                    $name = '#' . $nb_site_map->getId();
+                }
+            } else {
+                $name = '#' . $nb_site_map->getId();
+            }
+
+            $nb_child_list = $nb_site_map->getChilds();
+            if (is_numeric($nb_parent_id = $nb_site_map->getParentId())) {
+                $from = $this->model->cells['sm-' . $nb_parent_id];
+            }
+
+            if ($nb_child_list->getSize() > 0 || $nb_site_map->getLevel() === 1) {
+                if ($nb_site_map->getUseURI() === 'T' && isset($from) && is_numeric($nb_st_id = $nb_site_map->getSiteTargetId())) {
+                    $this->graph->insertVertex($parent, 'smclu-' . $key, $name, 20, 20, 40, 40, "portConstraint=northsouth;shape=cluster");
+                    $cluster = $this->model->cells['smclu-' . $key];
+                    $this->graph->insertEdge($parent, 'smclue-' . $key, '', $from, $cluster);
+                }
+                $to_id = 'sm-' . $key;
+                $this->graph->insertVertex($parent, $to_id, $name, 20, 20, 120, 40, "portConstraint=northsouth;shape=conditional-selector");
+                if ($nb_site_map->getParentId() !== null) {
+                    $to = $this->model->cells[$to_id];
+                    $this->graph->insertEdge($parent, 'smc-' . $key, '', (isset($cluster) ? $cluster : $from), $to);
+                }
+            }
+
+            if ($nb_site_map->getUseURI() === 'T' && isset($from) && is_numeric($nb_st_id = $nb_site_map->getSiteTargetId())) {
+                $to = $this->model->cells['st-' . $nb_st_id];
+                $this->graph->insertEdge($parent, 'smt-' . $nb_st_id, (isset($cluster) ? '' : $name), (isset($cluster) ? $cluster : $from), $to);
+            }
+
+            $this->paintMaps($nb_site, $nb_language, $nb_child_list);
+
+            return true;
+        });
     }
 
     public function getModelAsXML()
