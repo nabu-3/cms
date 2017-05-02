@@ -33,6 +33,7 @@ class CNabuCMSPluginSiteList extends CNabuHTTPSiteTargetPluginAdapter
 
     public function prepareTarget()
     {
+        $this->nb_work_customer->refresh(true, false);
         $this->site_data = $this->nb_work_customer->getSites(true);
 
         return true;

@@ -101,12 +101,15 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 $from = $this->model->cells[$from_id];
                 $to = $this->model->cells[$to_id];
                 $this->graph->insertEdge($parent, 'cta-' . $nb_site_target_cta->getId(), $nb_site_target_cta->getKey(), $from, $to, 'color=#FF0000');
+                return true;
             });
             return true;
         });
 
+        /*
         $nb_map_list = $nb_site->getSiteMaps();
         $this->paintMaps($nb_site, $nb_language, $nb_map_list);
+        */
 
         $this->model->endUpdate();
     }

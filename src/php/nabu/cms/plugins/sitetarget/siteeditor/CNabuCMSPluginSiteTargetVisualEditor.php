@@ -43,8 +43,9 @@ class CNabuCMSPluginSiteTargetVisualEditor extends CNabuHTTPSiteTargetPluginAdap
     {
         if (count($fragments = $this->nb_request->getRegExprURLFragments()) === 2) {
             if (is_numeric($fragments[1])) {
-                $this->nb_work_customer->refresh();
+                $this->nb_work_customer->refresh(true, false);
                 $this->edit_site = $this->nb_work_customer->getSite($fragments[1]);
+                $this->edit_site->refresh(true, true);
             }
         }
 
