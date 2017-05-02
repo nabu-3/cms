@@ -18,8 +18,10 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\siteeditor;
+use \SimpleXMLElement;
 use nabu\cms\visualeditor\site\CNabuCMSVisualEditorSiteBuilder;
 use nabu\data\lang\CNabuLanguage;
+use nabu\data\site\CNabuSite;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 require_once "providers/mxgraph/mxgraph/3.7.2/mxServer.php";
@@ -32,17 +34,29 @@ require_once "providers/mxgraph/mxgraph/3.7.2/mxServer.php";
  */
 class CNabuCMSPluginSiteTargetVisualEditor extends CNabuHTTPSiteTargetPluginAdapter
 {
+    /** @var CNabuSite $edit_site Site instance */
+    private $edit_site = null;
+    /** @var SimpleXMLElement $xml XML Tree representing the Graph Model */
     private $xml = null;
 
     public function prepareTarget()
     {
-        $lang = new CNabuLanguage($this->nb_request->getGETField('lang'));
-        $builder = new CNabuCMSVisualEditorSiteBuilder();
+        if (count($fragments = $this->nb_request->getRegExprURLFragments()) === 2) {
+            if (is_numeric($fragments[1])) {
+                $this->nb_work_customer->refresh();
+                $this->edit_site = $this->nb_work_customer->getSite($fragments[1]);
+            }
+        }
 
-        $builder->create();
-        $builder->fillFromSite($this->nb_site, $lang);
+        if ($this->edit_site instanceof CNabuSite) {
+            $lang = new CNabuLanguage($this->nb_request->getGETField('lang'));
+            $builder = new CNabuCMSVisualEditorSiteBuilder();
 
-        $this->xml = $builder->getModelAsXML();
+            $builder->create();
+            $builder->fillFromSite($this->edit_site, $lang);
+
+            $this->xml = $builder->getModelAsXML();
+        }
 
         return true;
     }
