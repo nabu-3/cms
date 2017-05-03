@@ -40,7 +40,6 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
     public function prepareTarget()
     {
         $retval = true;
-
         if ($this->nb_site_target->getKey() === 'my_profile') {
             $this->edit_user = $this->nb_user;
             $this->edit_user->refresh();
@@ -50,7 +49,7 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
             ) {
                 $id = $fragments[1];
                 $this->edit_user = new CNabuUser($id);
-                if ($this->edit_user->isNew() || !$this->edit_user->validateCustomer($this->nb_customer)) {
+                if ($this->edit_user->isNew() || !$this->edit_user->validateCustomer($this->nb_work_customer)) {
                     $this->edit_user = null;
                     $retval = $this->nb_site->getTargetByKey('user_list');
                 } else {
@@ -75,6 +74,7 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
 
     public function commandUpdate()
     {
+        error_log("**** HOLA **** " . __METHOD__);
         if ($this->nb_request->getMethod() === CNabuHTTPRequest::METHOD_POST) {
             $this->nb_request->updateObjectFromPost(
                 $this->edit_user,
@@ -99,6 +99,7 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
 
     public function beforeDisplayTarget()
     {
+        error_log("**** HOLA **** " . __METHOD__);
         $render = $this->nb_response->getRender();
         $render->smartyAssign('edit_user', $this->edit_user);
         $render->smartyAssign('title_part', $this->title_part);
