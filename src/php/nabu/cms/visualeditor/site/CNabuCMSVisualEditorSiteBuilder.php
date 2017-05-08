@@ -89,7 +89,10 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 $name = '#' . $nb_site_target->getId();
             }
             $shape = ($nb_site_target->getURLFilter() === CNabuSiteTarget::URL_TYPE_REGEXP ? 'page-multi' : 'page');
-            $this->graph->insertVertex($parent, 'st-' . $key, $name, 20, 20, 120, 160, "portConstraint=northsouth;shape=$shape");
+            $this->graph->insertVertex($parent, 'st-' . $key, $name, 20, 20, 120, 160, "portConstraint=northsouth;shape=$shape;edgeStyle=orthogonalEdgeStyle;");
+            $vertex = $this->model->cells['st-' . $key];
+            $vertex->type = $shape;
+            $vertex->objectId = $key;
             return true;
         });
 
@@ -100,7 +103,10 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 $to_id = 'st-' . $nb_site_target_cta->getTargetId();
                 $from = $this->model->cells[$from_id];
                 $to = $this->model->cells[$to_id];
-                $this->graph->insertEdge($parent, 'cta-' . $nb_site_target_cta->getId(), $nb_site_target_cta->getKey(), $from, $to, 'color=#FF0000');
+                $this->graph->insertEdge($parent, 'cta-' . $key, $nb_site_target_cta->getKey(), $from, $to, 'edgeStyle=orthogonalEdgeStyle;');
+                $edge = $this->model->cells['cta-' . $key];
+                $edge->type = 'cta';
+                $edge->objectId = $key;
                 return true;
             });
             return true;
@@ -108,13 +114,13 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
 
         /*
         $nb_map_list = $nb_site->getSiteMaps();
-        $this->paintMaps($nb_site, $nb_language, $nb_map_list);
+        $this->paintMaps($nb_site, $nb_language, $nb_map_list, true);
         */
 
         $this->model->endUpdate();
     }
 
-    private function paintMaps(CNabuSite $nb_site, CNabuLanguage $nb_language, CNabuSiteMapTree $nb_map_list)
+    private function paintMaps(CNabuSite $nb_site, CNabuLanguage $nb_language, CNabuSiteMapTree $nb_map_list, bool $root = false)
     {
         $parent = $this->graph->getDefaultParent();
 

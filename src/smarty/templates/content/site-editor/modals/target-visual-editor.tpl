@@ -1,4 +1,12 @@
 <style type="text/css">
+    [data-toggle="visual-editor"] {
+        z-index: 0;
+    }
+    .modal-body .btn-toolbar:first-child {
+    	margin: 0;
+    	padding: 5px 10px;
+    	background-color: #586e75;
+    }
     body div.mxPopupMenu {
         -webkit-box-shadow: 3px 3px 6px #C0C0C0;
         -moz-box-shadow: 3px 3px 6px #C0C0C0;
@@ -47,7 +55,7 @@
                 <div class="btn-group">
                     <button class="btn btn-sm btn-default btn-zoom-in"><i class="fa fa-search-plus"></i></button>
                     <button class="btn btn-sm btn-default btn-zoom-actual">1:1</button>
-                    <button class="btn btn-sm btn-default btn-zoom-fit"><i class="fa fa-arrows"></i></button>
+                    <button class="btn btn-sm btn-default btn-zoom-fit"><i class="fa fa-arrows-alt"></i></button>
                     <button class="btn btn-sm btn-default btn-zoom-out"><i class="fa fa-search-minus"></i></button>
                 </div>
             </div>
