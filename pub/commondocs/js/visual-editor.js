@@ -18,6 +18,7 @@ $(document).ready(function() {
                             var ajax = new Nabu.Ajax.Connector(data.source, 'GET');
                             ajax.addEventListener(new Nabu.Event({
                                 onLoad: function(e) {
+                                    mxEvent.disableContextMenu(document.body);
                                     editor.readGraphModel(e.params.xml.documentElement);
                                     var graph = editor.graph;
                                     var model = graph.getModel();
@@ -28,6 +29,8 @@ $(document).ready(function() {
                     				graph.view.setTranslate(20, 20);
                                     graph.setGridEnabled(true);
                                     graph.setGridSize(20);
+                                    style = graph.getStylesheet().getDefaultVertexStyle();
+                                    style[mxConstants.STYLE_FILLCOLOR] = '#adc5ff';
                                     new mxRubberband(graph);
                                     var layout = new mxHierarchicalLayout(graph, mxConstants.DIRECTION_NORTH);
                                     /*var first = new mxFastOrganicLayout(graph);
@@ -77,6 +80,69 @@ $(document).ready(function() {
                     					executeLayout();
                     				});
                                     executeLayout();
+
+                                    // Configures automatic expand on mouseover
+                                    graph.popupMenuHandler.autoExpand = true;
+
+                                    // Installs context menu
+                                    graph.popupMenuHandler.factoryMethod = function(menu, cell, evt)
+                                    {
+                                        menu.addItem('Item 1', null, function()
+                                        {
+                                            alert('Item 1');
+                                        });
+
+                                        menu.addItem('Item 2', null, function()
+                                        {
+                                            alert('Item 2');
+                                        });
+
+                                        menu.addSeparator();
+
+                                        var submenu1 = menu.addItem('Submenu 1', null, null);
+
+                                        menu.addItem('Subitem 1', null, function()
+                                        {
+                                            alert('Subitem 1');
+                                        }, submenu1);
+                                        menu.addItem('Subitem 1', null, function()
+                                        {
+                                            alert('Subitem 2');
+                                        }, submenu1);
+                                    };
+
+                                    $('#modal_visual_editor_targets .btn-zoom-in').on('click', function() {
+                                        graph.zoomIn();
+                                    });
+
+                                    $('#modal_visual_editor_targets .btn-zoom-out').on('click', function() {
+                                        graph.zoomOut();
+                                    });
+
+                                    $('#modal_visual_editor_targets .btn-zoom-actual').on('click', function() {
+                                        graph.zoomActual();
+                                    });
+
+                                    $('#modal_visual_editor_targets .btn-zoom-fit').on('click', function() {
+                                        console.log('zoom Fit');
+                                        /*
+                                        console.log(graph.getGraphBounds());
+                                        var bounds_graph = graph.getGraphBounds();
+                                        var width = $('#modal_visual_editor_targets [data-toggle="visual-editor"]')[0].clientWidth;
+                                        var factor = (width - 40) / (bounds_graph.width);
+                                        graph.zoomTo(factor, false);
+                                        graph.center(true, false);
+                                        */
+                                        var bounds_graph = graph.getGraphBounds();
+                                        var bounds = $('#modal_visual_editor_targets [data-toggle="visual-editor"]')[0];
+                                        console.log(bounds);
+                                        graph.zoomToRect(
+                                            {"x": 0, "y": 0,
+                                             "width": bounds_graph.width + (bounds_graph.x * 2),
+                                             "height": bounds_graph.height + (bounds_graph.y * 2)
+                                            }
+                                        );
+                                    });
                                 }
                             }));
                             ajax.execute();
