@@ -1,4 +1,5 @@
 {nabu_model model="bootstrap-3.3.7"}
+{nabu_assign var=info_section section=empty_targets}
 {nabu_raw_assign}
     lookup_path: [
         U: "URL Estática"
@@ -104,11 +105,19 @@
                 align: "left"
             ]
         ]
+        translations: [
+            search_button: "{nabu_static key=btn_search}"
+            columns_button: "{nabu_static key=btn_columns}"
+            show_all_columns: "{nabu_static key=sel_show_all}"
+            hide_all_columns: "{nabu_static key=sel_hide_all}"
+            empty_message: "{"\""|str_replace:"\\\"":$info_section.translation.content}"
+            translation_not_available: "{nabu_static key=lbl_translation_not_available}"
+        ]
     ]
 {/nabu_raw_assign}
 {nabu_assign var=edit_target_url cta=target_edit}
 {assign var=edit_target_url value={$edit_target_url.translation.final_url|sprintf:$edit_site.id:'%s'}}
 {nabu_table id=site_edit_targets data=$edit_targets metadata=$table_metadata selectable=true
-            bordered=true striped=true hover=true condensed=true
+            draw_empty=true bordered=true striped=true hover=true condensed=true
             search=false pager=false size=25 column_selector=true
             api=api_call editor=$edit_target_url edit_button=line}

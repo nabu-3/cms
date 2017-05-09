@@ -25,7 +25,8 @@ $(document).ready(function() {
                                     graph.setPanning(true);
                     				graph.panningHandler.useLeftButtonForPanning = false;
                     				graph.setAllowDanglingEdges(false);
-                    				graph.connectionHandler.select = false;
+                                    graph.setConnectable(true);
+                    				//graph.connectionHandler.select = false;
                     				graph.view.setTranslate(20, 20);
                                     graph.graphHandler.scaleGrid = true;
                                     //graph.setGridEnabled(true);
@@ -235,29 +236,30 @@ $(document).ready(function() {
                                                 var mxPoint = graph.getPointForEvent(evt);
                                                 graph.insertVertex(parent, null, 'Nuevo área condicional', mxPoint.x, mxPoint.y, 280, 100, 'shape=conditional-area');
                                             }, submenu);
-                                        } else if (cell.type === 'page') {
-                                            menu.addItem('Item 1', null, function()
+                                        } else {
+                                            var submenu = menu.addItem('Orden', null, null);
+                                            menu.addItem('Enviar al fondo', null, function()
                                             {
-                                                alert('Item 1');
-                                            });
-
-                                            menu.addItem('Item 2', null, function()
+                                                var parent = cell.getParent();
+                                                if (parent !== null) {
+                                                    model.beginUpdate();
+                                                    cell.removeFromParent();
+                                                    parent.insert(cell, 0);
+                                                    model.endUpdate();
+                                                    graph.graphModelChanged([parent, cell]);
+                                                }
+                                            }, submenu);
+                                            menu.addItem('Traer al frente', null, function()
                                             {
-                                                alert('Item 2');
-                                            });
-
-                                            menu.addSeparator();
-
-                                            var submenu1 = menu.addItem('Submenu 1', null, null);
-
-                                            menu.addItem('Subitem 1', null, function()
-                                            {
-                                                alert('Subitem 1');
-                                            }, submenu1);
-                                            menu.addItem('Subitem 2', null, function()
-                                            {
-                                                alert('Subitem 2');
-                                            }, submenu1);
+                                                var parent = cell.getParent();
+                                                if (parent !== null) {
+                                                    model.beginUpdate();
+                                                    cell.removeFromParent();
+                                                    parent.insert(cell);
+                                                    model.endUpdate();
+                                                    graph.graphModelChanged([parent, cell]);
+                                                }
+                                            }, submenu);
                                         }
                                     };
 
@@ -573,8 +575,6 @@ MultipleChoiceShape.prototype.redrawPath = function(path, x, y, w, h, isForegrou
 }
 MultipleChoiceShape.prototype.apply = function(state)
 {
-    console.log(state);
-    console.log(this);
     this.isDashed = true;
     mxTriangle.prototype.apply.apply(this, arguments);
     this.state = state;
