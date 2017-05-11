@@ -64,3 +64,4 @@
         {/if}
     {/nabu_modal_body}
 {/nabu_modal}
+{include file="content/site-editor/visual/new-page.tpl"}

@@ -186,7 +186,18 @@ $(document).ready(function() {
                                             menu.addItem('Página', null, function()
                                             {
                                                 var mxPoint = graph.getPointForEvent(evt);
-                                                graph.insertVertex(parent, null, 'Nueva página', mxPoint.x, mxPoint.y, 120, 160, 'shape=page;');
+                                                var ve_modal = $('#ve_new_page');
+                                                ve_modal.find('form')[0].reset();
+                                                ve_modal.modal('show');
+                                                ve_modal.on('hide.bs.modal', function() {
+                                                });
+                                                ve_modal.find('.btn-success').on('click', function() {
+                                                    $(this).unbind('click');
+                                                    var title = ve_modal.find('[name^="title["]').val();
+                                                    graph.insertVertex(parent, null, title, mxPoint.x, mxPoint.y, 120, 160, 'shape=page;');
+                                                    ve_modal.modal('hide');
+                                                });
+
                                             }, submenu);
                                             menu.addItem('Página Múltiple', null, function()
                                             {

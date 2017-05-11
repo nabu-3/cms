@@ -37,4 +37,4 @@
         </div>
     </div>
 </div>
-{include file="content/site-editor/modals/target-visual-editor.tpl"}
+{include file="content/site-editor/visual/target-editor.tpl"}
