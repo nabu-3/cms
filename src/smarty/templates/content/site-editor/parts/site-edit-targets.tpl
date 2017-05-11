@@ -47,7 +47,7 @@
                             type: "info"
                             icon: "fa fa-puzzle-piece"
                             apply: "all"
-                            modal: modal_visual_editor_targets
+                            modal: "modal_visual_editor_targets"
                         ]
                     ]
                 ]

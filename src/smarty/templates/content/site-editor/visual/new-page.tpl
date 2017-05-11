@@ -4,13 +4,17 @@
 {nabu_assign var=api cta=api_site_target}
     {if array_key_exists($nb_site.api_language_id, $api.translations)}
         {nabu_form layout="horizontal:2:10" method="ajax-post" action=$api.translations[$nb_site.api_language_id].final_url|sprintf:$edit_site.id:""}
+            {nabu_form_variable from=$edit_site field=http_support name=use_http}
+            {nabu_form_variable from=$edit_site field=https_support name=use_https}
+            {nabu_form_variable name=url_filter value=U}
+            {nabu_form_variable name=zone value=B}
             {nabu_modal_header dismiss=true aria_label_id=ve_new_page_head}{$section_new_page.translation.title}{/nabu_modal_header}
             {nabu_modal_body}
                 <div class="row">
                     <aside class="col-sm-3">{$section_new_page.translation.opening}</aside>
                     <section class="col-sm-9 col-sm-offset-3">
-                        {nabu_form_textbox label="{nabu_static key=lbl_title}" name=title index=$nb_language.id maxlength=100 help="Escribe el título de la página."}
-                        {nabu_form_textbox label="{nabu_static key=lbl_url}" name=url index=$nb_language.id maxlength=100 help="Escribe la URL de la página."}
+                        {nabu_form_textbox label="{nabu_static key=lbl_title}" name=title index=$edit_site.default_language_id maxlength=100 help="Escribe el título de la página."}
+                        {nabu_form_textbox label="{nabu_static key=lbl_url}" name=url index=$edit_site.default_language_id maxlength=100 help="Escribe la URL de la página."}
                     </section>
                 </div>
             {/nabu_modal_body}

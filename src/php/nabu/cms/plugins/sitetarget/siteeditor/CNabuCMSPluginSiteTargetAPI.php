@@ -21,6 +21,7 @@ namespace nabu\cms\plugins\sitetarget\siteeditor;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
 use nabu\data\site\CNabuSite;
 use nabu\data\site\CNabuSiteTarget;
+use nabu\data\site\CNabuSiteTargetCTAList;
 use nabu\data\site\CNabuSiteTargetLanguage;
 
 /**
@@ -77,42 +78,67 @@ class CNabuCMSPluginSiteTargetAPI extends CNabuCMSPluginAbstractAPI
         if ($this->nb_site_target_edit instanceof CNabuSiteTarget) {
             $this->nb_request->updateObjectFromPost($this->nb_site_target_edit,
                 array(
-                    'mimetype_id' => 'nb_mimetype_id',
+                    'hash' => 'nb_site_target_hash',
                     'order' => 'nb_site_target_order',
-                    'output_type' => 'nb_site_target_output_type',
                     'url_filter' => 'nb_site_target_url_filter',
-                    'zone' => 'nb_site_target_zone'
+                    'key' => 'nb_site_target_key',
+                    'zone' => 'nb_site_target_zone',
+                    'use_http' => 'nb_site_target_use_http',
+                    'use_https' => 'nb_site_target_use_https',
+                    'output_type' => 'nb_site_target_output_type',
+                    'mimetype_id' => 'nb_mimetype_id',
+                    'smarty_display_file' => 'nb_site_target_smarty_display_file',
+                    'smarty_content_file' => 'nb_site_target_smarty_content_file',
+                    'smarty_debugging' => 'nb_site_target_smarty_debugging',
+                    'plugin_name' => 'nb_site_target_plugin_name',
+                    'php_trace' => 'nb_site_target_php_trace',
+                    'ignore_policies' => 'nb_site_target_ignore_policies',
+                    'use_commerce' => 'nb_site_target_use_commerce',
+                    'use_apps' => 'nb_site_target_use_apps',
+                    'dynamic_cache_control' => 'nb_site_target_dynamic_cache_control',
+                    'dynamic_cache_max_age' => 'nb_site_target_dynamic_cache_max_age',
+                    'script_file' => 'nb_site_target_script_file',
+                    'css_file' => 'nb_site_target_css_file',
+                    'css_class' => 'nb_site_target_css_class',
+                    'commands' => 'nb_site_target_commands',
+                    'meta_robots' => 'nb_site_target_meta_robots',
+                    'icon' => 'nb_site_target_icon',
+                    'apps_slot' => 'nb_site_target_apps_slot'
                 )
             );
-        }
 
-        if ($this->nb_site_target_edit->save()) {
-            $languages = $this->nb_request->getCombinedPostIndexes(array('title'));
-            if (count($languages) > 0) {
-                foreach ($languages as $lang_id) {
-                    $nb_translation = $this->nb_site_target->getTranslation($lang_id);
-                    if (!$nb_translation) {
-                        $nb_translation = new CNabuSiteTargetLanguage();
-                        $nb_translation->setSiteTargetId($this->nb_site_target_edit->getId());
-                        $nb_translation->setLanguageId($lang_id);
-                        $this->nb_site_target_edit->setTranslation($nb_translation);
-                    }
-                    $this->nb_request->updateObjectFromPost(
-                        $nb_translation,
-                        array(
-                            'title' => 'nb_site_target_lang_title',
-                            'url' => 'nb_site_target_lang_url'
-                        ),
-                        null,
-                        null,
-                        $lang_id
-                    );
-                    $nb_translation->save();
-                }
+            if ($this->nb_request->hasPOSTField('attributes')) {
+                $this->nb_site_target_edit->setAttributes($this->nb_request->getPOSTField('attributes'));
             }
 
-            $this->setStatusOK();
-            $this->setData($this->nb_site_target_edit->getTreeData(null, true));
+            if ($this->nb_site_target_edit->save()) {
+                $languages = $this->nb_request->getCombinedPostIndexes(array('title'));
+                if (count($languages) > 0) {
+                    foreach ($languages as $lang_id) {
+                        $nb_translation = $this->nb_site_target->getTranslation($lang_id);
+                        if (!$nb_translation) {
+                            $nb_translation = new CNabuSiteTargetLanguage();
+                            $nb_translation->setSiteTargetId($this->nb_site_target_edit->getId());
+                            $nb_translation->setLanguageId($lang_id);
+                            $this->nb_site_target_edit->setTranslation($nb_translation);
+                        }
+                        $this->nb_request->updateObjectFromPost(
+                            $nb_translation,
+                            array(
+                                'title' => 'nb_site_target_lang_title',
+                                'url' => 'nb_site_target_lang_url'
+                            ),
+                            null,
+                            null,
+                            $lang_id
+                        );
+                        $nb_translation->save();
+                    }
+                }
+
+                $this->setStatusOK();
+                $this->setData($this->nb_site_target_edit->getTreeData(null, true));
+            }
         }
 
         return true;
