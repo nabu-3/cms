@@ -26,6 +26,9 @@ use nabu\data\site\CNabuSite;
 use nabu\data\site\CNabuSiteMap;
 use nabu\data\site\CNabuSiteTarget;
 use nabu\data\site\CNabuSiteMapTree;
+use nabu\visual\site\CNabuSiteVisualEditorItem;
+use nabu\visual\site\CNabuSiteVisualEditorItemList;
+use nabu\visual\site\base\CNabuSiteVisualEditorItemListBase;
 
 require_once "providers/mxgraph/mxgraph/3.7.2/mxServer.php";
 
@@ -68,13 +71,15 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
 
     public function fillFromSite(CNabuSite $nb_site, CNabuLanguage $nb_language)
     {
+        $vr_site_cell_list = new CNabuSiteVisualEditorItemList($nb_site);
+
         $parent = $this->graph->getDefaultParent();
 
         $this->model->beginUpdate();
 
         $nb_target_list = $nb_site->getTargets();
 
-        $nb_target_list->iterate(function($key, $nb_site_target) use ($nb_site, $nb_language, $parent) {
+        $nb_target_list->iterate(function($key, $nb_site_target) use ($nb_site, $nb_language, $parent, $vr_site_cell_list) {
             if (($nb_translation = $nb_site_target->getTranslation($nb_language)) instanceof INabuTranslation ||
                 ($nb_translation = $nb_site_target->getTranslation($nb_site->getDefaultLanguageId())) instanceof INabuTranslation ||
                 ($nb_translation = $nb_site_target->getTranslation($nb_site->getApiLanguageId())) instanceof INabuTranslation
@@ -89,7 +94,23 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 $name = '#' . $nb_site_target->getId();
             }
             $shape = ($nb_site_target->getURLFilter() === CNabuSiteTarget::URL_TYPE_REGEXP ? 'page-multi' : 'page');
-            $this->graph->insertVertex($parent, 'st-' . $key, $name, 20, 20, 120, 160, "portConstraint=northsouth;shape=$shape;edgeStyle=orthogonalEdgeStyle;");
+            $vr_cell = $vr_site_cell_list->getItem('st-' . $key);
+            if (!$vr_cell) {
+                $vr_cell = new CNabuSiteVisualEditorItem();
+                $vr_cell->setSite($nb_site);
+                $vr_cell->setVRId('st-' . $key);
+                $vr_cell->setX(20);
+                $vr_cell->setY(20);
+                $vr_cell->setWidth(120);
+                $vr_cell->setHeight(160);
+                $vr_cell->save();
+            }
+            $this->graph->insertVertex(
+                $parent, 'st-' . $key, $name,
+                $vr_cell->getX(), $vr_cell->getY(),
+                $vr_cell->getWidth(), $vr_cell->getHeight(),
+                "portConstraint=north;shape=$shape;edgeStyle=orthogonalEdgeStyle;whiteSpace=wrap;"
+            );
             $vertex = $this->model->cells['st-' . $key];
             $vertex->type = $shape;
             $vertex->objectId = $key;
@@ -103,7 +124,7 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 $to_id = 'st-' . $nb_site_target_cta->getTargetId();
                 $from = $this->model->cells[$from_id];
                 $to = $this->model->cells[$to_id];
-                $this->graph->insertEdge($parent, 'cta-' . $key, $nb_site_target_cta->getKey(), $from, $to, 'edgeStyle=orthogonalEdgeStyle;');
+                $this->graph->insertEdge($parent, 'cta-' . $key, $nb_site_target_cta->getKey(), $from, $to, 'edgeStyle=orthogonalEdgeStyle;whiteSpace=wrap;');
                 $edge = $this->model->cells['cta-' . $key];
                 $edge->type = 'cta';
                 $edge->objectId = $key;
@@ -146,12 +167,12 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
 
             if ($nb_child_list->getSize() > 0 || $nb_site_map->getLevel() === 1) {
                 if ($nb_site_map->getUseURI() === 'T' && isset($from) && is_numeric($nb_st_id = $nb_site_map->getSiteTargetId())) {
-                    $this->graph->insertVertex($parent, 'smclu-' . $key, $name, 20, 20, 40, 40, "portConstraint=northsouth;shape=cluster");
+                    $this->graph->insertVertex($parent, 'smclu-' . $key, $name, 20, 20, 40, 40, "portConstraint=northsouth;shape=cluster;whiteSpace=wrap;");
                     $cluster = $this->model->cells['smclu-' . $key];
                     $this->graph->insertEdge($parent, 'smclue-' . $key, '', $from, $cluster);
                 }
                 $to_id = 'sm-' . $key;
-                $this->graph->insertVertex($parent, $to_id, $name, 20, 20, 120, 40, "portConstraint=northsouth;shape=conditional-selector");
+                $this->graph->insertVertex($parent, $to_id, $name, 20, 20, 120, 40, "portConstraint=northsouth;shape=conditional-selector;whiteSpace=wrap;");
                 if ($nb_site_map->getParentId() !== null) {
                     $to = $this->model->cells[$to_id];
                     $this->graph->insertEdge($parent, 'smc-' . $key, '', (isset($cluster) ? $cluster : $from), $to);

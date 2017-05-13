@@ -32,7 +32,7 @@ require_once "providers/mxgraph/mxgraph/3.7.2/mxServer.php";
  * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget\siteeditor
  */
-class CNabuCMSPluginSiteTargetVisualEditor extends CNabuHTTPSiteTargetPluginAdapter
+class CNabuCMSPluginSiteVisualEditor extends CNabuHTTPSiteTargetPluginAdapter
 {
     /** @var CNabuSite $edit_site Site instance */
     private $edit_site = null;

@@ -126,7 +126,17 @@ class CNabuCMSPluginSiteTargetAPI extends CNabuCMSPluginAbstractAPI
                             $nb_translation,
                             array(
                                 'title' => 'nb_site_target_lang_title',
-                                'url' => 'nb_site_target_lang_url'
+                                'subtitle' => 'nb_site_target_lang_subtitle',
+                                'opening' => 'nb_site_target_lang_opening',
+                                'content' => 'nb_site_target_lang_content',
+                                'footer' => 'nb_site_target_lang_footer',
+                                'aside' => 'nb_site_target_lang_aside',
+                                'main_image' => 'nb_site_target_lang_main_image',
+                                'url' => 'nb_site_target_lang_url',
+                                'url_rebuild' => 'nb_site_target_lang_url_rebuild',
+                                'head_title' => 'nb_site_target_lang_head_title',
+                                'meta_description' => 'nb_site_target_lang_meta_description',
+                                'meta_keywords' => 'nb_site_target_lang_meta_keywords'
                             ),
                             null,
                             null,

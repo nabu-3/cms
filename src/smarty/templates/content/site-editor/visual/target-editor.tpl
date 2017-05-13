@@ -49,7 +49,7 @@
 {nabu_modal id=modal_visual_editor_targets size=full caller=site_edit_targets aria_labelledby=modal_visual_editor_targets_head}
     {nabu_modal_header dismiss=true aria_label_id=modal_download_head}nabu-3 Visual Editor{/nabu_modal_header}
     {nabu_modal_body}
-        {nabu_assign var=cta_source cta=api_target_visual_editor}
+        {nabu_assign var=cta_source cta=api_site_visual_editor}
         {if array_key_exists($nb_site.api_language_id, $cta_source.translations)}
             <div class="btn-toolbar">
                 <div class="btn-group">

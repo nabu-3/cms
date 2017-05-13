@@ -23,16 +23,90 @@ $(document).ready(function() {
                                     var graph = editor.graph;
                                     var model = graph.getModel();
                                     graph.setPanning(true);
+                                    graph.setHtmlLabels(true);
                     				graph.panningHandler.useLeftButtonForPanning = false;
-                    				graph.setAllowDanglingEdges(false);
+                    				//graph.setAllowDanglingEdges(false);
                                     graph.setConnectable(true);
                     				//graph.connectionHandler.select = false;
                     				graph.view.setTranslate(20, 20);
                                     graph.graphHandler.scaleGrid = true;
                                     //graph.setGridEnabled(true);
                                     //graph.setGridSize(20);
-                                    style = graph.getStylesheet().getDefaultVertexStyle();
+                                    var style = graph.getStylesheet().getDefaultVertexStyle();
                                     style[mxConstants.STYLE_FILLCOLOR] = '#ffffff';
+
+                                    style = graph.getStylesheet().getDefaultEdgeStyle();
+                    				style[mxConstants.STYLE_ROUNDED] = false;
+                    				style[mxConstants.STYLE_EDGE] = mxEdgeStyle.ElbowConnector;
+
+                                    graph.addListener(mxEvent.CELLS_RESIZED, function (sender, evt) {
+                                        console.log(evt);
+                                        if (evt.properties.cells.length > 0) {
+                                            saveCellsGeometry(evt.properties.cells);
+                                        }
+                                    });
+
+                                    graph.addListener(mxEvent.CELLS_MOVED, function (sender, evt) {
+                                        if (evt.properties.cells.length > 0) {
+                                            saveCellsGeometry(evt.properties.cells);
+                                        }
+                                    });
+                    				graph.alternateEdgeStyle = 'elbow=vertical';
+
+                                    // Changes the default edge style
+                    				//graph.getStylesheet().getDefaultEdgeStyle()['edgeStyle'] = 'orthogonalEdgeStyle';
+                    				//delete graph.getStylesheet().getDefaultEdgeStyle()['endArrow'];
+
+                    				// Implements the connect preview
+                                    /*
+                    				graph.connectionHandler.createEdgeState = function(me)
+                    				{
+                    					var edge = graph.createEdge(null, null, null, null, null);
+
+                    					return new mxCellState(this.graph.view, edge, this.graph.getCellStyle(edge));
+                    				};
+                                    */
+                                    //mxConnectionHandler.prototype.createTarget = true;
+                                    graph.connectionHandler.addListener(mxEvent.START, function(sender, evt) {
+                                        console.log('Start');
+                                        console.log(sender);
+                                        console.log(evt);
+                                    });
+
+                                    graph.connectionHandler.addListener(mxEvent.CONNECT, function(sender, evt) {
+                                        console.log('Connect');
+                                        console.log(sender);
+                                        console.log(evt);
+                                        nabu.loadLibrary('Ajax', function() {
+                                            var ajax = new Nabu.Ajax.Connector(
+                                                'http://cms.nabu-3.com/api/site/2/visual-editor/cell/st-1029',
+                                                'POST',
+                                                {
+                                                    "headerAccept": "application/json",
+                                                    "contentType": "application/json"
+                                                }
+                                            );
+                                            ajax.setPostJSON({
+                                                "x": 100,
+                                                "y": 200
+                                            });
+                                            ajax.execute();
+                                        });
+                                    });
+
+                                    mxVertexHandler.prototype.livePreview = true;
+
+                                    // Automatically handle parallel edges
+                                    var layout = new mxParallelEdgeLayout(graph);
+                                    var layoutMgr = new mxLayoutManager(graph);
+
+                                    layoutMgr.getLayout = function(cell)
+                                    {
+                                        if (cell.getChildCount() > 0)
+                                        {
+                                            return layout;
+                                        }
+                                    };
 
                                     new mxRubberband(graph);
 
@@ -194,7 +268,7 @@ $(document).ready(function() {
                                                 ve_modal.find('.btn-success').on('click', function() {
                                                     $(this).unbind('click');
                                                     var title = ve_modal.find('[name^="title["]').val();
-                                                    graph.insertVertex(parent, null, title, mxPoint.x, mxPoint.y, 120, 160, 'shape=page;');
+                                                    graph.insertVertex(parent, null, title, mxPoint.x, mxPoint.y, 120, 160, 'shape=page;whiteSpace=wrap;');
                                                     ve_modal.modal('hide');
                                                 });
 
@@ -202,50 +276,60 @@ $(document).ready(function() {
                                             menu.addItem('Página Múltiple', null, function()
                                             {
                                                 var mxPoint = graph.getPointForEvent(evt);
-                                                graph.insertVertex(parent, null, 'Nueva página múltiple', mxPoint.x, mxPoint.y, 120, 160, 'shape=page-multi');
+                                                graph.insertVertex(parent, null, 'Nueva página múltiple', mxPoint.x, mxPoint.y, 120, 160, 'shape=page-multi;whiteSpace=wrap;');
                                             }, submenu);
                                             menu.addSeparator(submenu);
                                             menu.addItem('Documento', null, function()
                                             {
                                                 var mxPoint = graph.getPointForEvent(evt);
-                                                graph.insertVertex(parent, null, 'Nuevo documento', mxPoint.x, mxPoint.y, 120, 160, 'shape=document;');
+                                                graph.insertVertex(parent, null, 'Nuevo documento', mxPoint.x, mxPoint.y, 120, 160, 'shape=document;whiteSpace=wrap;');
                                             }, submenu);
                                             menu.addItem('Documento Múltiple', null, function()
                                             {
                                                 var mxPoint = graph.getPointForEvent(evt);
-                                                graph.insertVertex(parent, null, 'Nuevo documento múltiple', mxPoint.x, mxPoint.y, 120, 160, 'shape=document-multi;');
+                                                graph.insertVertex(parent, null, 'Nuevo documento múltiple', mxPoint.x, mxPoint.y, 120, 160, 'shape=document-multi;whiteSpace=wrap;');
                                             }, submenu);
                                             menu.addSeparator(submenu);
                                             menu.addItem('Grupo de páginas', null, function()
                                             {
                                                 var mxPoint = graph.getPointForEvent(evt);
-                                                graph.insertVertex(parent, null, 'Nuevo grupo de páginas', mxPoint.x, mxPoint.y, 40, 40, 'shape=cluster');
+                                                graph.insertVertex(parent, null, 'Nuevo grupo de páginas', mxPoint.x, mxPoint.y, 40, 40, 'shape=cluster;whiteSpace=wrap;');
                                             }, submenu);
                                             menu.addItem('Selector condicional', null, function()
                                             {
                                                 var mxPoint = graph.getPointForEvent(evt);
-                                                graph.insertVertex(parent, null, 'Nuevo selector condicional', mxPoint.x, mxPoint.y, 120, 40, 'shape=conditional-selector');
+                                                graph.insertVertex(parent, null, 'Nuevo selector condicional', mxPoint.x, mxPoint.y, 120, 40, 'shape=conditional-selector;whiteSpace=wrap;');
                                             }, submenu);
                                             menu.addItem('Decisión', null, function()
                                             {
                                                 var mxPoint = graph.getPointForEvent(evt);
-                                                graph.insertVertex(parent, null, 'Nueva decisión', mxPoint.x, mxPoint.y, 40, 40, 'shape=decision');
+                                                graph.insertVertex(parent, null, 'Nueva decisión', mxPoint.x, mxPoint.y, 40, 40, 'shape=decision;whiteSpace=wrap;');
                                             }, submenu);
                                             menu.addItem('Elección múltiple', null, function()
                                             {
                                                 var mxPoint = graph.getPointForEvent(evt);
-                                                graph.insertVertex(parent, null, 'Nueva elección múltiple', mxPoint.x, mxPoint.y, 40, 40, 'shape=multiple-choice');
+                                                graph.insertVertex(parent, null, 'Nueva elección múltiple', mxPoint.x, mxPoint.y, 40, 40, 'shape=multiple-choice;whiteSpace=wrap;');
                                             }, submenu);
                                             menu.addSeparator(submenu);
                                             menu.addItem('Área común', null, function()
                                             {
                                                 var mxPoint = graph.getPointForEvent(evt);
-                                                graph.insertVertex(parent, null, 'Nuevo área común', mxPoint.x, mxPoint.y, 280, 100, 'shape=common-area');
+                                                graph.insertVertex(parent, null, 'Nuevo área común', mxPoint.x, mxPoint.y, 400, 400, 'shape=common-area;whiteSpace=wrap;');
+                                            }, submenu);
+                                            menu.addItem('Área común múltiple', null, function()
+                                            {
+                                                var mxPoint = graph.getPointForEvent(evt);
+                                                graph.insertVertex(parent, null, 'Nuevo área común múltiple', mxPoint.x, mxPoint.y, 400, 400, 'shape=common-area-multi;whiteSpace=wrap;');
                                             }, submenu);
                                             menu.addItem('Área condicional', null, function()
                                             {
                                                 var mxPoint = graph.getPointForEvent(evt);
-                                                graph.insertVertex(parent, null, 'Nuevo área condicional', mxPoint.x, mxPoint.y, 280, 100, 'shape=conditional-area');
+                                                graph.insertVertex(parent, null, 'Nuevo área condicional', mxPoint.x, mxPoint.y, 400, 400, 'shape=conditional-area;whiteSpace=wrap;');
+                                            }, submenu);
+                                            menu.addItem('Área condicional múltiple', null, function()
+                                            {
+                                                var mxPoin = graph.getPointForEvent(evt);
+                                                graph.insertVertex(parent, null, 'Nuevo área condicional múltiple', mxPoint.x, mxPoint.y, 400, 400, 'shape=conditional-area-multi;whiteSpace=wrap;');
                                             }, submenu);
                                         } else {
                                             var submenu = menu.addItem('Orden', null, null);
@@ -287,7 +371,21 @@ $(document).ready(function() {
                                     });
 
                                     $('#modal_visual_editor_targets .btn-zoom-fit').on('click', function() {
-                                        graph.zoomToRect(graph.getCellBounds(graph.getDefaultParent(), true, true));
+                                        //graph.zoomToRect(graph.getCellBounds(graph.getDefaultParent(), true, true));
+                                        var margin = 20;
+                                        var max = 3;
+
+                                        var bounds = graph.getGraphBounds();
+                                        var cw = graph.container.clientWidth - margin;
+                                        var ch = graph.container.clientHeight - margin;
+                                        var w = bounds.width / graph.view.scale;
+                                        var h = bounds.height / graph.view.scale;
+                                        var s = Math.min(max, Math.min(cw / w, ch / h));
+
+                                        graph.view.scaleAndTranslate(s,
+                                            (margin + cw - w * s) / (2 * s) - bounds.x / graph.view.scale,
+                                            (margin + ch - h * s) / (2 * s) - bounds.y / graph.view.scale
+                                        );
                                     });
 
                                     editor.readGraphModel(e.params.xml.documentElement);
@@ -347,7 +445,7 @@ $(document).ready(function() {
                     					executeLayout();
                     				});
                                     */
-                                    executeLayout();
+                                    //executeLayout();
 
                                     var layout = new mxParallelEdgeLayout(graph);
 
@@ -407,6 +505,37 @@ $(document).ready(function() {
     ;
 });
 
+function saveCellsGeometry(geom_cells) {
+    nabu.loadLibrary('Ajax', function() {
+        var cells = [];
+        for (var i in geom_cells) {
+            var cell = geom_cells[i];
+            cells.push({
+                "id": cell.id,
+                "x": cell.geometry.x,
+                "y": cell.geometry.y,
+                "width": cell.geometry.width,
+                "height": cell.geometry.height
+            });
+        }
+        var ajax = new Nabu.Ajax.Connector(
+            'http://cms.nabu-3.com/api/site/2/visual-editor/cell/?action=mass-geometry',
+            'POST',
+            {
+                "headerAccept": "application/json",
+                "contentType": "application/json"
+            }
+        );
+        ajax.addEventListener(new Nabu.Event({
+            onLoad: function(evt) {
+                return true;
+            }
+        }));
+        ajax.setPostJSON(cells);
+        ajax.execute();
+    });
+}
+
 function PageShape()
 {
     mxCylinder.call(this);
@@ -436,16 +565,17 @@ DocumentShape.prototype.redrawPath = function(path, x, y, w, h, isForeground)
 
     if (isForeground) {
         if (fold > 0) {
-            path.moveTo(0, fold);
-            path.lineTo(fold, fold);
-            path.lineTo(fold, 0);
+            path.moveTo(w - fold, 0);
+            path.lineTo(w - fold, fold);
+            path.lineTo(w, fold);
         }
     } else {
-        path.moveTo(fold, 0);
-        path.lineTo(w, 0);
+        path.moveTo(0, 0);
+        path.lineTo(w - fold, 0);
+        path.lineTo(w, fold);
         path.lineTo(w, h);
         path.lineTo(0, h);
-        path.lineTo(0, fold);
+        path.lineTo(0, 0);
         path.close();
     }
 }
@@ -502,32 +632,28 @@ DocumentMultiShape.prototype.redrawPath = function(path, x, y, w, h, isForegroun
 
     if (isForeground) {
         if (fold > 0) {
-            path.moveTo(0, fold);
-            path.lineTo(fold, fold);
-            path.lineTo(fold, 0);
-        }
-        if (rep > 0) {
-            path.moveTo(0, h - rep2);
+            path.moveTo(w - fold - rep2, 0);
+            path.lineTo(w - fold - rep2, fold);
+            path.lineTo(w - rep2, fold);
             path.lineTo(w - rep2, h - rep2);
-            path.lineTo(w - rep2, 0);
-            path.moveTo(rep, h - rep);
+            path.lineTo(0, h - rep2);
+            path.moveTo(rep2, h - rep);
             path.lineTo(w - rep, h - rep);
-            path.lineTo(w - rep, rep);
+            path.lineTo(w - rep, fold + rep);
+            path.lineTo(w - rep2, fold + rep);
+            path.moveTo(w - rep, fold + rep2);
+            path.lineTo(w, fold + rep2);
         }
     } else {
-        path.moveTo(fold, 0);
-        path.lineTo(w - rep2, 0);
-        path.lineTo(w - rep2, rep);
-        path.lineTo(w - rep, rep);
-        path.lineTo(w - rep, rep2);
-        path.lineTo(w, rep2);
+        path.moveTo(0, 0);
+        path.lineTo(w - fold - rep2, 0);
+        path.lineTo(w, fold + rep2, 0);
         path.lineTo(w, h);
         path.lineTo(rep2, h);
         path.lineTo(rep2, h - rep);
         path.lineTo(rep, h - rep);
         path.lineTo(rep, h - rep2);
         path.lineTo(0, h - rep2);
-        path.lineTo(0, fold);
         path.close();
     }
 }
@@ -594,28 +720,94 @@ mxCellRenderer.prototype.defaultShapes['multiple-choice'] = MultipleChoiceShape;
 
 function CommonAreaShape()
 {
-    mxRectangleShape.call(this);
+    mxCylinder.call(this);
 }
-mxUtils.extend(CommonAreaShape, mxRectangleShape);
+mxUtils.extend(CommonAreaShape, mxCylinder);
+CommonAreaShape.prototype.redrawPath = function(path, x, y, w, h, isForeground)
+{
+    if (isForeground) {
+
+    } else {
+        path.roundrect(0, 0, w, h, this.style[mxConstants.STYLE_ARCSIZE], this.style[mxConstants.STYLE_ARCSIZE]);
+    }
+}
 CommonAreaShape.prototype.apply = function(state)
 {
+    mxCylinder.prototype.apply.apply(this, arguments);
     this.isDashed = false;
     this.isRounded = true;
-    mxRectangleShape.prototype.apply.apply(this, arguments);
     this.state = state;
+    this.style[mxConstants.STYLE_ARCSIZE] = 10;
 }
 mxCellRenderer.prototype.defaultShapes['common-area'] = CommonAreaShape;
 
+function CommonAreaMultiShape()
+{
+    CommonAreaShape.call(this);
+}
+mxUtils.extend(CommonAreaMultiShape, CommonAreaShape);
+CommonAreaMultiShape.prototype.redrawPath = function(path, x, y, w, h, isForeground)
+{
+    var fold = (w > 0 ? Math.round(Math.min(w * 0.10, h * 0.10)) : 0);
+    var rep = Math.round(fold * 0.5);
+    var rep2 = rep * 2;
+    var arc = this.style[mxConstants.STYLE_ARCSIZE];
+    var arc2 = arc * 2;
+    var arc3 = arc * 3;
+
+    if (isForeground) {
+        path.moveTo(w - arc2, arc);
+        path.lineTo(w - arc2, h - arc3);
+        path.arcTo(arc, arc, 0, 0, 1, w - arc3, h - arc2);
+        path.lineTo(arc, h - arc2);
+        path.moveTo(w - arc, arc2);
+        path.lineTo(w - arc, h - arc2);
+        path.arcTo(arc, arc, 0, 0, 1, w - arc2, h - arc);
+        path.lineTo(arc2, h - arc);
+    } else {
+        path.moveTo(0, arc);
+        path.arcTo(arc, arc, 0, 0, 1, arc, 0);
+        path.lineTo(w - arc3, 0);
+        path.arcTo(arc, arc, 0, 0, 1, w - arc2, arc);
+        path.arcTo(arc, arc, 0, 0, 1, w - arc, arc2);
+        path.arcTo(arc, arc, 0, 0, 1, w, arc3);
+        path.lineTo(w, h - arc);
+        path.arcTo(arc, arc, 0, 0, 1, w - arc, h);
+        path.lineTo(arc3, h);
+        path.arcTo(arc, arc, 0, 0, 1, arc2, h - arc);
+        path.arcTo(arc, arc, 0, 0, 1, arc, h - arc2);
+        path.arcTo(arc, arc, 0, 0, 1, 0, h - arc3);
+        path.close();
+    }
+}
+mxCellRenderer.prototype.defaultShapes['common-area-multi'] = CommonAreaMultiShape;
+
 function ConditionalAreaShape()
 {
-    mxRectangleShape.call(this);
+    CommonAreaShape.call(this);
 }
-mxUtils.extend(ConditionalAreaShape, mxRectangleShape);
+mxUtils.extend(ConditionalAreaShape, CommonAreaShape);
 ConditionalAreaShape.prototype.apply = function(state)
 {
+    CommonAreaShape.prototype.apply.apply(this, arguments);
     this.isDashed = true;
     this.isRounded = true;
-    mxRectangleShape.prototype.apply.apply(this, arguments);
     this.state = state;
+    this.style[mxConstants.STYLE_ARCSIZE] = 10;
 }
 mxCellRenderer.prototype.defaultShapes['conditional-area'] = ConditionalAreaShape;
+
+function ConditionalAreaMultiShape()
+{
+    CommonAreaMultiShape.call(this);
+}
+mxUtils.extend(ConditionalAreaMultiShape, CommonAreaMultiShape);
+ConditionalAreaMultiShape.prototype.apply = function(state)
+{
+    CommonAreaMultiShape.prototype.apply.apply(this, arguments);
+    this.isDashed = true;
+    this.isRounded = true;
+    this.state = state;
+    this.style[mxConstants.STYLE_ARCSIZE] = 10;
+}
+mxCellRenderer.prototype.defaultShapes['conditional-area-multi'] = ConditionalAreaMultiShape;
