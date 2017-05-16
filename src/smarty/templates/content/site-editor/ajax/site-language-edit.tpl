@@ -16,7 +16,7 @@
     <div class="box-body">
         {if is_array($api) && array_key_exists('translations', $api) && is_array($api.translations) && array_key_exists($nb_site.api_language_id, $api.translations)}
             {if $edit_language!==null}
-                {assign var=url value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$nb_site.id:$edit_language.language_id}"}
+                {assign var=url value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$edit_language.site_id:$edit_language.language_id}"}
                 {assign var=url_tpl value=null}
                 {assign var=url_field value=null}
             {else}

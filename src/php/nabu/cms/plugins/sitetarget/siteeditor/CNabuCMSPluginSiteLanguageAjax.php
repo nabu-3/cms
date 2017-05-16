@@ -44,6 +44,7 @@ class CNabuCMSPluginSiteLanguageAjax extends CNabuHTTPSiteTargetPluginAdapter
 
         $fragments = $this->nb_request->getRegExprURLFragments();
         if (is_array($fragments) && count($fragments) === 3 && is_numeric($fragments[1])) {
+            $this->nb_work_customer->refresh(true, true);
             $this->nb_edit_site = $this->nb_work_customer->getSite($fragments[1]);
             if ($this->nb_edit_site instanceof CNabuSite) {
                 $this->nb_edit_site->refresh();
