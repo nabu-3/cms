@@ -1,28 +1,9 @@
 $(document).ready(function() {
     $('.modal')
         .on('shown.bs.modal', function(e) {
-            var vi_editor = $(e.target).find('[data-toggle="visual-editor"]');
+            var vi_editor = $(e.target).find('[data-toggle="ve-site"]');
             if (vi_editor.length > 0) {
-                vi_editor.empty();
-                nabu.loadLibrary('VE.SiteEditor', function() {
-                    var editor = new Nabu.VisualEditor.SiteEditor(vi_editor[0], '/js/visual-editor/config/site-target.xml');
-                    if (editor.init()) {
-                        editor.enableGrid();
-                        editor.enableGuides();
-                        editor.enableVertexLivePreview();
-                        editor.enableEdgeLayout();
-                        editor.setDefaultVertexFillColor('#ffffff');
-                        editor.setDefaultEdgeRounded(false);
-                        editor.setDefaultEdgeTypeAsElbowConnector('vertical');
-
-                        var data = $(vi_editor[0]).data();
-                        if (data['source']) {
-                            editor.load(data['source']);
-                        } else {
-                            editor.fillWithSample();
-                        }
-                    }
-                });
+                vi_editor.nabuVESiteEditor('show');
                 /*
                     if (data.source) {
                         nabu.loadLibrary('Ajax', function() {

@@ -11,6 +11,7 @@
         mxLanguages = [ '{$nb_language.ISO639_1}' ];
     </script>
     <script type="text/javascript" src="/runtime/nbfw/visualeditor/js/nabu-ve.js"></script>
+    <script type="text/javascript" src="/runtime/nbfw/visualeditor/js/nabu-ve-bootstrap.js"></script>
     <script type="text/javascript" src="/js/visual-editor.js"></script>
 {/if}
 <script type="text/javascript" src="/js/commons.js"></script>
