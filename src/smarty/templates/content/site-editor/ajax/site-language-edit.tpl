@@ -21,7 +21,7 @@
                 {assign var=url_field value=null}
             {else}
                 {assign var=url value=null}
-                {assign var=url_tpl value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$nb_site.id:'%s'}"}
+                {assign var=url_tpl value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$edit_language.site_id:'%s'}"}
                 {assign var=url_field value=language_id}
             {/if}
             {nabu_form method="ajax-post" layout=vertical multiform=":root:language:{if $edit_language!==null}{$edit_language.id}{else}_new{/if}"
