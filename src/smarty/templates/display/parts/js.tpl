@@ -7,11 +7,10 @@
 <script type="text/javascript" src="/runtime/assets/ckeditor/4.6.2/adapters/jquery.js"></script>
 {if is_array($nb_site_target.attributes) && array_key_exists('visual_editor', $nb_site_target.attributes) && $nb_site_target.attributes.visual_editor}
     <script type="text/javascript">
-        mxBasePath = "/runtime/assets/mxgraph/3.7.2/src";
         mxLanguage = "{$nb_language.ISO639_1}";
         mxLanguages = [ '{$nb_language.ISO639_1}' ];
     </script>
-    <script type="text/javascript" src="/runtime/assets/mxgraph/3.7.2/mxClient.min.js"></script>
+    <script type="text/javascript" src="/runtime/nbfw/visualeditor/js/nabu-ve.js"></script>
     <script type="text/javascript" src="/js/visual-editor.js"></script>
 {/if}
 <script type="text/javascript" src="/js/commons.js"></script>
