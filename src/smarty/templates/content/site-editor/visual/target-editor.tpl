@@ -1,5 +1,5 @@
 <style type="text/css">
-    [data-toggle="visual-editor"] {
+    [data-toggle="ve-site"] {
         z-index: 0;
     }
     .modal-body .btn-toolbar:first-child {
