@@ -32,6 +32,12 @@ h1, h2, h3, h4, h5, h6,
     font-family: 'Josefin Sans', sans-serif;
 }
 
+@media (max-width: 767px) {
+    h1 {
+        font-size: 24px;
+    }
+}
+
 b, strong {
     color: #859900;
 }
@@ -334,6 +340,23 @@ footer.navbar .navbar-nav > li > a:last-child {
 footer.navbar .navbar-nav > li > a + span {
     padding-left: 4px;
     padding-right: 4px;
+}
+
+@media (max-width: 767px) {
+    .navbar-fixed-bottom {
+        position: relative;
+    }
+    footer.navbar .navbar-nav {
+        margin: 0;
+    }
+    footer.navbar .navbar-nav > li > a {
+        font-size: 12px;
+        padding: 0;
+    }
+    footer.navbar .navbar-nav > li > a:first-child:last-child {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 
 /** Sidebar **/

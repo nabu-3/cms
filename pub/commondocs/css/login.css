@@ -1,0 +1,16 @@
+@media (max-width: 767px) {
+    .login-box {
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 768px) {
+    .login-box {
+        margin-left: 320px;
+    }
+
+    .login img {
+        float: left;
+        margin-top: 5px;
+    }
+}
