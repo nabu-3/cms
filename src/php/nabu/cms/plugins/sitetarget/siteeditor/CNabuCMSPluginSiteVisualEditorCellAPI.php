@@ -20,12 +20,16 @@
 namespace nabu\cms\plugins\sitetarget\siteeditor;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
 use nabu\data\site\CNabuSite;
+use nabu\data\site\CNabuSiteTarget;
+use nabu\data\site\CNabuSiteTargetCTA;
 use nabu\visual\site\CNabuSiteVisualEditorItem;
 
 class CNabuCMSPluginSiteVisualEditorCellAPI extends CNabuCMSPluginAbstractAPI
 {
     /** @var CNabuSite $edit_site Site instance */
     private $edit_site = null;
+    /** @var CNabuSiteTargetCTA Site Target CTA instance */
+    private $edit_site_target_cta = null;
 
     public function prepareTarget()
     {
@@ -55,6 +59,9 @@ class CNabuCMSPluginSiteVisualEditorCellAPI extends CNabuCMSPluginAbstractAPI
                 case 'mass-geometry':
                     $retval = $this->massGeometry();
                     break;
+                case 'set-cta':
+                    $retval = $this->setCTA();
+                    break;
                 default:
                     $this->setStatusError('Invalid action ' . $this->nb_request->getGETField('action'));
             }
@@ -78,12 +85,60 @@ class CNabuCMSPluginSiteVisualEditorCellAPI extends CNabuCMSPluginAbstractAPI
                     $vr_cell->setY($cell['y']);
                     $vr_cell->setWidth($cell['width']);
                     $vr_cell->setHeight($cell['height']);
+                    $vr_cell->setValueJSONEncoded('nb_site_visual_editor_item_points', $cell['points']);
                     $vr_cell->save();
                 }
             }
             $this->setStatusOK();
         } else {
             $this->setStatusError('Site not valid');
+        }
+
+        return true;
+    }
+
+    private function setCTA()
+    {
+        if ($this->edit_site instanceof CNabuSite) {
+            $ids = $this->nb_request->getBody();
+            if (array_key_exists('id', $ids) &&
+                array_key_exists('source_id', $ids) &&
+                array_key_exists('target_id', $ids)
+            ) {
+                $nb_site_target = is_numeric($ids['source_id'])
+                                ? $this->edit_site->getTarget($ids['source_id'])
+                                : null
+                ;
+                if ($nb_site_target instanceof CNabuSiteTarget) {
+                    $nb_site_target_cta = is_numeric($ids['id'])
+                                        ? $this->edit_site->getCTA($ids['id'])
+                                        : new CNabuSiteTargetCTA()
+                    ;
+                    if ($nb_site_target_cta instanceof CNabuSiteTargetCTA) {
+                        $nb_site_target_cta->grantHash();
+                        $nb_site_target_cta->setSiteTarget($nb_site_target);
+                        if (is_numeric($ids['target_id'])) {
+                            if (($nb_remote_target = $this->edit_site->getTarget($ids['target_id'])) instanceof CNabuSiteTarget) {
+                                $nb_site_target_cta->setCTATarget($nb_remote_target);
+                                $nb_site_target_cta->save();
+                                $this->setStatusOK();
+                                $this->setData($nb_site_target_cta->getTreeData(null, true));
+                            } else {
+                                $this->setStatusError('Invalid target destination.');
+                            }
+                        } else {
+                            $nb_site_target_cta->emptyCTATarget();
+                            $nb_site_target_cta->save();
+                            $this->setStatusOK();
+                            $this->setData($nb_site_target_cta->getTreeData(null, true));
+                        }
+                    } else {
+                        $this->setStatusError('Invalid CTA Id');
+                    }
+                } else {
+                    $this->setStatusError('Source target required.');
+                }
+            }
         }
 
         return true;

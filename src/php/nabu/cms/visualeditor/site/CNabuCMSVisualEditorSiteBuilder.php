@@ -109,7 +109,7 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 $parent, 'st-' . $key, $name,
                 $vr_cell->getX(), $vr_cell->getY(),
                 $vr_cell->getWidth(), $vr_cell->getHeight(),
-                "portConstraint=north;shape=$shape;edgeStyle=orthogonalEdgeStyle;whiteSpace=wrap;"
+                "shape=$shape;edgeStyle=orthogonalEdgeStyle;whiteSpace=wrap;"
             );
             $vertex = $this->model->cells['st-' . $key];
             $vertex->type = $shape;
@@ -117,17 +117,25 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
             return true;
         });
 
-        $nb_target_list->iterate(function($key, $nb_site_target) use ($parent) {
+        $nb_target_list->iterate(function($key, $nb_site_target) use ($parent, $vr_site_cell_list) {
             $nb_cta_list = $nb_site_target->getCTAs();
-            $nb_cta_list->iterate(function($key, $nb_site_target_cta) use ($nb_site_target, $parent) {
+            $nb_cta_list->iterate(function($key, $nb_site_target_cta) use ($nb_site_target, $parent, $vr_site_cell_list) {
                 $from_id = 'st-' . $nb_site_target->getId();
-                $to_id = 'st-' . $nb_site_target_cta->getTargetId();
                 $from = $this->model->cells[$from_id];
-                $to = $this->model->cells[$to_id];
-                $this->graph->insertEdge($parent, 'cta-' . $key, $nb_site_target_cta->getKey(), $from, $to, 'edgeStyle=orthogonalEdgeStyle;whiteSpace=wrap;');
+                if (is_numeric($nb_target_id = $nb_site_target_cta->getTargetId())) {
+                    $to_id = 'st-' . $nb_site_target_cta->getTargetId();
+                    $to = $this->model->cells[$to_id];
+                    $this->graph->insertEdge($parent, 'cta-' . $key, $nb_site_target_cta->getKey(), $from, $to, 'edgeStyle=orthogonalEdgeStyle;whiteSpace=wrap;');
+                } else {
+                    $this->graph->insertEdge($parent, 'cta-' . $key, $nb_site_target_cta->getKey(), $from, null, 'edgeStyle=orthogonalEdgeStyle;whiteSpace=wrap;');
+                }
                 $edge = $this->model->cells['cta-' . $key];
                 $edge->type = 'cta';
                 $edge->objectId = $key;
+                $vr_cell = $vr_site_cell_list->getItem('cta-' . $key);
+                if ($vr_cell instanceof CNabuSiteVisualEditorItem) {
+                    $vr_cell->applyGeometryToEdge($edge);
+                }
                 return true;
             });
             return true;

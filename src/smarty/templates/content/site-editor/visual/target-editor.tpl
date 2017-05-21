@@ -60,7 +60,7 @@
                 </div>
             </div>
             {assign var=source_url value="{$cta_source.translations[$nb_site.api_language_id].final_url|sprintf:$edit_site.id}?lang={$nb_language.id}"}
-            <div data-toggle="ve-site" style="width: 100%; height: 100%;" data-source="{$source_url}"></div>
+            <div data-toggle="ve-site" style="width: 100%; height: 100%;" data-source="{$source_url}" data-id="{$edit_site.id}"></div>
         {/if}
     {/nabu_modal_body}
 {/nabu_modal}

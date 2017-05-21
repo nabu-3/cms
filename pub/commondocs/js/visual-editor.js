@@ -14,19 +14,6 @@ $(document).ready(function() {
                                     var model = graph.getModel();
                     				graph.view.setTranslate(20, 20);
 
-                                    graph.addListener(mxEvent.CELLS_RESIZED, function (sender, evt) {
-                                        console.log(evt);
-                                        if (evt.properties.cells.length > 0) {
-                                            saveCellsGeometry(evt.properties.cells);
-                                        }
-                                    });
-
-                                    graph.addListener(mxEvent.CELLS_MOVED, function (sender, evt) {
-                                        if (evt.properties.cells.length > 0) {
-                                            saveCellsGeometry(evt.properties.cells);
-                                        }
-                                    });
-
                                     graph.connectionHandler.addListener(mxEvent.START, function(sender, evt) {
                                         console.log('Start');
                                         console.log(sender);
@@ -222,34 +209,3 @@ $(document).ready(function() {
         })
     ;
 });
-
-function saveCellsGeometry(geom_cells) {
-    nabu.loadLibrary('Ajax', function() {
-        var cells = [];
-        for (var i in geom_cells) {
-            var cell = geom_cells[i];
-            cells.push({
-                "id": cell.id,
-                "x": cell.geometry.x,
-                "y": cell.geometry.y,
-                "width": cell.geometry.width,
-                "height": cell.geometry.height
-            });
-        }
-        var ajax = new Nabu.Ajax.Connector(
-            'http://cms.nabu-3.com/api/site/2/visual-editor/cell/?action=mass-geometry',
-            'POST',
-            {
-                "headerAccept": "application/json",
-                "contentType": "application/json"
-            }
-        );
-        ajax.addEventListener(new Nabu.Event({
-            onLoad: function(evt) {
-                return true;
-            }
-        }));
-        ajax.setPostJSON(cells);
-        ajax.execute();
-    });
-}

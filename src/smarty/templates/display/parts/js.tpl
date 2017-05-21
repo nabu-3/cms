@@ -3,8 +3,8 @@
 <script type="text/javascript" src="/assets/js/jquery.sprintf.js"></script>
 <script type="text/javascript" src="/runtime/nbfw/lib/js/nabu.js"></script>
 <script type="text/javascript" src="/runtime/nbfw/lib/js/nabu-bootstrap.js"></script>
-<script type="text/javascript" src="/runtime/assets/ckeditor/4.6.2/ckeditor.js"></script>
-<script type="text/javascript" src="/runtime/assets/ckeditor/4.6.2/adapters/jquery.js"></script>
+<script type="text/javascript" src="/runtime/assets/ckeditor/4.6.2/ckeditor.js" defer></script>
+<script type="text/javascript" src="/runtime/assets/ckeditor/4.6.2/adapters/jquery.js" defer></script>
 {if is_array($nb_site_target.attributes) && array_key_exists('visual_editor', $nb_site_target.attributes) && $nb_site_target.attributes.visual_editor}
     <script type="text/javascript">
         mxLanguage = "{$nb_language.ISO639_1}";
