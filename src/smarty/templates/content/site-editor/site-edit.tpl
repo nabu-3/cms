@@ -38,3 +38,4 @@
     </div>
 </div>
 {include file="content/site-editor/visual/target-editor.tpl"}
+<div id="ve_remote_modal_container"></div>

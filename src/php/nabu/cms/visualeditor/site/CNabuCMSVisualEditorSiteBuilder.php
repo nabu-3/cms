@@ -109,7 +109,7 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 $parent, 'st-' . $key, $name,
                 $vr_cell->getX(), $vr_cell->getY(),
                 $vr_cell->getWidth(), $vr_cell->getHeight(),
-                "shape=$shape;edgeStyle=orthogonalEdgeStyle;whiteSpace=wrap;"
+                "shape=$shape;edgeStyle=elbowEdgeStyle;elbow=Vertical;whiteSpace=wrap;"
             );
             $vertex = $this->model->cells['st-' . $key];
             $vertex->type = $shape;

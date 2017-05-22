@@ -19,6 +19,7 @@
 
 namespace nabu\cms\plugins\sitetarget\siteeditor;
 use nabu\data\site\CNabuSite;
+use nabu\data\site\CNabuSiteAlias;
 use nabu\data\site\CNabuSiteTarget;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
@@ -44,7 +45,7 @@ class CNabuCMSPluginSiteTargetEdit extends CNabuHTTPSiteTargetPluginAdapter
         $this->breadcrumb_part = null;
 
         $fragments = $this->nb_request->getRegExprURLFragments();
-        if (is_array($fragments) && count($fragments) > 2) {
+        if (is_array($fragments) && count($fragments) === 3) {
             $site_id = $fragments[1];
             $target_id = $fragments[2];
             $this->title_part[0] = '#' . $site_id;
@@ -75,13 +76,15 @@ class CNabuCMSPluginSiteTargetEdit extends CNabuHTTPSiteTargetPluginAdapter
             $this->edit_site_target->getSections();
             $this->edit_site_target->getCTAs();
 
-            $this->base_url =
-                ($this->edit_site->isHTTPSSupportEnabled()
-                    ? 'https://' . $this->edit_site->getMainAlias()->getDNSName()
-                    : ($this->edit_site->isHTTPSupportEnabled()
-                    ? 'http://' . $this->edit_site->getMainAlias()->getDNSName()
-                    : null)
-                )
+            $nb_main_alias = $this->edit_site->getMainAlias();
+            $this->base_url = $nb_main_alias instanceof CNabuSiteAlias
+                ? ($this->edit_site->isHTTPSSupportEnabled()
+                      ? 'https://' . $this->edit_site->getMainAlias()->getDNSName()
+                      : ($this->edit_site->isHTTPSupportEnabled()
+                      ? 'http://' . $this->edit_site->getMainAlias()->getDNSName()
+                      : null)
+                  )
+                : null
             ;
         }
 

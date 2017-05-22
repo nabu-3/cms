@@ -737,6 +737,11 @@ footer.navbar .navbar-nav > li > a + span {
     color: #fdf6e3;
 }
 
+.modal-footer .lang-selector {
+    float: left;
+    margin-bottom: 0;
+}
+
 /** Tables **/
 .table-container {
     flex: 1 1 0;

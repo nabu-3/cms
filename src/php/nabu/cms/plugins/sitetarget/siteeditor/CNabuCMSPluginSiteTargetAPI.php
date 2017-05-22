@@ -21,6 +21,7 @@ namespace nabu\cms\plugins\sitetarget\siteeditor;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
 use nabu\data\site\CNabuSite;
 use nabu\data\site\CNabuSiteTarget;
+use nabu\data\site\CNabuSiteTargetCTA;
 use nabu\data\site\CNabuSiteTargetCTAList;
 use nabu\data\site\CNabuSiteTargetLanguage;
 
@@ -115,7 +116,7 @@ class CNabuCMSPluginSiteTargetAPI extends CNabuCMSPluginAbstractAPI
                 $languages = $this->nb_request->getCombinedPostIndexes(array('title'));
                 if (count($languages) > 0) {
                     foreach ($languages as $lang_id) {
-                        $nb_translation = $this->nb_site_target->getTranslation($lang_id);
+                        $nb_translation = $this->nb_site_target_edit->getTranslation($lang_id);
                         if (!$nb_translation) {
                             $nb_translation = new CNabuSiteTargetLanguage();
                             $nb_translation->setSiteTargetId($this->nb_site_target_edit->getId());
@@ -162,7 +163,7 @@ class CNabuCMSPluginSiteTargetAPI extends CNabuCMSPluginAbstractAPI
             $api_url = sprintf($api_mask, $this->nb_site_edit->getId(), $this->nb_site_target_edit->getId());
             $this->setAPICall($api_url);
             $editor_cta = $this->nb_site_target->getCTAs()->getItem('ajax_items', CNabuSiteTargetCTAList::INDEX_KEY);
-            if ($editor_cta !== null) {
+            if ($editor_cta instanceof CNabuSiteTargetCTA) {
                 $editor_cta->canonize();
                 $urls = array();
                 $editor_cta->getTranslations()->iterate(function ($key, $translation) use(&$urls) {

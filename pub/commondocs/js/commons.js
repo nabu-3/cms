@@ -36,9 +36,9 @@ $(document).ready(function()
                 $(this).find('.modal-panels .modal-panel[data-action="error"]').removeClass('hide');
             }
             $(this).data("id", json.data.id);
+            return true;
         })
         .on('beforesubmit.form.nabu', function(e, params) {
-            console.log('beforesubmit');
             if (CKEDITOR) {
                 for(var name in CKEDITOR.instances) {
                     CKEDITOR.instances[name].updateElement();
