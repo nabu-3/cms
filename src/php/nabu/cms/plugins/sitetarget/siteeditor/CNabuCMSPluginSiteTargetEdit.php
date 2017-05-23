@@ -25,16 +25,15 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 class CNabuCMSPluginSiteTargetEdit extends CNabuHTTPSiteTargetPluginAdapter
 {
-    /**
-     * @var CNabuSite
-     */
+    /** @var CNabuSite $edit_site Site instance that contains the Site Target instance. */
     private $edit_site;
-    /**
-     * @var CNabuSiteTarget
-     */
+    /** @var CNabuSiteTarget $edit_site_target Site Target instance to be edited. */
     private $edit_site_target;
+    /** @var array Title fragments for the title. */
     private $title_part;
+    /** @var array $breadcrumb_part Breadcrumb fragments. */
     private $breadcrumb_part;
+    /** @var string $base_url URL base of $edit_site. */
     private $base_url;
 
     public function prepareTarget()
@@ -45,9 +44,8 @@ class CNabuCMSPluginSiteTargetEdit extends CNabuHTTPSiteTargetPluginAdapter
         $this->breadcrumb_part = null;
 
         $fragments = $this->nb_request->getRegExprURLFragments();
-        if (is_array($fragments) && count($fragments) === 3) {
+        if (is_array($fragments) && count($fragments) > 1) {
             $site_id = $fragments[1];
-            $target_id = $fragments[2];
             $this->title_part[0] = '#' . $site_id;
             if (($this->edit_site = $this->nb_work_customer->getSite($site_id)) !== false &&
                 ($translation = $this->edit_site->getTranslation($this->nb_language)) !== false &&
@@ -60,21 +58,24 @@ class CNabuCMSPluginSiteTargetEdit extends CNabuHTTPSiteTargetPluginAdapter
                 'title' => $this->title_part[0],
                 'slug' => $site_id
             );
-            $this->title_part[1] = '#' . $target_id;
-            if (($this->edit_site_target = $this->edit_site->getTarget($target_id)) !== false &&
-                ($translation = $this->edit_site_target->getTranslation($this->nb_language)) !== false &&
-                (strlen($this->title_part[1] = $translation->getTitle()) === 0) &&
-                (strlen($this->title_part[1] = $this->edit_site_target->getKey()) === 0)
-            ) {
+            if (count($fragments) > 2) {
+                $target_id = $fragments[2];
                 $this->title_part[1] = '#' . $target_id;
-            }
-            $this->breadcrumb_part['site_target_edit'] = array(
-                'title' => $this->title_part[1],
-                'slug' => $target_id
-            );
+                if (($this->edit_site_target = $this->edit_site->getTarget($target_id)) !== false &&
+                    ($translation = $this->edit_site_target->getTranslation($this->nb_language)) !== false &&
+                    (strlen($this->title_part[1] = $translation->getTitle()) === 0) &&
+                    (strlen($this->title_part[1] = $this->edit_site_target->getKey()) === 0)
+                ) {
+                    $this->title_part[1] = '#' . $target_id;
+                }
+                $this->breadcrumb_part['site_target_edit'] = array(
+                    'title' => $this->title_part[1],
+                    'slug' => $target_id
+                );
 
-            $this->edit_site_target->getSections();
-            $this->edit_site_target->getCTAs();
+                $this->edit_site_target->getSections();
+                $this->edit_site_target->getCTAs();
+            }
 
             $nb_main_alias = $this->edit_site->getMainAlias();
             $this->base_url = $nb_main_alias instanceof CNabuSiteAlias

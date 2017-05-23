@@ -88,6 +88,7 @@ class CNabuCMSPluginSiteTargetAPI extends CNabuCMSPluginAbstractAPI
                     'use_https' => 'nb_site_target_use_https',
                     'output_type' => 'nb_site_target_output_type',
                     'mimetype_id' => 'nb_mimetype_id',
+                    'attachment' => 'nb_site_target_attachment',
                     'smarty_display_file' => 'nb_site_target_smarty_display_file',
                     'smarty_content_file' => 'nb_site_target_smarty_content_file',
                     'smarty_debugging' => 'nb_site_target_smarty_debugging',

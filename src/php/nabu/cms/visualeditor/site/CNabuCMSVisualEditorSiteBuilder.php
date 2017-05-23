@@ -93,7 +93,11 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
             } else {
                 $name = '#' . $nb_site_target->getId();
             }
-            $shape = ($nb_site_target->getURLFilter() === CNabuSiteTarget::URL_TYPE_REGEXP ? 'page-multi' : 'page');
+            $shape = ($nb_site_target->getAttachment() === 'T'
+                      ? ($nb_site_target->getURLFilter() === CNabuSiteTarget::URL_TYPE_REGEXP ? 'document-multi' : 'document')
+                      : ($nb_site_target->getURLFilter() === CNabuSiteTarget::URL_TYPE_REGEXP ? 'page-multi' : 'page')
+                     )
+            ;
             $vr_cell = $vr_site_cell_list->getItem('st-' . $key);
             if (!$vr_cell) {
                 $vr_cell = new CNabuSiteVisualEditorItem();
