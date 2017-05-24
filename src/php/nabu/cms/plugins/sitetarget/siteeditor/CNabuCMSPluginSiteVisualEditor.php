@@ -45,7 +45,9 @@ class CNabuCMSPluginSiteVisualEditor extends CNabuHTTPSiteTargetPluginAdapter
             if (is_numeric($fragments[1])) {
                 $this->nb_work_customer->refresh(true, false);
                 $this->edit_site = $this->nb_work_customer->getSite($fragments[1]);
-                $this->edit_site->refresh(true, true);
+                if ($this->edit_site instanceof CNabuSite) {
+                    $this->edit_site->refresh(true, true);
+                }
             }
         }
 
@@ -65,7 +67,9 @@ class CNabuCMSPluginSiteVisualEditor extends CNabuHTTPSiteTargetPluginAdapter
     public function beforeDisplayTarget()
     {
         $render = $this->nb_response->getRender();
-        $render->setXML($this->xml);
+        if ($this->xml !== null) {
+            $render->setXML($this->xml);
+        }
 
         return true;
     }

@@ -26,6 +26,7 @@ use nabu\data\site\CNabuSite;
 use nabu\data\site\CNabuSiteMap;
 use nabu\data\site\CNabuSiteTarget;
 use nabu\data\site\CNabuSiteMapTree;
+use nabu\data\site\CNabuSiteTargetSectionLanguage;
 use nabu\visual\site\CNabuSiteVisualEditorItem;
 use nabu\visual\site\CNabuSiteVisualEditorItemList;
 use nabu\visual\site\base\CNabuSiteVisualEditorItemListBase;
@@ -118,6 +119,10 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
             $vertex = $this->model->cells['st-' . $key];
             $vertex->type = $shape;
             $vertex->objectId = $key;
+            $sections = $this->prepareSectionsList($nb_site, $nb_site_target);
+            $vertex->section_ids = is_array($sections) ? array_keys($sections) : null;
+            $vertex->section_names = is_array($sections) ? array_values($sections) : null;
+            
             return true;
         });
 
@@ -208,5 +213,31 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
         $xmlNode = $enc->encode($this->model);
 
         return new SimpleXMLElement(str_replace("\n", "&#xa;", $xmlNode->ownerDocument->saveXML($xmlNode)));
+    }
+
+    private function prepareSectionsList(CNabuSite $nb_site, CNabuSiteTarget $nb_site_target)
+    {
+        $list = array();
+
+        $nb_language_id = $nb_site->getDefaultLanguageId();
+
+        $nb_site_target->getSections()->iterate(function($key, $nb_site_target_section) use (&$list, $nb_language_id)
+        {
+            $nb_translation = $nb_site_target_section->getTranslation($nb_language_id);
+            if ($nb_translation instanceof CNabuSiteTargetSectionLanguage) {
+                $name = trim($nb_translation->getTitle());
+            }
+            if (strlen($name) === 0) {
+                $name = trim($nb_site_target_section->getKey());
+            }
+            if (strlen($name) === 0) {
+                $name = "#$key";
+            }
+            $list[$key] = $name;
+
+            return true;
+        });
+
+        return count($list) > 0 ? $list : null;
     }
 }

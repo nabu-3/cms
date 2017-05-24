@@ -20,6 +20,7 @@
 namespace nabu\cms\plugins\sitetarget\siteeditor;
 use nabu\data\lang\CNabuLanguage;
 use nabu\data\site\CNabuSite;
+use nabu\data\site\CNabuSiteLanguage;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
@@ -29,11 +30,11 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
  */
 class CNabuCMSPluginSiteEdit extends CNabuHTTPSiteTargetPluginAdapter
 {
-    /**
-     * @var CNabuSite
-     */
+    /** @var CNabuSite $edit_site Site instance to be edited. */
     private $edit_site;
+    /** @var array Title fragments for the title. */
     private $title_part;
+    /** @var array $breadcrumb_part Breadcrumb fragments. */
     private $breadcrumb_part;
 
     public function prepareTarget()
@@ -42,25 +43,36 @@ class CNabuCMSPluginSiteEdit extends CNabuHTTPSiteTargetPluginAdapter
         $this->title_part = null;
         $this->breadcrumb_part = null;
 
+        $retval = true;
+
         $fragments = $this->nb_request->getRegExprURLFragments();
         if (is_array($fragments) && count($fragments) > 1) {
+            error_log("HOLA 1");
             $id = $fragments[1];
             $this->title_part = '#' . $id;
-            if (($this->edit_site = $this->nb_work_customer->getSite($id)) !== false &&
-                $this->edit_site->refresh(true, true) &&
-                ($translation = $this->edit_site->getTranslation($this->nb_language)) !== false &&
-                (strlen($this->title_part = $translation->getName()) === 0) &&
-                (strlen($this->title_part = $this->edit_site->getKey()) === 0)
+            error_log(print_r($this->nb_work_customer->getTreeData(null, true), true));
+            $this->nb_work_customer->refresh(true, true);
+            if (($this->edit_site = $this->nb_work_customer->getSite($id)) instanceof CNabuSite &&
+                $this->edit_site->refresh(true, true)
             ) {
-                $this->title_part = '#' . $id;
+                error_log("HOLA 2");
+                if (($translation = $this->edit_site->getTranslation($this->nb_language)) instanceof CNabuSiteLanguage &&
+                    (strlen($this->title_part = $translation->getName()) === 0) &&
+                    (strlen($this->title_part = $this->edit_site->getKey()) === 0)
+                ) {
+                    $this->title_part = '#' . $id;
+                }
+                $this->breadcrumb_part['site_edit'] = array(
+                    'title' => $this->title_part,
+                    'slug' => $id
+                );
+            } else {
+                error_log("HOLA 4");
+                $retval = $this->nb_site->getTargetByKey('site_list');
             }
-            $this->breadcrumb_part['site_edit'] = array(
-                'title' => $this->title_part,
-                'slug' => $id
-            );
         }
 
-        return true;
+        return $retval;
     }
 
     public function beforeDisplayTarget()

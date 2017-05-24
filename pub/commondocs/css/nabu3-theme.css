@@ -626,6 +626,11 @@ footer.navbar .navbar-nav > li > a + span {
     font-size: 14px;
 }
 
+input[type="radio"],
+input[type="checkbox"] {
+    margin-top: 2px;
+}
+
 /** Panels **/
 .panel {
     border-width: 2px;

@@ -21,6 +21,7 @@ namespace nabu\cms\plugins\sitetarget\siteeditor;
 use nabu\data\site\CNabuSite;
 use nabu\data\site\CNabuSiteAlias;
 use nabu\data\site\CNabuSiteTarget;
+use nabu\data\site\CNabuSiteLanguage;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 class CNabuCMSPluginSiteTargetEdit extends CNabuHTTPSiteTargetPluginAdapter
@@ -43,53 +44,60 @@ class CNabuCMSPluginSiteTargetEdit extends CNabuHTTPSiteTargetPluginAdapter
         $this->title_part = array();
         $this->breadcrumb_part = null;
 
+        $retval = true;
+
         $fragments = $this->nb_request->getRegExprURLFragments();
         if (is_array($fragments) && count($fragments) > 1) {
             $site_id = $fragments[1];
             $this->title_part[0] = '#' . $site_id;
-            if (($this->edit_site = $this->nb_work_customer->getSite($site_id)) !== false &&
-                ($translation = $this->edit_site->getTranslation($this->nb_language)) !== false &&
-                (strlen($this->title_part[0] = $translation->getName()) === 0) &&
-                (strlen($this->title_part[0] = $this->edit_site->getKey()) === 0)
-            ) {
-                $this->title_part[0] = '#' . $site_id;
-            }
-            $this->breadcrumb_part['site_edit'] = array(
-                'title' => $this->title_part[0],
-                'slug' => $site_id
-            );
-            if (count($fragments) > 2) {
-                $target_id = $fragments[2];
-                $this->title_part[1] = '#' . $target_id;
-                if (($this->edit_site_target = $this->edit_site->getTarget($target_id)) !== false &&
-                    ($translation = $this->edit_site_target->getTranslation($this->nb_language)) !== false &&
-                    (strlen($this->title_part[1] = $translation->getTitle()) === 0) &&
-                    (strlen($this->title_part[1] = $this->edit_site_target->getKey()) === 0)
+            $this->nb_work_customer->refresh(true, false);
+            if (($this->edit_site = $this->nb_work_customer->getSite($site_id)) instanceof CNabuSite) {
+                if ($this->edit_site->refresh(true, false) &&
+                    ($translation = $this->edit_site->getTranslation($this->nb_language)) instanceof CNabuSiteLanguage &&
+                    (strlen($this->title_part[0] = $translation->getName()) === 0) &&
+                    (strlen($this->title_part[0] = $this->edit_site->getKey()) === 0)
                 ) {
-                    $this->title_part[1] = '#' . $target_id;
+                    $this->title_part[0] = '#' . $site_id;
                 }
-                $this->breadcrumb_part['site_target_edit'] = array(
-                    'title' => $this->title_part[1],
-                    'slug' => $target_id
+                $this->breadcrumb_part['site_edit'] = array(
+                    'title' => $this->title_part[0],
+                    'slug' => $site_id
                 );
+                if (count($fragments) > 2) {
+                    $target_id = $fragments[2];
+                    $this->title_part[1] = '#' . $target_id;
+                    if (($this->edit_site_target = $this->edit_site->getTarget($target_id)) !== false &&
+                        ($translation = $this->edit_site_target->getTranslation($this->nb_language)) !== false &&
+                        (strlen($this->title_part[1] = $translation->getTitle()) === 0) &&
+                        (strlen($this->title_part[1] = $this->edit_site_target->getKey()) === 0)
+                    ) {
+                        $this->title_part[1] = '#' . $target_id;
+                    }
+                    $this->breadcrumb_part['site_target_edit'] = array(
+                        'title' => $this->title_part[1],
+                        'slug' => $target_id
+                    );
 
-                $this->edit_site_target->getSections();
-                $this->edit_site_target->getCTAs();
+                    $this->edit_site_target->getSections();
+                    $this->edit_site_target->getCTAs();
+                }
+
+                $nb_main_alias = $this->edit_site->getMainAlias();
+                $this->base_url = $nb_main_alias instanceof CNabuSiteAlias
+                    ? ($this->edit_site->isHTTPSSupportEnabled()
+                          ? 'https://' . $this->edit_site->getMainAlias()->getDNSName()
+                          : ($this->edit_site->isHTTPSupportEnabled()
+                          ? 'http://' . $this->edit_site->getMainAlias()->getDNSName()
+                          : null)
+                      )
+                    : null
+                ;
+            } else {
+                $retval = $this->nb_site->getTargetByKey('site_list');
             }
-
-            $nb_main_alias = $this->edit_site->getMainAlias();
-            $this->base_url = $nb_main_alias instanceof CNabuSiteAlias
-                ? ($this->edit_site->isHTTPSSupportEnabled()
-                      ? 'https://' . $this->edit_site->getMainAlias()->getDNSName()
-                      : ($this->edit_site->isHTTPSupportEnabled()
-                      ? 'http://' . $this->edit_site->getMainAlias()->getDNSName()
-                      : null)
-                  )
-                : null
-            ;
         }
 
-        return true;
+        return $retval;
     }
 
     public function beforeDisplayTarget()

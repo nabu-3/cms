@@ -114,7 +114,7 @@ class CNabuCMSPluginSiteTargetAPI extends CNabuCMSPluginAbstractAPI
             }
 
             if ($this->nb_site_target_edit->save()) {
-                $languages = $this->nb_request->getCombinedPostIndexes(array('title'));
+                $languages = $this->nb_request->getCombinedPostIndexes(array('title', 'url', 'head_title'));
                 if (count($languages) > 0) {
                     foreach ($languages as $lang_id) {
                         $nb_translation = $this->nb_site_target_edit->getTranslation($lang_id);

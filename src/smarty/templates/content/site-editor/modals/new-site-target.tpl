@@ -24,7 +24,14 @@
                     <aside class="col-sm-3">{$nb_site_target.translation.opening}</aside>
                     <section class="col-sm-9 col-sm-offset-3" data-toggle="toggable-lang">
                         {nabu_form_textbox autofocus=true label="{nabu_static key=lbl_title}" name=title multilang=$edit_site.languages help="Escribe el título de la página."}
-                        {nabu_form_textbox label="{nabu_static key=lbl_url}" name=url multilang=$edit_site.languages help="Escribe la URL de la página."}
+                        {if array_key_exists('type', $smarty.get)}
+                            {if $smarty.get.type==='page-multi' || $smarty.get.type==='document-multi'}
+                                {nabu_form_textbox label="{nabu_static key=lbl_url}" name=url_rebuild multilang=$edit_site.languages help="Escribe la URL de la página. Deberá contener formateadores que permitan introducir las partes variables cuando lo necesites. Puedes usar sprintf o nb_vnsprintf para rellenar los formateadores."}
+                                {nabu_form_textbox label="{nabu_static key=lbl_url_regexpr}" name=url multilang=$edit_site.languages help="Escribe la expresión regular que debe cumpliar la URL de la página. Para un correcto uso, las partes variables extraíbles deberían coincidir con la posición de los formateadores usados en la URL."}
+                            {else}
+                                {nabu_form_textbox label="{nabu_static key=lbl_url}" name=url multilang=$edit_site.languages help="Escribe la URL de la página."}
+                            {/if}
+                        {/if}
                     </section>
                 </div>
             {/nabu_modal_body}
