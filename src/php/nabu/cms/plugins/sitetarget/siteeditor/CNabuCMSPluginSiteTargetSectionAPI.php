@@ -86,7 +86,6 @@ class CNabuCMSPluginSiteTargetSectionAPI extends CNabuCMSPluginAbstractAPI
 
     public function methodPOST()
     {
-        error_log(print_r($this->nb_request->getBody(), true));
         if ($this->edit_site_target_section instanceof CNabuSiteTargetSection) {
             $this->edit_site_target_section->grantHash();
             $this->nb_request->updateObjectFromPost($this->edit_site_target_section,
@@ -165,7 +164,6 @@ class CNabuCMSPluginSiteTargetSectionAPI extends CNabuCMSPluginAbstractAPI
         return true;
     }
 
-    /*
     public function beforeDisplayTarget()
     {
         $render = $this->nb_response->getRender();
@@ -191,5 +189,4 @@ class CNabuCMSPluginSiteTargetSectionAPI extends CNabuCMSPluginAbstractAPI
 
         return parent::beforeDisplayTarget();
     }
-    */
 }

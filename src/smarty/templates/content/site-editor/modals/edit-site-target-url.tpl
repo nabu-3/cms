@@ -17,16 +17,19 @@
                         {else}
                             {nabu_form_textbox label="{nabu_static key=lbl_url}" from=$edit_site_target field=url multilang=$edit_site.languages help="Escribe la URL de la página."}
                         {/if}
-                        {if $edit_site.http_support==='T' || $edit_site.https_support==='T'}
-                            <div class="row">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {nabu_form_textbox type=number label="{nabu_static key=lbl_order}" from=$edit_site_target field=order help="Orden de búsqueda para el filtrado de URLs"}
+                            </div>
+                            {if $edit_site.http_support==='T' || $edit_site.https_support==='T'}
                                 {if $edit_site.http_support==='T'}
-                                    <div class="col-sm-4">{nabu_form_checkbox label="Acceso por HTTP" from=$edit_site_target field=use_http check=T uncheck=F}</div>
+                                    <div class="col-sm-4 container-checkbox">{nabu_form_checkbox label="Acceso por HTTP" from=$edit_site_target field=use_http check=T uncheck=F}</div>
                                 {/if}
                                 {if $edit_site.https_support==='T'}
-                                    <div class="col-sm-4">{nabu_form_checkbox label="Acceso por HTTPS" from=$edit_site_target field=use_https check=T uncheck=F}</div>
+                                    <div class="col-sm-4 container-checkbox">{nabu_form_checkbox label="Acceso por HTTPS" from=$edit_site_target field=use_https check=T uncheck=F}</div>
                                 {/if}
-                            </div>
-                        {/if}
+                            {/if}
+                        </div>
                     </section>
                 </div>
             {/nabu_modal_body}

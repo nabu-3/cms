@@ -626,6 +626,10 @@ input[type="checkbox"] {
     margin-top: 2px;
 }
 
+.container-checkbox {
+    padding-top: 27px;
+}
+
 /** Panels **/
 .panel {
     border-width: 2px;
