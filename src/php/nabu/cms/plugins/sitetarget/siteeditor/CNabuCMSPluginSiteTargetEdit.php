@@ -66,7 +66,8 @@ class CNabuCMSPluginSiteTargetEdit extends CNabuHTTPSiteTargetPluginAdapter
                 if (count($fragments) > 2) {
                     $target_id = $fragments[2];
                     $this->title_part[1] = '#' . $target_id;
-                    if (($this->edit_site_target = $this->edit_site->getTarget($target_id)) !== false &&
+                    if (($this->edit_site_target = $this->edit_site->getTarget($target_id)) instanceof CNabuSiteTarget &&
+                        ($this->edit_site_target->refresh(true, true)) &&
                         ($translation = $this->edit_site_target->getTranslation($this->nb_language)) !== false &&
                         (strlen($this->title_part[1] = $translation->getTitle()) === 0) &&
                         (strlen($this->title_part[1] = $this->edit_site_target->getKey()) === 0)
@@ -85,9 +86,9 @@ class CNabuCMSPluginSiteTargetEdit extends CNabuHTTPSiteTargetPluginAdapter
                 $nb_main_alias = $this->edit_site->getMainAlias();
                 $this->base_url = $nb_main_alias instanceof CNabuSiteAlias
                     ? ($this->edit_site->isHTTPSSupportEnabled()
-                          ? 'https://' . $this->edit_site->getMainAlias()->getDNSName()
+                          ? 'https://' . $nb_main_alias->getDNSName()
                           : ($this->edit_site->isHTTPSupportEnabled()
-                          ? 'http://' . $this->edit_site->getMainAlias()->getDNSName()
+                          ? 'http://' . $nb_main_alias->getDNSName()
                           : null)
                       )
                     : null

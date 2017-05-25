@@ -18,25 +18,22 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\siteeditor;
+use nabu\data\customer\CNabuCustomer;
 use nabu\data\site\CNabuSite;
+use nabu\data\site\CNabuSiteAlias;
 use nabu\data\site\CNabuSiteTarget;
 use nabu\data\site\CNabuSiteTargetSection;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 class CNabuCMSPluginSiteTargetSectionEdit extends CNabuHTTPSiteTargetPluginAdapter
 {
-    /**
-     * @var CNabuSite
-     */
+    /** @var CNabuSite $edit_site Site instance that contains the Site Target Section instance. */
     private $edit_site = null;
-    /**
-     * @var CNabuSiteTarget
-     */
+    /** @var CNabuSiteTarget $edit_site_target Site Target instance that contains the Site Target Section instance. */
     private $edit_site_target = null;
-    /**
-     * @var CNabuSiteTargetSection
-     */
+    /** @var CNabuSiteTargetSection $edit_section Site Target Section instance to be edited. */
     private $edit_section = null;
+    /** @var string $base_url URL base of $edit_site. */
     private $base_url;
 
     public function prepareTarget()
@@ -45,25 +42,31 @@ class CNabuCMSPluginSiteTargetSectionEdit extends CNabuHTTPSiteTargetPluginAdapt
         $this->edit_site_target = null;
         $this->edit_section = null;
 
-        $fragments = $this->nb_request->getRegExprURLFragments();
-        if ($this->nb_work_customer !== null && is_array($fragments) && count($fragments) > 3) {
-            $site_id = $fragments[1];
-            $target_id = $fragments[2];
-            $section_id = $fragments[3];
-
-            if (($this->edit_site = $this->nb_work_customer->getSite($site_id)) !== false &&
-                ($this->edit_site_target = $this->edit_site->getTarget($target_id)) !== false
-            ) {
+        if (is_array($fragments = $this->nb_request->getRegExprURLFragments()) &&
+            count($fragments) === 4 &&
+            is_numeric($site_id = $fragments[1]) &&
+            is_numeric($target_id = $fragments[2]) &&
+            $this->nb_work_customer instanceof CNabuCustomer &&
+            $this->nb_work_customer->refresh(true, false) &&
+            ($this->edit_site = $this->nb_work_customer->getSite($site_id)) instanceof CNabuSite &&
+            $this->edit_site->refresh(true, true) &&
+            ($this->edit_site_target = $this->edit_site->getTarget($target_id)) instanceof CNabuSiteTarget &&
+            $this->edit_site_target->refresh(true, true)
+        ) {
+            if (is_numeric($section_id = $fragments[3])) {
                 $this->edit_section = $this->edit_site_target->getSection($section_id);
-                $this->base_url =
-                    ($this->edit_site->isHTTPSSupportEnabled()
-                        ? 'https://' . $this->edit_site->getMainAlias()->getDNSName()
-                        : ($this->edit_site->isHTTPSupportEnabled()
-                        ? 'http://' . $this->edit_site->getMainAlias()->getDNSName()
-                        : null)
-                    )
-                ;
             }
+
+            $nb_main_alias = $this->edit_site->getMainAlias();
+            $this->base_url = $nb_main_alias instanceof CNabuSiteAlias
+                ? ($this->edit_site->isHTTPSSupportEnabled()
+                      ? 'https://' . $nb_main_alias->getDNSName()
+                      : ($this->edit_site->isHTTPSupportEnabled()
+                      ? 'http://' . $nb_main_alias->getDNSName()
+                      : null)
+                  )
+                : null
+            ;
         }
 
         return true;

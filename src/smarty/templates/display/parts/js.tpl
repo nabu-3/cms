@@ -3,7 +3,7 @@
 <script type="text/javascript" src="/assets/js/jquery.sprintf.min.js"></script>
 <script type="text/javascript" src="/runtime/nbfw/lib/js/nabu.min.js"></script>
 <script type="text/javascript">
-    nabu.setMinify(true);
+    nabu.setMinify(false);
 </script>
 <script type="text/javascript" src="/runtime/nbfw/lib/js/nabu-bootstrap.min.js"></script>
 <script type="text/javascript" src="/runtime/assets/ckeditor/4.6.2/ckeditor.js" defer></script>

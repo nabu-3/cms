@@ -600,11 +600,6 @@ footer.navbar .navbar-nav > li > a + span {
     margin-bottom: 0;
 }
 
-.form-vertical .form-group > .checkbox:first-child {
-    margin-top: 32px;
-    margin-bottom: 5px;
-}
-
 .input-group > .dropdown:last-child > .btn,
 .input-group > .dropdown:last-child > .btn-group > .btn,
 .input-group > .dropdown:last-child > .dropdown-toggle,

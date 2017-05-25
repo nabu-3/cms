@@ -52,7 +52,7 @@ class CNabuCMSPluginSiteTargetAPI extends CNabuCMSPluginAbstractAPI
                 $this->nb_site_edit->refresh();
                 if (is_numeric($fragments[2])) {
                     $this->nb_site_target_edit = $this->nb_site_edit->getTarget($fragments[2]);
-                    $this->nb_site_target_edit->refresh();
+                    $this->nb_site_target_edit->refresh(true, true);
                 } elseif (!$fragments[2]) {
                     $this->nb_site_target_edit = new CNabuSiteTarget();
                     $this->nb_site_target_edit->setSite($this->nb_site_edit);
