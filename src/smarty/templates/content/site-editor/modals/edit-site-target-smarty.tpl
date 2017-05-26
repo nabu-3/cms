@@ -8,13 +8,10 @@
                 <div class="row">
                     <aside class="col-sm-3">{$nb_site_target.translation.opening}</aside>
                     <section class="col-sm-9 col-sm-offset-3" data-toggle="toggable-lang">
+                        {nabu_form_textbox label={nabu_static key=lbl_plugin} from=$edit_site_target field=plugin_name help={nabu_static key=hlp_plugin} maxlength=150}
+                        {nabu_form_textbox label={nabu_static key=lbl_commands} from=$edit_site_target field=commands help={nabu_static key=hlp_commands}}
                         <div class="row">
-                            <div class="col-sm-8">
-                                {nabu_form_textbox label={nabu_static key=lbl_key} from=$edit_site_target field=key help={nabu_static key=hlp_key} maxlength=30}
-                            </div>
-                            <div class="col-sm-8">
-                                {nabu_form_textbox label={nabu_static key=lbl_GUID} from=$edit_site_target field=hash help={nabu_static key=hlp_GUID} maxlength=38}
-                            </div>
+                            <div class="col-sm-4">{nabu_form_checkbox label="Activar traza de PHP" from=$edit_site_target field=php_trace check=T uncheck=F}</div>
                         </div>
                     </section>
                 </div>

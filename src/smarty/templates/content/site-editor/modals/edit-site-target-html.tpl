@@ -8,12 +8,11 @@
                 <div class="row">
                     <aside class="col-sm-3">{$nb_site_target.translation.opening}</aside>
                     <section class="col-sm-9 col-sm-offset-3" data-toggle="toggable-lang">
+                        {nabu_form_textbox label={nabu_static key=lbl_script_file} from=$edit_site_target field=script_file help={nabu_static key=hlp_script_file} maxlength=100}
+                        {nabu_form_textbox label={nabu_static key=lbl_css_file} from=$edit_site_target field=css_file help={nabu_static key=hlp_css_file} maxlength=100}
                         <div class="row">
                             <div class="col-sm-8">
-                                {nabu_form_textbox label={nabu_static key=lbl_key} from=$edit_site_target field=key help={nabu_static key=hlp_key} maxlength=30}
-                            </div>
-                            <div class="col-sm-8">
-                                {nabu_form_textbox label={nabu_static key=lbl_GUID} from=$edit_site_target field=hash help={nabu_static key=hlp_GUID} maxlength=38}
+                                {nabu_form_textbox label={nabu_static key=lbl_css_class} from=$edit_site_target field=css_class help={nabu_static key=hlp_css_class} maxlength=50}
                             </div>
                         </div>
                     </section>
