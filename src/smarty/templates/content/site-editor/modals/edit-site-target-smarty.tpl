@@ -8,10 +8,10 @@
                 <div class="row">
                     <aside class="col-sm-3">{$nb_site_target.translation.opening}</aside>
                     <section class="col-sm-9 col-sm-offset-3" data-toggle="toggable-lang">
-                        {nabu_form_textbox label={nabu_static key=lbl_plugin} from=$edit_site_target field=plugin_name help={nabu_static key=hlp_plugin} maxlength=150}
-                        {nabu_form_textbox label={nabu_static key=lbl_commands} from=$edit_site_target field=commands help={nabu_static key=hlp_commands}}
+                        {nabu_form_textbox label={nabu_static key=lbl_display_template} from=$edit_site_target field=smarty_display_file help={nabu_static key=hlp_display_template} maxlength=150}
+                        {nabu_form_textbox label={nabu_static key=lbl_content_template} from=$edit_site_target field=smarty_content_file help={nabu_static key=hlp_content_template}}
                         <div class="row">
-                            <div class="col-sm-4">{nabu_form_checkbox label="Activar traza de PHP" from=$edit_site_target field=php_trace check=T uncheck=F}</div>
+                            <div class="col-sm-6">{nabu_form_checkbox label={nabu_static key=chk_enable_smarty_debug} from=$edit_site_target field=smarty_debugging check=T uncheck=F}</div>
                         </div>
                     </section>
                 </div>

@@ -11,7 +11,7 @@
                         {nabu_form_textbox label={nabu_static key=lbl_plugin} from=$edit_site_target field=plugin_name help={nabu_static key=hlp_plugin} maxlength=150}
                         {nabu_form_textbox label={nabu_static key=lbl_commands} from=$edit_site_target field=commands help={nabu_static key=hlp_commands}}
                         <div class="row">
-                            <div class="col-sm-4">{nabu_form_checkbox label="Activar traza de PHP" from=$edit_site_target field=php_trace check=T uncheck=F}</div>
+                            <div class="col-sm-4">{nabu_form_checkbox label={nabu_static key=chk_enable_php_trace} from=$edit_site_target field=php_trace check=T uncheck=F}</div>
                         </div>
                     </section>
                 </div>
