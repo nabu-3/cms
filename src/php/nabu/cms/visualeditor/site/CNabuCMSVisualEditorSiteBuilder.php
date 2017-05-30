@@ -110,19 +110,19 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 $vr_cell->setHeight(160);
                 $vr_cell->save();
             }
-            $this->graph->insertVertex(
+            $vertex = $this->graph->insertVertex(
                 $parent, 'st-' . $key, $name,
                 $vr_cell->getX(), $vr_cell->getY(),
                 $vr_cell->getWidth(), $vr_cell->getHeight(),
                 "shape=$shape;edgeStyle=elbowEdgeStyle;elbow=Vertical;whiteSpace=wrap;"
             );
-            $vertex = $this->model->cells['st-' . $key];
+            //$vertex = $this->model->cells['st-' . $key];
             $vertex->type = $shape;
             $vertex->objectId = $key;
             $sections = $this->prepareSectionsList($nb_site, $nb_site_target);
             $vertex->section_ids = is_array($sections) ? array_keys($sections) : null;
             $vertex->section_names = is_array($sections) ? array_values($sections) : null;
-            
+
             return true;
         });
 
@@ -150,19 +150,17 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
             return true;
         });
 
-        /*
         $nb_map_list = $nb_site->getSiteMaps();
-        $this->paintMaps($nb_site, $nb_language, $nb_map_list, true);
-        */
+        $this->paintMaps($nb_site, $nb_language, $vr_site_cell_list, $nb_map_list, true);
 
         $this->model->endUpdate();
     }
 
-    private function paintMaps(CNabuSite $nb_site, CNabuLanguage $nb_language, CNabuSiteMapTree $nb_map_list, bool $root = false)
+    private function paintMaps(CNabuSite $nb_site, CNabuLanguage $nb_language, CNabuSiteVisualEditorItemList $vr_site_cell_list, CNabuSiteMapTree $nb_map_list, bool $root = false)
     {
         $parent = $this->graph->getDefaultParent();
 
-        $nb_map_list->iterate(function($key, CNabuSiteMap $nb_site_map) use ($nb_site, $nb_language, $parent) {
+        $nb_map_list->iterate(function($key, CNabuSiteMap $nb_site_map) use ($nb_site, $nb_language, $parent, $vr_site_cell_list) {
             if (($nb_translation = $nb_site_map->getTranslation($nb_language)) instanceof INabuTranslation ||
                 ($nb_translation = $nb_site_map->getTranslation($nb_site->getDefaultLanguageId())) instanceof INabuTranslation ||
                 ($nb_translation = $nb_site_map->getTranslation($nb_site->getApiLanguageId())) instanceof INabuTranslation
@@ -177,7 +175,37 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 $name = '#' . $nb_site_map->getId();
             }
 
-            $nb_child_list = $nb_site_map->getChilds();
+            $vr_cell = $vr_site_cell_list->getItem('smclu-' . $key);
+            if (!$vr_cell) {
+                $vr_cell = new CNabuSiteVisualEditorItem();
+                $vr_cell->setSite($nb_site);
+                $vr_cell->setVRId('smclu-' . $key);
+                $vr_cell->setX(20);
+                $vr_cell->setY(20);
+                $vr_cell->setWidth(60);
+                $vr_cell->setHeight(60);
+                $vr_cell->save();
+            }
+            $vertex = $this->graph->insertVertex(
+                $parent, 'smclu-' . $key, $name,
+                $vr_cell->getX(), $vr_cell->getY(),
+                $vr_cell->getWidth(), $vr_cell->getHeight(),
+                "shape=cluster;whiteSpace=wrap;"
+            );
+            $vertex->type = 'cluster';
+            $vertex->objectId = $key;
+
+            if ($nb_site_map->isUsingURIAsTarget() && is_numeric($nb_st_id = $nb_site_map->getSiteTargetId())) {
+                $from = $this->model->cells['st-' . $nb_st_id];
+                $this->graph->insertEdge($parent, 'smclues-' . $key, '', $from, $vertex, "endArrow=none;");
+            }
+
+            if (($nb_sm_parent_id = $nb_site_map->getParentId()) !== null) {
+                $from = $this->model->cells['smclu-' . $nb_sm_parent_id];
+                $this->graph->insertEdge($parent, 'smcluep-' . $key, '', $from, $vertex);
+            }
+
+            /*
             if (is_numeric($nb_parent_id = $nb_site_map->getParentId())) {
                 $from = $this->model->cells['sm-' . $nb_parent_id];
             }
@@ -200,8 +228,10 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 $to = $this->model->cells['st-' . $nb_st_id];
                 $this->graph->insertEdge($parent, 'smt-' . $nb_st_id, (isset($cluster) ? '' : $name), (isset($cluster) ? $cluster : $from), $to);
             }
+            */
 
-            $this->paintMaps($nb_site, $nb_language, $nb_child_list);
+            $nb_child_list = $nb_site_map->getChilds();
+            $this->paintMaps($nb_site, $nb_language, $vr_site_cell_list, $nb_child_list);
 
             return true;
         });

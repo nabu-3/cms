@@ -56,8 +56,8 @@ class CNabuCMSPluginSiteTargetAPI extends CNabuCMSPluginAbstractAPI
                 } elseif (!$fragments[2]) {
                     $this->nb_site_target_edit = new CNabuSiteTarget();
                     $this->nb_site_target_edit->setSite($this->nb_site_edit);
-                    $this->nb_site_target_edit->grantHash();
                 }
+                $this->nb_site_target_edit->grantHash();
             }
         }
 
