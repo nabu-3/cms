@@ -20,6 +20,7 @@
 namespace nabu\cms\plugins\sitetarget\siteeditor;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
 use nabu\data\site\CNabuSite;
+use nabu\data\site\CNabuSiteMap;
 use nabu\data\site\CNabuSiteTarget;
 use nabu\data\site\CNabuSiteTargetCTA;
 use nabu\visual\site\CNabuSiteVisualEditorItem;
@@ -61,6 +62,30 @@ class CNabuCMSPluginSiteVisualEditorCellAPI extends CNabuCMSPluginAbstractAPI
                     break;
                 case 'set-cta':
                     $retval = $this->setCTA();
+                    break;
+                case 'set-map-target':
+                    $retval = $this->setMapTarget();
+                    break;
+                default:
+                    $this->setStatusError('Invalid action ' . $this->nb_request->getGETField('action'));
+            }
+        }
+
+        return $retval;
+    }
+
+    /**
+     * Treats delete calls.
+     * @return mixed Returns the result status
+     */
+    public function methodDELETE()
+    {
+        $retval = true;
+
+        if ($this->nb_request->hasGETField('action')) {
+            switch($this->nb_request->getGETField('action')) {
+                case 'remove-cta':
+                    $retval = $this->removeCTA();
                     break;
                 default:
                     $this->setStatusError('Invalid action ' . $this->nb_request->getGETField('action'));
@@ -138,6 +163,57 @@ class CNabuCMSPluginSiteVisualEditorCellAPI extends CNabuCMSPluginAbstractAPI
                 } else {
                     $this->setStatusError('Source target required.');
                 }
+            }
+        }
+
+        return true;
+    }
+
+    private function removeCTA()
+    {
+        if ($this->edit_site instanceof CNabuSite) {
+            $ids = $this->nb_request->getBody();
+            if (array_key_exists('id', $ids) &&
+                is_numeric($ids['id']) &&
+                ($nb_site_target_cta = $this->edit_site->getCTA($ids['id'])) instanceof CNabuSiteTargetCTA
+            ) {
+                $nb_site_target_cta->delete();
+                $this->setStatusOK();
+                $this->setData($ids);
+            } else {
+                error_log($ids['id']);
+                error_log(print_r($nb_site_target_cta, true));
+                $this->setStatusError('Invalid CTA Id');
+            }
+        }
+
+        return true;
+    }
+
+    private function setMapTarget()
+    {
+        if ($this->edit_site instanceof CNabuSite) {
+            if ($this->nb_request->hasPOSTField('map_id') &&
+                is_numeric($nb_map_id = $this->nb_request->getPOSTField('map_id')) &&
+                $this->nb_request->hasPOSTField('target_id') &&
+                ($nb_site_map = $this->edit_site->getSiteMap($nb_map_id)) instanceof CNabuSiteMap &&
+                $nb_site_map->refresh(true, false)
+            ) {
+                if (is_numeric($nb_target_id = $this->nb_request->getPOSTField('target_id'))) {
+                    if (($nb_site_target = $this->edit_site->getTarget($nb_target_id)) instanceof CNabuSiteTarget) {
+                        $nb_site_map->setSiteTarget($nb_site_target);
+                        $nb_site_map->save();
+                        $this->setStatusOK();
+                        $this->setData($nb_site_map->getTreeData(null, true));
+                    }
+                } elseif ($nb_target_id === null) {
+                    $nb_site_map->setSiteTarget(null);
+                    $nb_site_map->save();
+                    $this->setStatusOK();
+                    $this->setData($nb_site_map->getTreeData(null, true));
+                }
+            } else {
+                $this->setStatusError('Target or Map are not allowed in this Site');
             }
         }
 
