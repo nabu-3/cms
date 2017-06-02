@@ -134,11 +134,10 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 if (is_numeric($nb_target_id = $nb_site_target_cta->getTargetId())) {
                     $to_id = 'st-' . $nb_site_target_cta->getTargetId();
                     $to = $this->model->cells[$to_id];
-                    $this->graph->insertEdge($parent, 'cta-' . $key, $nb_site_target_cta->getKey(), $from, $to, 'edgeStyle=orthogonalEdgeStyle;whiteSpace=wrap;');
+                    $edge = $this->graph->insertEdge($parent, 'cta-' . $key, $nb_site_target_cta->getKey(), $from, $to, 'edgeStyle=orthogonalEdgeStyle;whiteSpace=wrap;');
                 } else {
-                    $this->graph->insertEdge($parent, 'cta-' . $key, $nb_site_target_cta->getKey(), $from, null, 'edgeStyle=orthogonalEdgeStyle;whiteSpace=wrap;');
+                    $edge = $this->graph->insertEdge($parent, 'cta-' . $key, $nb_site_target_cta->getKey(), $from, null, 'edgeStyle=orthogonalEdgeStyle;whiteSpace=wrap;');
                 }
-                $edge = $this->model->cells['cta-' . $key];
                 $edge->type = 'cta';
                 $edge->objectId = $key;
                 $vr_cell = $vr_site_cell_list->getItem('cta-' . $key);
@@ -197,12 +196,16 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
 
             if ($nb_site_map->isUsingURIAsTarget() && is_numeric($nb_st_id = $nb_site_map->getSiteTargetId())) {
                 $from = $this->model->cells['st-' . $nb_st_id];
-                $this->graph->insertEdge($parent, 'smclues-' . $key, '', $from, $vertex, "endArrow=none;");
+                $edge = $this->graph->insertEdge($parent, 'smclues-' . $key, '', $from, $vertex, "endArrow=none;");
+                $edge->type = 'cluster-target';
+                $edge->objectId = $key;
             }
 
             if (($nb_sm_parent_id = $nb_site_map->getParentId()) !== null) {
                 $from = $this->model->cells['smclu-' . $nb_sm_parent_id];
-                $this->graph->insertEdge($parent, 'smcluep-' . $key, '', $from, $vertex);
+                $edge = $this->graph->insertEdge($parent, 'smcluep-' . $key, '', $from, $vertex);
+                $edge->type = 'cluster-parent';
+                $edge->objectId = $key;
             }
 
             /*
