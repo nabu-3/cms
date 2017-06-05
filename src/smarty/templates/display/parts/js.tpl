@@ -1,11 +1,12 @@
 <script type="text/javascript" src="/assets/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/assets/js/jquery.sprintf.min.js"></script>
 <script type="text/javascript" src="/runtime/nbfw/lib/js/nabu.min.js"></script>
 <script type="text/javascript">
     nabu.setMinify(false);
 </script>
-<script type="text/javascript" src="/runtime/nbfw/lib/js/nabu-bootstrap.min.js"></script>
+<script type="text/javascript" src="/runtime/nbfw/lib/js/nabu-bootstrap.js"></script>
 <script type="text/javascript" src="/runtime/assets/ckeditor/4.6.2/ckeditor.js" defer></script>
 <script type="text/javascript" src="/runtime/assets/ckeditor/4.6.2/adapters/jquery.js" defer></script>
 {if is_array($nb_site_target.attributes) && array_key_exists('visual_editor', $nb_site_target.attributes) && $nb_site_target.attributes.visual_editor}

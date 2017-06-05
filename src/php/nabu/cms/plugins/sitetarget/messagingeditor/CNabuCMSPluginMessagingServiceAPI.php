@@ -94,16 +94,19 @@ class CNabuCMSPluginMessagingServiceAPI extends CNabuCMSPluginAbstractAPI
             $this->nb_request->updateObjectFromPost(
                 $this->nb_messaging_service,
                 array(
-                    'key' => 'nb_messaging_service_key',
                     'hash' => 'nb_messaging_service_hash',
+                    'key' => 'nb_messaging_service_key',
+                    'status' => 'nb_messaging_service_status',
                     'name' => 'nb_messaging_service_name',
                     'provider' => 'nb_messaging_service_provider',
-                    'interface' => 'nb_messaging_service_interface',
-                    'attrs' => 'nb_messaging_service_attributes'
+                    'interface' => 'nb_messaging_service_interface'
                 )
             );
             if ($this->nb_messaging_service->isValueEmpty('nb_messaging_service_hash')) {
                 $this->nb_messaging_service->setHash(nb_generateGUID());
+            }
+            if ($this->nb_request->hasPOSTField('attributes')) {
+                $this->nb_messaging_service->setAttributes($this->nb_request->getPOSTField('attributes'));
             }
             if ($this->nb_messaging_service->save()) {
                 $this->setStatusOK();

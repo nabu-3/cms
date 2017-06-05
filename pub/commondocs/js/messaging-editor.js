@@ -14,6 +14,7 @@ $(document).ready(function() {
             this.nabuTable.editor(params.selection[0]);
         })
     ;
+    /*
     $('#services_list')
         .on('pressed.add.toolbar.table.nabu', function(e, params) {
             console.log('Add');
@@ -29,6 +30,7 @@ $(document).ready(function() {
             //$('#modal_test_service').modal();
         })
     ;
+    */
     $('#templates_list')
         .on('pressed.add.toolbar.table.nabu', function(e, params) {
             console.log('Add');

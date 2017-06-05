@@ -12,22 +12,25 @@
             {nabu_form method="ajax-post" layout=vertical multiform=":root:service:{if $edit_service!==null}{$edit_service.id}{else}_new{/if}" action=$url}
                 {nabu_form_fieldset title="{nabu_static key=tit_references}"}
                     {nabu_form_row}
-                        {nabu_form_textbox from=$edit_service field=key name=key label="Key" class="col-sm-5"}
-                        {nabu_form_textbox from=$edit_service field=hash name=hash label="GUID" class="col-sm-7"}
+                        {nabu_form_textbox from=$edit_service field=key name=key label="{nabu_static key=lbl_key}" class="col-sm-5"}
+                        {nabu_form_textbox from=$edit_service field=hash name=hash label="{nabu_static key=lbl_GUID}" class="col-sm-7"}
                     {/nabu_form_row}
                     {nabu_form_row}
-                        {nabu_form_textbox from=$edit_service field=name name=name label="Servicio" class="col-sm-12"}
+                        {nabu_form_textbox from=$edit_service field=name name=name label="Nombre del Servicio" class="col-sm-12"}
                     {/nabu_form_row}
                 {/nabu_form_fieldset}
                 {nabu_form_fieldset title="{nabu_static key=tit_connection}"}
                     {nabu_form_row}
-                        {nabu_form_textbox from=$edit_service field=provider name=provider label="Proveedor" class="col-sm-12"}
+                        {nabu_form_checkbox from=$edit_service field=status check=E uncheck=D label="Activo" class="col-sm-6"}
                     {/nabu_form_row}
                     {nabu_form_row}
-                        {nabu_form_textbox from=$edit_service field=interface name=interface label="Interfaz" class="col-sm-12"}
+                        {nabu_form_textbox from=$edit_service field=provider label="Proveedor" class="col-sm-12"}
                     {/nabu_form_row}
                     {nabu_form_row}
-                        {nabu_form_textbox type=textarea rows=5 from=$edit_service field=attributes name=attrs label="Atributos" class="col-sm-12"}
+                        {nabu_form_textbox from=$edit_service field=interface label="Interfaz" class="col-sm-12"}
+                    {/nabu_form_row}
+                    {nabu_form_row}
+                        {nabu_form_textbox type=textarea rows=5 from=$edit_service field=attributes label="Atributos" class="col-sm-12"}
                     {/nabu_form_row}
                 {/nabu_form_fieldset}
             {/nabu_form}
