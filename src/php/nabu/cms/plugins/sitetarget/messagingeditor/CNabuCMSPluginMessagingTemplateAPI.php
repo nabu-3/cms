@@ -78,14 +78,14 @@ class CNabuCMSPluginMessagingTemplateAPI extends CNabuCMSPluginAbstractAPI
                 $this->nb_messaging_template,
                 array(
                     'key' => 'nb_messaging_template_key',
-                    'hash' => 'nb_messaging_template_hash'
+                    'hash' => 'nb_messaging_template_hash',
+                    'render_provider' => 'nb_messaging_template_render_provider',
+                    'render_interface' => 'nb_messaging_template_render_interface'
                 )
             );
-            if ($this->nb_messaging_template->isValueEmpty('nb_messaging_template_hash')) {
-                $this->nb_messaging_template->setHash(nb_generateGUID());
-            }
+            $this->nb_messaging_template->grantHash();
             if ($this->nb_messaging_template->save()) {
-                $languages = $this->nb_request->getCombinedPostIndexes(array('name'));
+                $languages = $this->nb_request->getCombinedPostIndexes(array('name', 'subject', 'html'));
                 if (count($languages) > 0) {
                     foreach ($languages as $lang_id) {
                         $nb_translation = $this->nb_messaging_template->getTranslation($lang_id);

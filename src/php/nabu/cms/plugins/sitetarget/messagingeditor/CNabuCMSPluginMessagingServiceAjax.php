@@ -42,14 +42,12 @@ class CNabuCMSPluginMessagingServiceAjax extends CNabuHTTPSiteTargetPluginAdapte
         $this->nb_messaging_service = null;
 
         $fragments = $this->nb_request->getRegExprURLFragments();
-        if (is_array($fragments) && count($fragments) === 3 && is_numeric($fragments[1])) {
-            $this->nb_messaging = $this->nb_work_customer->getMessaging($fragments[1]);
-            if ($this->nb_messaging instanceof CNabuMessaging) {
-                $this->nb_messaging->refresh();
-                if (is_numeric($fragments[2])) {
-                    $this->nb_messaging_service = $this->nb_messaging->getServices()->getItem($fragments[2]);
-                }
-            }
+        if (is_array($fragments) && count($fragments) === 3 && is_numeric($fragments[1]) &&
+            ($this->nb_messaging = $this->nb_work_customer->getMessaging($fragments[1])) instanceof CNabuMessaging &&
+            $this->nb_messaging->refresh(true, true) &&
+            is_numeric($fragments[2])
+        ) {
+            $this->nb_messaging_service = $this->nb_messaging->getServices()->getItem($fragments[2]);
         }
 
         return true;

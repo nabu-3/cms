@@ -102,11 +102,11 @@ class CNabuCMSPluginMessagingServiceAPI extends CNabuCMSPluginAbstractAPI
                     'interface' => 'nb_messaging_service_interface'
                 )
             );
-            if ($this->nb_messaging_service->isValueEmpty('nb_messaging_service_hash')) {
-                $this->nb_messaging_service->setHash(nb_generateGUID());
-            }
+            $this->nb_messaging_service->grantHash();
             if ($this->nb_request->hasPOSTField('attributes')) {
                 $this->nb_messaging_service->setAttributes($this->nb_request->getPOSTField('attributes'));
+            } elseif ($this->nb_request->hasPOSTField('attrs')) {
+                $this->nb_messaging_service->setAttributes($this->nb_request->getPOSTField('attrs'));
             }
             if ($this->nb_messaging_service->save()) {
                 $this->setStatusOK();

@@ -47,6 +47,15 @@
                 title: 'Key'
                 order: 'alpha'
             ]
+            status: [
+                title: "Activo"
+                order: "alpha"
+                lookup: [
+                    E: "{nabu_static key=lbl_yes}"
+                    D: "{nabu_static key=lbl_no}"
+                ]
+                align: "center"
+            ]
             provider: [
                 title: "Módulo"
                 order: 'alpha'

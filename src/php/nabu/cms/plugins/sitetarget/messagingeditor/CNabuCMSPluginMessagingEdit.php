@@ -45,7 +45,7 @@ class CNabuCMSPluginMessagingEdit extends CNabuHTTPSiteTargetPluginAdapter
             $id = $fragments[1];
             $this->title_part = '#' . $id;
             if (($this->edit_messaging = $this->nb_work_customer->getMessaging($id)) !== false) {
-                $this->edit_messaging->refresh();
+                $this->edit_messaging->refresh(true, true);
                 if (($translation = $this->edit_messaging->getTranslation($this->nb_language)) !== false &&
                     (strlen($this->title_part = $translation->getName()) === 0) &&
                     (strlen($this->title_part = $this->edit_messaging->getKey()) === 0)

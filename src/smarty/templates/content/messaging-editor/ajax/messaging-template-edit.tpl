@@ -19,12 +19,20 @@
                         {nabu_form_textbox from=$edit_template field=name name=name multilang=$nb_all_languages label="Nombre" class="col-sm-12"}
                     {/nabu_form_row}
                 {/nabu_form_fieldset}
+                {nabu_form_fieldset title="{nabu_static key=tit_connection}"}
+                    {nabu_form_row}
+                        {nabu_form_textbox from=$edit_template field=render_provider label="Proveedor de Render" class="col-sm-12"}
+                    {/nabu_form_row}
+                    {nabu_form_row}
+                        {nabu_form_textbox from=$edit_template field=render_interface label="Interfaz de Render" class="col-sm-12"}
+                    {/nabu_form_row}
+                {/nabu_form_fieldset}
                 {nabu_form_fieldset title="{nabu_static key=tit_content}"}
                     {nabu_form_row}
                         {nabu_form_textbox from=$edit_template field=subject name=subject multilang=$nb_all_languages label="Asunto" class="col-sm-12"}
                     {/nabu_form_row}
                     {nabu_form_row}
-                        {nabu_form_textbox type=textarea from=$edit_template field=html name=html multilang=$nb_all_languages label="Cuerpo HTML" class="col-sm-12"}
+                        {nabu_form_textbox type=textarea rows=5 from=$edit_template field=html name=html multilang=$nb_all_languages label="Cuerpo HTML" class="col-sm-12"}
                     {/nabu_form_row}
                 {/nabu_form_fieldset}
             {/nabu_form}
