@@ -189,7 +189,7 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 $parent, 'smclu-' . $key, $name,
                 $vr_cell->getX(), $vr_cell->getY(),
                 $vr_cell->getWidth(), $vr_cell->getHeight(),
-                "shape=cluster;whiteSpace=wrap;"
+                "shape=cluster;whiteSpace=wrap;perimeter=ellipsePerimeter;"
             );
             $vertex->type = 'cluster';
             $vertex->objectId = $key;
@@ -203,7 +203,7 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
 
             if (($nb_sm_parent_id = $nb_site_map->getParentId()) !== null) {
                 $from = $this->model->cells['smclu-' . $nb_sm_parent_id];
-                $edge = $this->graph->insertEdge($parent, 'smcluep-' . $key, '', $from, $vertex);
+                $edge = $this->graph->insertEdge($parent, 'smcluep-' . $key, '', $from, $vertex, "startArrow=oval;endArrow=block;strokeColor=#c0c0c0;");
                 $edge->type = 'cluster-parent';
                 $edge->objectId = $key;
             }
