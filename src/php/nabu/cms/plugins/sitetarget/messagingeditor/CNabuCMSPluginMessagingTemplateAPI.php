@@ -100,7 +100,8 @@ class CNabuCMSPluginMessagingTemplateAPI extends CNabuCMSPluginAbstractAPI
                             array(
                                 'name' => 'nb_messaging_template_lang_name',
                                 'subject' => 'nb_messaging_template_lang_subject',
-                                'html' => 'nb_messaging_template_lang_html'
+                                'html' => 'nb_messaging_template_lang_html',
+                                'text' => 'nb_messaging_template_lang_text'
                             ),
                             null,
                             null,
