@@ -21,6 +21,7 @@ namespace nabu\cms\plugins\sitetarget\messagingeditor;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
 use nabu\data\messaging\CNabuMessaging;
 use nabu\data\messaging\CNabuMessagingService;
+use nabu\data\messaging\CNabuMessagingServiceTemplate;
 use nabu\data\site\CNabuSiteTargetCTAList;
 
 /**
@@ -109,6 +110,39 @@ class CNabuCMSPluginMessagingServiceAPI extends CNabuCMSPluginAbstractAPI
                 $this->nb_messaging_service->setAttributes($this->nb_request->getPOSTField('attrs'));
             }
             if ($this->nb_messaging_service->save()) {
+                if ($this->nb_request->hasPOSTField('template')) {
+                    $new_conn = $this->nb_request->getPOSTField('template');
+                    $nb_connections = $this->nb_messaging_service->getTemplateConnections();
+                    $current_conn = $nb_connections->getKeys();
+                    if (count($new_conn) === 0) {
+                        $del_ids = $current_conn;
+                        $add_ids = null;
+                    } elseif (count($current_conn) === 0) {
+                        $del_ids = null;
+                        $add_ids = array_keys(array_filter($new_conn, function($value) { return $value === 'T'; }));
+                    } else {
+                        $ids = array_keys(array_filter($new_conn, function($value) { return $value === 'T'; }));
+                        $add_ids = array_diff($ids, $current_conn);
+                        $del_ids = array_diff($current_conn, $ids);
+                    }
+                    if (count($del_ids) > 0) {
+                        foreach ($del_ids as $id) {
+                            $nb_connection = $nb_connections->getItem($id);
+                            $nb_connection->refresh();
+                            $nb_connections->removeItem($nb_connection);
+                            $nb_connection->delete();
+                        }
+                    }
+                    if (count($add_ids) > 0) {
+                        foreach ($add_ids as $id) {
+                            $nb_connection = new CNabuMessagingServiceTemplate();
+                            $nb_connection->setMessagingService($this->nb_messaging_service);
+                            $nb_connection->setMessagingTemplateId((int)$id);
+                            $nb_connection->save();
+                            $nb_connections->addItem($nb_connection);
+                        }
+                    }
+                }
                 $this->setStatusOK();
                 $this->setData($this->nb_messaging_service->getTreeData(null, true));
             }
