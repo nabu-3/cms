@@ -40,7 +40,7 @@
                     {/nabu_form_row}
                 {/nabu_form_fieldset}
                 {nabu_form_fieldset title="Plantillas"}
-                    {if count($edit_service.templates) === 0 || count($nb_messaging.templates) === 0}
+                    {if count($nb_messaging.templates) === 0}
                         <div class="alert alert-warning">No has definido ninguna <b>Plantilla</b> todavía. Recuerda que si estás creando una en estos momentos tendrás que guardarla y recargar la página para poder asignar la plantilla.</div>
                     {else}
                         {assign var=tpl_count value=0}
