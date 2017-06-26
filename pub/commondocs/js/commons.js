@@ -35,11 +35,13 @@ $(document).ready(function()
             } else {
                 $(this).find('.modal-panels .modal-panel[data-action="error"]').removeClass('hide');
             }
-            $(this).data("id", json.data.id);
+            if (json.data) {
+                $(this).data("id", json.data.id);
+            }
             return true;
         })
         .on('beforesubmit.form.nabu', function(e, params) {
-            if (CKEDITOR) {
+            if (typeof CKEDITOR !== "undefined") {
                 for(var name in CKEDITOR.instances) {
                     CKEDITOR.instances[name].updateElement();
                 }

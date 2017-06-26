@@ -18,10 +18,15 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\siteeditor;
+use nabu\data\messaging\CNabuMessagingTemplateLanguage;
+use nabu\data\security\CNabuUser;
 use nabu\data\site\CNabuSite;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
+use nabu\data\site\CNabuSiteUser;
 use nabu\http\CNabuHTTPRequest;
 use nabu\http\renders\CNabuHTTPResponseFileRender;
+use nabu\messaging\CNabuMessagingFactory;
+use nabu\messaging\managers\CNabuMessagingPoolManager;
 use nabu\sdk\package\CNabuPackage;
 
 /**
@@ -63,6 +68,9 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                     case 'download':
                         $this->doDownload();
                         break;
+                    case 'notify':
+                        $this->doNotify();
+                        break;
                     default:
                         $this->setStatusError("action value [$action] not supported by get verb");
                 }
@@ -101,5 +109,44 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
         } else {
             $this->setStatusError("Ids array not found");
         }
+    }
+
+    private function doNotify()
+    {
+        $nb_user_list = $this->nb_work_customer->getUsers();
+
+        if ($nb_user_list->getSize() > 0) {
+            $nb_messaging = $this->edit_site->getMessaging($this->nb_work_customer);
+            $nb_messaging_template = $nb_messaging->getTemplateByKey('new_update');
+            $nb_messaging_pool_manager = new CNabuMessagingPoolManager($this->nb_work_customer);
+
+            if (($nb_messaging_factory = $nb_messaging_pool_manager->getFactory($nb_messaging)) instanceof CNabuMessagingFactory) {
+                error_log("Items " . $nb_user_list->getSize());
+                $nb_user_list->iterate(
+                    function ($key, CNabuUser $nb_user) use ($nb_messaging_factory, $nb_messaging_template)
+                    {
+                        if ($nb_user->getAllowNotification() === 'T') {
+                            error_log("Sending to " . $nb_user->getEmail());
+                            $nb_site_user = $this->edit_site->getUserProfile($nb_user);
+                            if ($nb_site_user instanceof CNabuSiteUser) {
+                                $nb_messaging_factory->postTemplateMessage(
+                                    $nb_messaging_template, $nb_site_user->getLanguageId(), $nb_user, null, null, null
+                                );
+                            }
+                        }
+                        return true;
+                    }
+                );
+
+                $this->setStatusOK();
+            } else {
+                $this->setStatusError('Notify cannot be performed');
+            }
+
+        }
+
+        $this->setStatusOK();
+
+        return true;
     }
 }

@@ -26,7 +26,15 @@ $(document).ready(function() {
                 }
             }
         })
+        .on('pressed.notify.toolbar.table.nabu', function (e, params) {
+            console.log('Notify');
+            $('#modal_site_notify form').data('id', params.selection[0]);
+        })
     ;
+
+    $('#modal_site_notify form .btn-success').on('click', function() {
+        $('#modal_site_notify').modal('hide');
+    });
 
     $('#languages_list')
         .on('pressed.add.toolbar.table.nabu', function(e, params) {

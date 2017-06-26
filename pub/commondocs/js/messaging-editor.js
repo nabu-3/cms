@@ -38,5 +38,12 @@ $(document).ready(function() {
             console.log('Edit');
             this.nabuTable.editor(params.selection[0]);
         })
+        .on('pressed.test.toolbar.table.nabu', function(e, params) {
+            console.log('Test');
+            $('#modal_test_template form').data('id', params.selection[0]);
+        })
     ;
+    $('#modal_test_template form .btn-success').on('click', function() {
+        $('#modal_test_template').modal('hide');
+    });
 });

@@ -22,6 +22,7 @@
                             type: "default"
                             icon: "fa fa-paper-plane"
                             apply: "single"
+                            modal: "modal_test_template"
                         ]
                     ]
                 ]

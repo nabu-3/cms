@@ -35,3 +35,4 @@
     </div>
 </div>
 {include file="content/messaging-editor/modals/test-service.tpl"}
+{include file="content/messaging-editor/modals/test-template.tpl"}

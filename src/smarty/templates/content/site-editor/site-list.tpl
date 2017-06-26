@@ -44,6 +44,16 @@
                         ]
                     ]
                 ]
+                4: [
+                    buttons: [
+                        notify: [
+                            type: "default"
+                            icon: "fa fa-envelope"
+                            apply: "single"
+                            modal: "modal_site_notify"
+                        ]
+                    ]
+                ]
             ]
         ]
         fields: [
@@ -80,3 +90,4 @@
                 api=api_site editor=item_edit edit_button=line}
 </div>
 {include file="content/site-editor/modals/download-site.tpl"}
+{include file="content/site-editor/modals/site-notify.tpl"}

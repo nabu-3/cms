@@ -23,6 +23,8 @@ use nabu\data\messaging\CNabuMessaging;
 use nabu\data\messaging\CNabuMessagingTemplate;
 use nabu\data\messaging\CNabuMessagingTemplateLanguage;
 use nabu\data\site\CNabuSiteTargetCTAList;
+use nabu\messaging\CNabuMessagingFactory;
+use nabu\messaging\managers\CNabuMessagingPoolManager;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
@@ -49,7 +51,7 @@ class CNabuCMSPluginMessagingTemplateAPI extends CNabuCMSPluginAbstractAPI
                 $this->nb_messaging->refresh();
                 if (is_numeric($fragments[2])) {
                     $this->nb_messaging_template = $this->nb_messaging->getTemplates()->getItem($fragments[2]);
-                    $this->nb_messaging_template->refresh();
+                    $this->nb_messaging_template->refresh(true, true);
                 } elseif (!$fragments[2]) {
                     $this->nb_messaging_template = new CNabuMessagingTemplate();
                     $this->nb_messaging_template->setMessaging($this->nb_messaging);
@@ -72,6 +74,24 @@ class CNabuCMSPluginMessagingTemplateAPI extends CNabuCMSPluginAbstractAPI
     }
 
     public function methodPOST()
+    {
+        if ($this->nb_request->hasGETField('action')) {
+            $action = $this->nb_request->getGETField('action');
+            switch (strtolower($action)) {
+                case 'test':
+                    $this->doTest();
+                    break;
+                default:
+                    $this->setStatusError(sprintf('Action [%s] not supported', $action));
+            }
+        } else {
+            $this->doPOSTSave();
+        }
+
+        return true;
+    }
+
+    public function doPOSTSave()
     {
         if ($this->nb_messaging_template instanceof CNabuMessagingTemplate) {
             $this->nb_request->updateObjectFromPost(
@@ -114,6 +134,28 @@ class CNabuCMSPluginMessagingTemplateAPI extends CNabuCMSPluginAbstractAPI
                 $this->setStatusOK();
                 $this->setData($this->nb_messaging_template->getTreeData(null, true));
             }
+        }
+
+        return true;
+    }
+
+    public function doTest()
+    {
+        $nb_messaging_pool_manager = new CNabuMessagingPoolManager($this->nb_work_customer);
+
+        if (($nb_messaging_factory = $nb_messaging_pool_manager->getFactory($this->nb_messaging)) instanceof CNabuMessagingFactory) {
+            $this->nb_messaging_template->getTranslations(true)->iterate(
+                function($key, CNabuMessagingTemplateLanguage $nb_translation) use ($nb_messaging_factory) {
+                    $nb_messaging_factory->postTemplateMessage(
+                        $this->nb_messaging_template, $nb_translation->getLanguageId(), $this->nb_user, null, null, null
+                    );
+                    return true;
+                }
+            );
+
+            $this->setStatusOK();
+        } else {
+            $this->setStatusError('Test cannot be performed');
         }
 
         return true;
