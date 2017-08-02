@@ -19,6 +19,7 @@
 
 namespace nabu\cms\plugins\sitetarget\catalogeditor;
 use nabu\data\catalog\CNabuCatalog;
+use nabu\data\lang\CNabuLanguage;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
@@ -28,17 +29,11 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
  */
 class CNabuCMSPluginCatalogEdit extends CNabuHTTPSiteTargetPluginAdapter
 {
-    /**
-     * @var CNabuCatalog
-     */
+    /** @var CNabuCatalog $edit_catalog Catalog instance to be edited. */
     private $edit_catalog;
-    /**
-     * @var string
-     */
+    /** @var string $title_part Title fragment to be added to the page header title. */
     private $title_part;
-    /**
-     * @var array
-     */
+    /** @var array $breadcrumb_part Array of breadcrumb parts. */
     private $breadcrumb_part;
 
     public function prepareTarget()
@@ -80,6 +75,12 @@ class CNabuCMSPluginCatalogEdit extends CNabuHTTPSiteTargetPluginAdapter
         $render->smartyAssign('edit_catalog', $this->edit_catalog, $this->nb_language);
         $render->smartyAssign('title_part', $this->title_part);
         $render->smartyAssign('breadcrumb_part', $this->breadcrumb_part);
+
+        $render->smartyAssign(
+            'nb_all_languages',
+            CNabuLanguage::getNaturalLanguages(),
+            $this->nb_language
+        );
 
         return true;
     }
