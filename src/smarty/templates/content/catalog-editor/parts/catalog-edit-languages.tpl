@@ -58,5 +58,6 @@
     ]
 {/nabu_raw_assign}
 {nabu_assign var=ajax_editor cta=ajax_languages}
+{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_catalog.id:'%s'}"}
 {include file="content/parts/table-splitted-panels.tpl" id=languages_list editor=$ajax_editor editor_mode=ajax
          data=$edit_catalog.translations metadata=$table_metadata section=languages_empty}
