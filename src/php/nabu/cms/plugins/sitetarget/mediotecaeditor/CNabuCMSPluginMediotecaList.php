@@ -30,26 +30,11 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
  */
 class CNabuCMSPluginMediotecaList extends CNabuHTTPSiteTargetPluginAdapter
 {
-    /**
-     * Site Target key for API Call
-     * @var string
-     */
-    const TARGET_API_CALL = 'api_mediotecas';
-    /**
-     * Site Target key for Users Profile editor.
-     * @var string
-     */
-    const TARGET_USER_EDIT = 'medioteca_edit';
-
     /** @var array $medioteca_data Array with all available Mediotecas. */
     private $medioteca_data = null;
-    /** @var CNabuSiteTarget $api_call API Site Target to edit Mediotecas. */
-    private $api_call = null;
 
     public function prepareTarget()
     {
-        $nb_site_target = $this->nb_site->getTargetByKey(self::TARGET_API_CALL);
-
         $this->medioteca_data = $this->nb_work_customer->getMediotecas(true);
 
         return true;
