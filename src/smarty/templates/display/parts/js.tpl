@@ -6,10 +6,14 @@
 <script type="text/javascript">
     nabu.setMinify(false);
 </script>
-<script type="text/javascript" src="/runtime/nbfw/lib/js/nabu-bootstrap.js"></script><!-- {$nb_site_target.key} {$nb_site_target.attributes|print_r:true} -->
+<script type="text/javascript" src="/runtime/nbfw/lib/js/nabu-bootstrap.js"></script>
 {if is_array($nb_site_target.attributes) && array_key_exists('ckeditor', $nb_site_target.attributes) && $nb_site_target.attributes.ckeditor}
     <script type="text/javascript" src="/runtime/assets/ckeditor/js/nabu-ck.js"></script>
     <script type="text/javascript" src="/runtime/assets/ckeditor/js/nabu-ck-bootstrap.js"></script>
+{/if}
+{if is_array($nb_site_target.attributes) && array_key_exists('aceeditor', $nb_site_target.attributes) && $nb_site_target.attributes.aceeditor}
+    <script type="text/javascript" src="/runtime/assets/ace/js/nabu-ace.js"></script>
+    <script type="text/javascript" src="/runtime/assets/ace/js/nabu-ace-bootstrap.js"></script>
 {/if}
 {if is_array($nb_site_target.attributes) && array_key_exists('visual_editor', $nb_site_target.attributes) && $nb_site_target.attributes.visual_editor}
     <script type="text/javascript">

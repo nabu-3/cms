@@ -19,7 +19,6 @@
 
 namespace nabu\cms\plugins\sitetarget\mediotecaeditor;
 
-use nabu\data\site\CNabuSiteTarget;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
