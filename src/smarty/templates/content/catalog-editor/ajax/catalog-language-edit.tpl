@@ -41,6 +41,9 @@
                 {/nabu_form_fieldset}
                 {nabu_form_fieldset title={nabu_static key=tit_content}}
                     {nabu_form_row}
+                        {nabu_form_textbox from=$edit_language field=image label={nabu_static key=lbl_image} class="col-sm-12"}
+                    {/nabu_form_row}
+                    {nabu_form_row}
                         {nabu_form_textbox from=$edit_language field=title label={nabu_static key=lbl_title} class="col-sm-12"}
                     {/nabu_form_row}
                     {nabu_form_row}

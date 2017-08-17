@@ -55,9 +55,15 @@
                 order: "alpha"
             ]
         ]
+        translations: [
+            search_button: "{nabu_static key=btn_search}"
+            columns_button: "{nabu_static key=btn_columns}"
+            show_all_columns: "{nabu_static key=sel_show_all}"
+            hide_all_columns: "{nabu_static key=sel_hide_all}"
+        ]
     ]
 {/nabu_raw_assign}
 {nabu_assign var=ajax_editor cta=ajax_languages}
 {assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_catalog.id:'%s'}"}
 {include file="content/parts/table-splitted-panels.tpl" id=languages_list editor=$ajax_editor editor_mode=ajax
-         data=$edit_catalog.translations metadata=$table_metadata section=languages_empty}
+         data=$edit_catalog.translations metadata=$table_metadata section=empty_languages}

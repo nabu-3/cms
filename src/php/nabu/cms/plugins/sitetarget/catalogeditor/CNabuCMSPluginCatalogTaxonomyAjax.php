@@ -18,9 +18,8 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\catalogeditor;
-use nabu\data\lang\CNabuLanguage;
 use nabu\data\catalog\CNabuCatalog;
-use nabu\data\catalog\CNabuCatalogLanguage;
+use nabu\data\catalog\CNabuCatalogTaxonomy;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 use providers\smarty\smarty\renders\CSmartyHTTPRender;
 
@@ -30,17 +29,17 @@ use providers\smarty\smarty\renders\CSmartyHTTPRender;
  * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget\catalogeditor
  */
-class CNabuCMSPluginCatalogLanguageAjax extends CNabuHTTPSiteTargetPluginAdapter
+class CNabuCMSPluginCatalogTaxonomyAjax extends CNabuHTTPSiteTargetPluginAdapter
 {
     /** @var CNabuCatalog $nb_catalog Catalog selected */
     private $nb_catalog = null;
-    /** @var CNabuCatalogLanguage $nb_catalog_language Language selected */
-    private $nb_catalog_language = null;
+    /** @var CNabuCatalogTaxonomy $nb_catalog_taxonomy Taxonomy selected */
+    private $nb_catalog_taxonomy = null;
 
     public function prepareTarget()
     {
         $this->nb_catalog = null;
-        $this->nb_catalog_language = null;
+        $this->nb_catalog_taxonomy = null;
 
         $fragments = $this->nb_request->getRegExprURLFragments();
         if (is_array($fragments) && count($fragments) === 3 && is_numeric($fragments[1])) {
@@ -48,7 +47,7 @@ class CNabuCMSPluginCatalogLanguageAjax extends CNabuHTTPSiteTargetPluginAdapter
             if ($this->nb_catalog instanceof CNabuCatalog) {
                 $this->nb_catalog->refresh(true, true);
                 if (is_numeric($fragments[2])) {
-                    $this->nb_catalog_language = $this->nb_catalog->getTranslation($fragments[2]);
+                    $this->nb_catalog_taxonomy = $this->nb_catalog->getTaxonomies()->getItem($fragments[2]);
                 }
             }
         }
@@ -62,8 +61,8 @@ class CNabuCMSPluginCatalogLanguageAjax extends CNabuHTTPSiteTargetPluginAdapter
 
         if ($render instanceof CSmartyHTTPRender) {
             $render->smartyAssign('nb_catalog', $this->nb_catalog, $this->nb_language);
-            $render->smartyAssign('edit_language', $this->nb_catalog_language, $this->nb_language);
-            $render->smartyAssign('nb_all_languages', CNabuLanguage::getNaturalLanguages());
+            $render->smartyAssign('edit_taxonomy', $this->nb_catalog_taxonomy, $this->nb_language);
+            $render->smartyAssign('nb_all_languages', $this->nb_catalog->getLanguages());
         }
 
         return true;

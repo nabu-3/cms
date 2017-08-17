@@ -15,15 +15,15 @@
         <div role="tabpanel" class="tab-pane active" id="main">
         </div>
         <div role="tabpanel" class="tab-pane" id="languages">
-            {include file="content/catalog-editor/parts/catalog-edit-languages.tpl" data=$edit_catalog}
+            {include file="content/catalog-editor/parts/catalog-edit-languages.tpl"}
         </div>
         <div role="tabpanel" class="tab-pane" id="taxonomy">
-            {include file="content/catalog-editor/parts/catalog-edit-taxonomies.tpl" data=$edit_catalog}
+            {include file="content/catalog-editor/parts/catalog-edit-taxonomies.tpl"}
         </div>
         <div role="tabpanel" class="tab-pane" id="tags">
         </div>
         <div role="tabpanel" class="tab-pane" id="items">
-            {include file="content/catalog-editor/parts/items-tree.tpl"}
+            {include file="content/catalog-editor/parts/catalog-edit-items.tpl"}
         </div>
     </div>
     <div class="btn-toolbar" role="toolbar" aria-label="Table actions">

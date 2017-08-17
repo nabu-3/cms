@@ -45,7 +45,7 @@ class CNabuCMSPluginCatalogLanguageAPI extends CNabuCMSPluginAbstractAPI
         if (is_array($fragments) && count($fragments) === 3) {
             $this->nb_catalog = $this->nb_work_customer->getCatalog($fragments[1]);
             if ($this->nb_catalog instanceof CNabuCatalog) {
-                $this->nb_catalog->refresh();
+                $this->nb_catalog->refresh(true, true);
                 if (is_numeric($fragments[2])) {
                     $this->nb_catalog_language = $this->nb_catalog->getTranslations()->getItem($fragments[2]);
                     $this->nb_catalog_language->refresh();
@@ -79,6 +79,7 @@ class CNabuCMSPluginCatalogLanguageAPI extends CNabuCMSPluginAbstractAPI
                     'language_id' => 'nb_language_id',
                     'status' => 'nb_catalog_lang_status',
                     'slug' => 'nb_catalog_lang_slug',
+                    'image' => 'nb_catalog_lang_image',
                     'title' => 'nb_catalog_lang_title',
                     'subtitle' => 'nb_catalog_lang_subtitle',
                     'anchor_text' => 'nb_catalog_lang_anchor_text',
