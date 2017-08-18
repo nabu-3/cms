@@ -1349,3 +1349,42 @@ input[type="checkbox"] {
     height: 100%;
     overflow: hidden;
 }
+
+/* ACE Editor */
+pre.ace_editor {
+     margin: 0;
+}
+
+.input-group .ace_editor:not(:last-child) {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.input-group .ace_editor:not(:first-child) {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+/* CK Editor */
+.cke {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.cke .cke_inner {
+    overflow: hidden;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.input-group .cke:not(:last-child) {
+	border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.input-group .cke:not(:last-child) .cke_inner {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}

@@ -46,12 +46,14 @@ class CNabuCMSPluginCatalogEdit extends CNabuHTTPSiteTargetPluginAdapter
         if (is_array($fragments) && count($fragments) > 1) {
             $id = $fragments[1];
             $this->title_part = '#' . $id;
-            if (($this->edit_catalog = $this->nb_work_customer->getCatalog($id)) !== false &&
-                ($translation = $this->edit_catalog->getTranslation($this->nb_language)) !== false &&
-                (strlen($this->title_part = $translation->getTitle()) === 0) &&
-                (strlen($this->title_part = $this->edit_catalog->getKey()) === 0)
-            ) {
-                $this->title_part = '#' . $id;
+            if (($this->edit_catalog = $this->nb_work_customer->getCatalog($id)) !== false) {
+                $this->edit_catalog->refresh(true, true);
+                if (($translation = $this->edit_catalog->getTranslation($this->nb_language)) !== false &&
+                    (strlen($this->title_part = $translation->getTitle()) === 0) &&
+                    (strlen($this->title_part = $this->edit_catalog->getKey()) === 0)
+                ) {
+                    $this->title_part = '#' . $id;
+                }
             }
 
             if ($this->edit_catalog) {

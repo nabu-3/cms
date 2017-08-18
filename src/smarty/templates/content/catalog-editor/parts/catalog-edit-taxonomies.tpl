@@ -29,20 +29,20 @@
         ]
         fields: [
             id: [
-                title: "ID"
+                title: "{nabu_static key=lbl_id}"
                 order: "number"
                 align: "right"
                 id: true
             ]
             key: [
-                title: "Key"
+                title: "{nabu_static key=lbl_key}"
             ]
             title: [
-                title: "Título"
+                title: "{nabu_static key=lbl_title}"
                 order: "alpha"
             ]
             level: [
-                title: "Nivel"
+                title: "{nabu_static key=lbl_level}"
                 align: "right"
             ]
         ]

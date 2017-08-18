@@ -20,8 +20,8 @@
 namespace nabu\cms\plugins\sitetarget\catalogeditor;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
 use nabu\data\catalog\CNabuCatalog;
-use nabu\data\catalog\CNabuCatalogTaxonomy;
-use nabu\data\catalog\CNabuCatalogTaxonomyLanguage;
+use nabu\data\catalog\CNabuCatalogTag;
+use nabu\data\catalog\CNabuCatalogTagLanguage;
 use nabu\data\site\CNabuSiteTargetCTAList;
 
 /**
@@ -30,17 +30,17 @@ use nabu\data\site\CNabuSiteTargetCTAList;
  * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget\catalogeditor
  */
-class CNabuCMSPluginCatalogTaxonomyAPI extends CNabuCMSPluginAbstractAPI
+class CNabuCMSPluginCatalogTagAPI extends CNabuCMSPluginAbstractAPI
 {
     /** @var CNabuCatalog $nb_catalog Catalog selected */
     private $nb_catalog = null;
-    /** @var CNabuCatalogTaxonomy $nb_catalog_taxonomy Taxonomy selected */
-    private $nb_catalog_taxonomy = null;
+    /** @var CNabuCatalogTag $nb_catalog_tag Tag selected */
+    private $nb_catalog_tag = null;
 
     public function prepareTarget()
     {
         $this->nb_catalog = null;
-        $this->nb_catalog_taxonomy = null;
+        $this->nb_catalog_tag = null;
 
         $fragments = $this->nb_request->getRegExprURLFragments();
         if (is_array($fragments) && count($fragments) === 3) {
@@ -48,12 +48,12 @@ class CNabuCMSPluginCatalogTaxonomyAPI extends CNabuCMSPluginAbstractAPI
             if ($this->nb_catalog instanceof CNabuCatalog) {
                 $this->nb_catalog->refresh(true, true);
                 if (is_numeric($fragments[2])) {
-                    $this->nb_catalog_taxonomy = $this->nb_catalog->getTaxonomies()->getItem($fragments[2]);
-                    $this->nb_catalog_taxonomy->refresh(true, true);
+                    $this->nb_catalog_tag = $this->nb_catalog->getTags()->getItem($fragments[2]);
+                    $this->nb_catalog_tag->refresh(true, true);
                 } elseif (!$fragments[2]) {
-                    $this->nb_catalog_taxonomy = new CNabuCatalogTaxonomy();
-                    $this->nb_catalog_taxonomy->setCatalog($this->nb_catalog);
-                    $this->nb_catalog_taxonomy->grantHash();
+                    $this->nb_catalog_tag = new CNabuCatalogTag();
+                    $this->nb_catalog_tag->setCatalog($this->nb_catalog);
+                    $this->nb_catalog_tag->grantHash();
                 }
             }
         }
@@ -67,9 +67,9 @@ class CNabuCMSPluginCatalogTaxonomyAPI extends CNabuCMSPluginAbstractAPI
      */
     public function methodGET()
     {
-        if ($this->nb_catalog_taxonomy instanceof CNabuCatalogTaxonomy) {
+        if ($this->nb_catalog_tag instanceof CNabuCatalogTag) {
             $this->setStatusOK();
-            $this->setData($this->nb_catalog_taxonomy->getTreeData(null, true));
+            $this->setData($this->nb_catalog_tag->getTreeData(null, true));
         }
 
         return true;
@@ -100,22 +100,20 @@ class CNabuCMSPluginCatalogTaxonomyAPI extends CNabuCMSPluginAbstractAPI
      */
     public function doPOSTSave()
     {
-        if ($this->nb_catalog_taxonomy instanceof CNabuCatalogTaxonomy) {
+        if ($this->nb_catalog_tag instanceof CNabuCatalogTag) {
             $this->nb_request->updateObjectFromPost(
-                $this->nb_catalog_taxonomy,
+                $this->nb_catalog_tag,
                 array(
-                    'key' => 'nb_catalog_taxonomy_key',
-                    'hash' => 'nb_catalog_taxonomy_hash',
-                    'level' => 'nb_catalog_taxonomy_level',
-                    'scope' => 'nb_catalog_taxonomy_scope'
+                    'key' => 'nb_catalog_tag_key',
+                    'hash' => 'nb_catalog_tag_hash'
                 )
             );
-            $this->nb_catalog_taxonomy->grantHash();
+            $this->nb_catalog_tag->grantHash();
             if ($this->nb_request->hasPOSTField('attrs')) {
-                $this->nb_catalog_taxonomy->setAttributes($this->nb_request->getPOSTField('attrs'));
+                $this->nb_catalog_tag->setAttributes($this->nb_request->getPOSTField('attrs'));
             }
-            if ($this->nb_catalog_taxonomy->save()) {
-                $languages = $this->nb_request->getCombinedPostIndexes(array('title', 'internal_notes'));
+            if ($this->nb_catalog_tag->save()) {
+                $languages = $this->nb_request->getCombinedPostIndexes(array('title'));
                 if ($this->nb_request->hasPOSTField('lang_attrs')) {
                     $lang_attrs = $this->nb_request->getPOSTField('lang_attrs');
                 } else {
@@ -124,26 +122,25 @@ class CNabuCMSPluginCatalogTaxonomyAPI extends CNabuCMSPluginAbstractAPI
 
                 if (count($languages) > 0) {
                     foreach ($languages as $lang_id) {
-                        $nb_translation = $this->nb_catalog_taxonomy->getTranslation($lang_id);
+                        $nb_translation = $this->nb_catalog_tag->getTranslation($lang_id);
                         if (!$nb_translation) {
-                            $nb_translation = new CNabuCatalogTaxonomyLanguage();
-                            $nb_translation->setCatalogTaxonomyId($this->nb_catalog_taxonomy->getId());
+                            $nb_translation = new CNabuCatalogTagLanguage();
+                            $nb_translation->setCatalogTagId($this->nb_catalog_tag->getId());
                             $nb_translation->setLanguageId($lang_id);
-                            $this->nb_catalog_taxonomy->setTranslation($nb_translation);
+                            $this->nb_catalog_tag->setTranslation($nb_translation);
                         }
                         $this->nb_request->updateObjectFromPost(
                             $nb_translation,
                             array(
-                                'slug' => 'nb_catalog_taxonomy_lang_slug',
-                                'image' => 'nb_catalog_taxonomy_lang_image',
-                                'title' => 'nb_catalog_taxonomy_lang_title',
-                                'subtitle' => 'nb_catalog_taxonomy_lang_subtitle',
-                                'anchor_text' => 'nb_catalog_taxonomy_lang_anchor_text',
-                                'opening' => 'nb_catalog_taxonomy_lang_opening',
-                                'content' => 'nb_catalog_taxonomy_lang_content',
-                                'footer' => 'nb_catalog_taxonomy_lang_footer',
-                                'aside' => 'nb_catalog_taxonomy_lang_aside',
-                                'internal_notes' => 'nb_catalog_taxonomy_lang_internal_notes'
+                                'slug' => 'nb_catalog_tag_lang_slug',
+                                'image' => 'nb_catalog_tag_lang_image',
+                                'title' => 'nb_catalog_tag_lang_title',
+                                'subtitle' => 'nb_catalog_tag_lang_subtitle',
+                                'anchor_text' => 'nb_catalog_tag_lang_anchor_text',
+                                'opening' => 'nb_catalog_tag_lang_opening',
+                                'content' => 'nb_catalog_tag_lang_content',
+                                'footer' => 'nb_catalog_tag_lang_footer',
+                                'aside' => 'nb_catalog_tag_lang_aside'
                             ),
                             null,
                             null,
@@ -157,7 +154,7 @@ class CNabuCMSPluginCatalogTaxonomyAPI extends CNabuCMSPluginAbstractAPI
                 }
 
                 $this->setStatusOK();
-                $this->setData($this->nb_catalog_taxonomy->getTreeData(null, true));
+                $this->setData($this->nb_catalog_tag->getTreeData(null, true));
             }
         }
 
@@ -169,14 +166,14 @@ class CNabuCMSPluginCatalogTaxonomyAPI extends CNabuCMSPluginAbstractAPI
         $render = $this->nb_response->getRender();
         if ($this->getStatus() === 'OK') {
             $api_mask = $this->nb_site_target->getFullyQualifiedURL($this->nb_language, true);
-            $api_url = sprintf($api_mask, $this->nb_catalog->getId(), $this->nb_catalog_taxonomy->getId());
+            $api_url = sprintf($api_mask, $this->nb_catalog->getId(), $this->nb_catalog_tag->getId());
             $this->setAPICall($api_url);
-            $editor_cta = $this->nb_site_target->getCTAs()->getItem('ajax_taxonomies', CNabuSiteTargetCTAList::INDEX_KEY);
+            $editor_cta = $this->nb_site_target->getCTAs()->getItem('ajax_tags', CNabuSiteTargetCTAList::INDEX_KEY);
             $editor_cta->canonize();
             $urls = array();
             $editor_cta->getTranslations()->iterate(function ($key, $translation) use(&$urls) {
                 $editor_mask = $translation->getFinalURL();
-                $urls[$key] = sprintf($editor_mask, $this->nb_catalog->getId(), $this->nb_catalog_taxonomy->getId());
+                $urls[$key] = sprintf($editor_mask, $this->nb_catalog->getId(), $this->nb_catalog_tag->getId());
             });
             $this->setEditorCall($urls);
         }

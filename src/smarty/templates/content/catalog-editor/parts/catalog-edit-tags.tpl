@@ -29,21 +29,18 @@
         ]
         fields: [
             id: [
-                title: "ID"
+                title: "{nabu_static key=lbl_id}"
                 order: "number"
                 align: "right"
                 id: true
             ]
-            key: [
-                title: "Key"
-            ]
-            title: [
-                title: "Título"
+            slug: [
+                title: "{nabu_static key=lbl_slug}"
                 order: "alpha"
             ]
-            level: [
-                title: "Nivel"
-                align: "right"
+            title: [
+                title: "{nabu_static key=lbl_title}"
+                order: "alpha"
             ]
         ]
         translations: [
@@ -54,7 +51,7 @@
         ]
     ]
 {/nabu_raw_assign}
-{nabu_assign var=ajax_editor cta=ajax_taxonomies}
+{nabu_assign var=ajax_editor cta=ajax_tags}
 {assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_catalog.id:'%s'}"}
-{include file="content/parts/table-splitted-panels.tpl" id=taxonomies_list editor=$ajax_editor editor_mode=ajax
-         data=$edit_catalog.taxonomies metadata=$table_metadata languages=$edit_catalog.languages}
+{include file="content/parts/table-splitted-panels.tpl" id=tags_list editor=$ajax_editor editor_mode=ajax
+         data=$edit_catalog.tags metadata=$table_metadata languages=$edit_catalog.languages}

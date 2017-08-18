@@ -21,6 +21,7 @@
             {include file="content/catalog-editor/parts/catalog-edit-taxonomies.tpl"}
         </div>
         <div role="tabpanel" class="tab-pane" id="tags">
+            {include file="content/catalog-editor/parts/catalog-edit-tags.tpl"}
         </div>
         <div role="tabpanel" class="tab-pane" id="items">
             {include file="content/catalog-editor/parts/catalog-edit-items.tpl"}

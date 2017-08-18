@@ -29,7 +29,7 @@
         ]
         fields: [
             language_id: [
-                title: "Idioma"
+                title: "{nabu_static key=lbl_language}"
                 order: "alpha"
                 lookup: $nb_all_languages
                 lookup_field_name: "name"
@@ -38,7 +38,7 @@
                 id: true
             ]
             status: [
-                title: "Estado"
+                title: "{nabu_static key=lbl_status}"
                 order: "alpha"
                 align: "center"
                 lookup: [
@@ -47,11 +47,11 @@
                 ]
             ]
             title: [
-                title: "Nombre"
+                title: "{nabu_static key=lbl_title}"
                 order: "alpha"
             ]
             slug: [
-                title: "Slug"
+                title: "{nabu_static key=lbl_slug}"
                 order: "alpha"
             ]
         ]

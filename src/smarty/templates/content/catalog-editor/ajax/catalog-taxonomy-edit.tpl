@@ -40,7 +40,36 @@
                 {/nabu_form_fieldset}
                 {nabu_form_fieldset title={nabu_static key=tit_content}}
                     {nabu_form_row}
+                        {nabu_form_textbox from=$edit_taxonomy field=image multilang=$nb_all_languages label={nabu_static key=lbl_image} class="col-sm-12"}
+                    {/nabu_form_row}
+                    {nabu_form_row}
                         {nabu_form_textbox from=$edit_taxonomy field=title multilang=$nb_all_languages label={nabu_static key=lbl_title} class="col-sm-12"}
+                    {/nabu_form_row}
+                    {nabu_form_row}
+                        {nabu_form_textbox from=$edit_taxonomy field=subtitle multilang=$nb_all_languages label={nabu_static key=lbl_subtitle} class="col-sm-12"}
+                    {/nabu_form_row}
+                    {nabu_form_row}
+                        {nabu_form_textbox from=$edit_taxonomy field=anchor_text multilang=$nb_all_languages label={nabu_static key=lbl_anchor_text} class="col-sm-12"}
+                    {/nabu_form_row}
+                    {nabu_form_row}
+                        <div data-toggle="ckeditor">
+                            {nabu_form_textbox type=textarea rows=5 from=$edit_taxonomy field=opening multilang=$nb_all_languages label={nabu_static key=lbl_opening} class="col-sm-12"}
+                        </div>
+                    {/nabu_form_row}
+                    {nabu_form_row}
+                        <div data-toggle="ckeditor">
+                            {nabu_form_textbox type=textarea rows=5 from=$edit_taxonomy field=content multilang=$nb_all_languages label={nabu_static key=lbl_content} class="col-sm-12"}
+                        </div>
+                    {/nabu_form_row}
+                    {nabu_form_row}
+                        <div data-toggle="ckeditor">
+                            {nabu_form_textbox type=textarea rows=5 from=$edit_taxonomy field=footer multilang=$nb_all_languages label={nabu_static key=lbl_footer} class="col-sm-12"}
+                        </div>
+                    {/nabu_form_row}
+                    {nabu_form_row}
+                        <div data-toggle="ckeditor">
+                            {nabu_form_textbox type=textarea rows=5 from=$edit_taxonomy field=aside multilang=$nb_all_languages label={nabu_static key=lbl_aside} class="col-sm-12"}
+                        </div>
                     {/nabu_form_row}
                     {nabu_form_row}
                         <div data-toggle="ckeditor">
