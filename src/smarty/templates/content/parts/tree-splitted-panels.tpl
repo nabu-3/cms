@@ -15,7 +15,8 @@
                 {/if}
             {/if}
         {/strip}
-        {nabu_tree empty_message=$empty_message}
+        {nabu_tree bordered=true scrolled=true search=true empty_message=$empty_message
+                   editor_mode=ajax editor_container="{$id}_editor" edit_button=line}
     </div>
     <div class="split-separator"><div class="split-separator-inner"></div></div>
     <div class="split-content"{if isset($id) && strlen($id)>0} id="{$id}_editor"{/if}>

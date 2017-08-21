@@ -1,5 +1,5 @@
 {nabu_raw_assign}
-    table_metadata: [
+    tree_metadata: [
         toolbar: [
             groups: [
                 1: [

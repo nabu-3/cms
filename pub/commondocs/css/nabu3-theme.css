@@ -1020,40 +1020,114 @@ input[type="checkbox"] {
 }
 
 /** Trees **/
-.nabu-tree {
-    background-color: #fdf6e3;
-    border: 2px solid #93a1a1;
-    border-radius: 5px;
-    height: 100%;
+.tree-container {
+    flex: 1 1 0;
     max-height: 100%;
     overflow: auto;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    display: flex;
+    flex-flow: column nowrap;
 }
 
-.nabu-tree .nabu-tree-level {
+.tree-container + .btn-toolbar {
+    margin-top: 20px;
+    flex: 0 1 auto;
+}
+
+.tree {
+    background-color: #fdf6e3;
+    padding: 15px 20px;
+    background-color:
+}
+
+.tree:last-child {
+    margin-bottom: 0;
+}
+
+.tree-bordered {
+    border: 2px solid #859900;
+}
+
+.tree-scrolled {
+    display: block;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.tree .btn-edit-line {
+    cursor: pointer;
+}
+
+.edit-zone > .tree-container {
+    overflow: hidden;
+    display: inherit;
+    max-height: 100%;
+}
+
+.edit-zone > .tree-container > .tree-scrolled {
+    max-height: calc(100% - 55px);
+    display: block;
+}
+
+.tree-controls {
+    margin-bottom: 20px;
+}
+
+.tree-toolbar {
+    margin-left: 0;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+    background-color: #586e75;
+}
+
+.tree-toolbar > .btn-group:first-child:not(.pull-right),
+.tree-toolbar > .btn-group.pull-right + .btn-group:not(.pull-right) {
+    margin-left: 0;
+}
+
+.tree-toolbar .tree-search input[type="search"] {
+    -moz-border-radius: 15px 0 0 15px;
+    -webkit-border-radius: 0 0 15px 15px;
+    border-radius: 15px 0 0 15px;
+    border-color: #cb4b16;
+}
+
+.tree-toolbar .tree-search .btn-search {
+    -moz-border-radius: 0 15px 15px 0;
+    -webkit-border-radius: 15px 15px 0 0;
+    border-radius: 0 15px 15px 0;
+    background-color: #cb4b16;
+    border-color: #cb4b16;
+    color: #fdf6e3;
+}
+
+.tree .tree-level {
     list-style: outside none none;
     margin-left: 30px;
     padding-left: 0;
 }
 
-.nabu-tree > .nabu-tree-level {
+.tree > .tree-level {
     margin-left: 0;
 }
 
-.nabu-tree .nabu-tree-level .tree-item {
+.tree .tree-level .tree-item {
     position: relative;
     border: 1px solid gray;
     border-radius: 5px;
     padding: 10px;
+    background-color: #eee8d5;
 }
 
-.nabu-tree .nabu-tree-level .active > .tree-item {
-    background-color: #6c71c4;
+.tree .tree-level .tree-item:hover {
+    background-color: #93a1a1;
+}
+
+.tree .tree-level .active > .tree-item {
+    background-color: #586e75;
     color: #fff;
 }
 
-.nabu-tree .nabu-tree-level .tree-item > .btn-toolbar {
+.tree .tree-level .tree-item > .btn-toolbar {
     background-color: #fdf6e3;
     background-color: rgba(253,246,227, 0.75);
     margin: 0;
@@ -1063,75 +1137,69 @@ input[type="checkbox"] {
     top: 5px;
 }
 
-.nabu-tree .nabu-tree-level .tree-item > .btn-toolbar .btn + .btn {
+.tree .tree-level .tree-item > .btn-toolbar .btn + .btn {
     margin-left: 10px;
 }
 
-.nabu-tree .nabu-tree-level .active > .tree-item > .btn-toolbar {
+.tree .tree-level .active > .tree-item > .btn-toolbar {
     background-color: #6c71c4;
     color: #fff;
 }
 
-.nabu-tree .nabu-tree-level .tree-item .flag {
+.tree .tree-level .tree-item .flag {
   float: left;
 }
 
-.nabu-tree .nabu-tree-level .tree-item .text {
+.tree .tree-level .tree-item .text {
   margin-left: 35px;
 }
 
-.nabu-tree .nabu-tree-level > li > .nabu-tree-level {
+.tree .tree-level > li > .tree-level {
     display: none;
     margin-top: 5px;
 }
 
-.nabu-tree .nabu-tree-level > li + li {
+.tree .tree-level > li + li {
     margin-top: 5px;
 }
 
-.nabu-tree .nabu-tree-level .tree-item.expanded > .btn-toolbar > .btn.btn-expand > .fa-minus-square-o {
+.tree .tree-level .tree-item.expanded > .btn-toolbar > .btn.btn-expand > .fa-minus-square-o {
     display: inline-block;
 }
 
-.nabu-tree .nabu-tree-level .tree-item:not(.expanded) > .btn-toolbar > .btn.btn-expand > .fa-minus-square-o {
+.tree .tree-level .tree-item:not(.expanded) > .btn-toolbar > .btn.btn-expand > .fa-minus-square-o {
     display: none;
 }
 
-.nabu-tree .nabu-tree-level .tree-item.expanded > .btn-toolbar > .btn.btn-expand > .fa-plus-square-o {
+.tree .tree-level .tree-item.expanded > .btn-toolbar > .btn.btn-expand > .fa-plus-square-o {
     display: none;
 }
 
-.nabu-tree .nabu-tree-level .tree-item:not(.expanded) > .btn-toolbar > .btn.btn-expand > .fa-max-square-o {
+.tree .tree-level .tree-item:not(.expanded) > .btn-toolbar > .btn.btn-expand > .fa-max-square-o {
     display: inline-block;;
 }
 
-
-
-
-
-
-
-.nabu-tree-level > li.expanded > .nabu-tree-level {
+.tree-level > li.expanded > .tree-level {
     display: block;
 }
 
-.nabu-tree-level > li > a {
+.tree-level > li > a {
     display: inline-block;
     margin-left: 15px;
     padding: 1px 4px;
 }
 
-.nabu-tree-level > li.active > a {
+.tree-level > li.active > a {
     background-color: #6c71c4;
     color: #fdf6e3;
 }
 
-.nabu-tree-level > li.active > a:hover,
-.nabu-tree-level > li.active > a:focus {
+.tree-level > li.active > a:hover,
+.tree-level > li.active > a:focus {
     text-decoration: none;
 }
 
-.nabu-tree + div {
+.tree + div {
     padding-right: 0;
     height: 100%;
 }

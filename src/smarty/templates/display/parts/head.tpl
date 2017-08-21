@@ -31,7 +31,7 @@
 
     <!--link href="/images/logo-256x256.png" rel="icon" type="image/png" sizes="256x256"-->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" defer>
-    <link href="/css/nabu3-theme.min.css" rel="stylesheet" defer>
+    <link href="/css/nabu3-theme.css" rel="stylesheet" defer>
     {if strlen($nb_site_target.css_file)>0}<link href="/css/{$nb_site_target.css_file}" rel="stylesheet" defer>{/if}
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans|Josefin+Sans:400,400i,700|Roboto+Condensed:300,400" rel="stylesheet" defer>
     <link href="https://fonts.googleapis.com/css?family=Baloo|Lato&subset=latin-ext" rel="stylesheet" defer>
