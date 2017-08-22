@@ -241,7 +241,7 @@ span + .flag {
 }
 
 .dropdown .btn-default {
-    background-color: #fff;
+    background-color: #fdf6e3;
 }
 
 .dropdown .dropdown-toggle {
@@ -876,7 +876,7 @@ input[type="checkbox"] {
 
 .table-controls .table-columns-selector .btn-columns {
     background-color: #cb4b16;
-    color: #fff;
+    color: #fdf6e3;
 }
 
 .table-controls .table-columns-selector .dropdown-menu {
@@ -1116,42 +1116,55 @@ input[type="checkbox"] {
     border-radius: 5px;
     padding: 10px;
     background-color: #eee8d5;
+    min-height: 42px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: flex-start;
 }
 
 .tree .tree-level .tree-item:hover {
     background-color: #93a1a1;
 }
 
-.tree .tree-level .active > .tree-item {
+.tree .tree-level > li > .tree-item.editing {
     background-color: #586e75;
-    color: #fff;
+    color: #fdf6e3;
 }
 
-.tree .tree-level .tree-item > .btn-toolbar {
-    background-color: #fdf6e3;
-    background-color: rgba(253,246,227, 0.75);
+.tree .tree-level .tree-item > .tree-item-toolbar {
     margin: 0;
-    padding: 0 0 10px 10px;
-    position: absolute;
-    right: 10px;
-    top: 5px;
+    flex: 0 0 auto;
 }
 
-.tree .tree-level .tree-item > .btn-toolbar .btn + .btn {
+.tree .tree-level .tree-item > .tree-item-content {
+    flex: 1 1 0;
+}
+
+.tree .tree-level .tree-item > .tree-item-flags {
+    flex: 0 0 auto;
+}
+
+.tree .tree-level .tree-item > .tree-item-flags > :first-child {
     margin-left: 10px;
 }
 
-.tree .tree-level .active > .tree-item > .btn-toolbar {
-    background-color: #6c71c4;
-    color: #fff;
+.tree .tree-level .tree-item > .tree-item-toolbar .btn:last-child {
+    margin-right: 10px;
 }
 
-.tree .tree-level .tree-item .flag {
-  float: left;
+.tree .tree-level .tree-item > .tree-item-toolbar .btn + .btn {
+    margin-left: 10px;
 }
 
-.tree .tree-level .tree-item .text {
-  margin-left: 35px;
+.tree .tree-level .tree-item .tree-item-content .flag {
+    float: left;
+}
+
+.tree .tree-level .tree-item .tree-item-content .flag + .text {
+    margin-left: 35px;
 }
 
 .tree .tree-level > li > .tree-level {
@@ -1163,40 +1176,24 @@ input[type="checkbox"] {
     margin-top: 5px;
 }
 
-.tree .tree-level .tree-item.expanded > .btn-toolbar > .btn.btn-expand > .fa-minus-square-o {
+.tree .tree-level .tree-item.expanded > .tree-item-toolbar > .btn.btn-expand > .fa-minus-square-o {
     display: inline-block;
 }
 
-.tree .tree-level .tree-item:not(.expanded) > .btn-toolbar > .btn.btn-expand > .fa-minus-square-o {
+.tree .tree-level .tree-item:not(.expanded) > .tree-item-toolbar > .btn.btn-expand > .fa-minus-square-o {
     display: none;
 }
 
-.tree .tree-level .tree-item.expanded > .btn-toolbar > .btn.btn-expand > .fa-plus-square-o {
+.tree .tree-level .tree-item.expanded > .tree-item-toolbar > .btn.btn-expand > .fa-plus-square-o {
     display: none;
 }
 
-.tree .tree-level .tree-item:not(.expanded) > .btn-toolbar > .btn.btn-expand > .fa-max-square-o {
-    display: inline-block;;
+.tree .tree-level .tree-item:not(.expanded) > .tree-item-toolbar > .btn.btn-expand > .fa-max-square-o {
+    display: inline-block;
 }
 
 .tree-level > li.expanded > .tree-level {
     display: block;
-}
-
-.tree-level > li > a {
-    display: inline-block;
-    margin-left: 15px;
-    padding: 1px 4px;
-}
-
-.tree-level > li.active > a {
-    background-color: #6c71c4;
-    color: #fdf6e3;
-}
-
-.tree-level > li.active > a:hover,
-.tree-level > li.active > a:focus {
-    text-decoration: none;
 }
 
 .tree + div {

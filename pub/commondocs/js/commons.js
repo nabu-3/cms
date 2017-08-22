@@ -18,6 +18,19 @@ $(document).ready(function()
         });
     });
 
+    $('[data-toggle="nabu-tree"]').each(function() {
+        var Self = this;
+        nabu.loadLibrary('Tree', function() {
+            if (Self.nabuTree) {
+                Self.nabuTree.addEventListener(new Nabu.Event({
+                    onLoadEditor: function(e) {
+                        $('[data-toggle="nabu-lang-selector"]').nabuLangSelector('refresh');
+                    }
+                }));
+            }
+        });
+    });
+
     var modals = $('.modal form').closest('.modal');
     modals.find('form').each(function()
     {
