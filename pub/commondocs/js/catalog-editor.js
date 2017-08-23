@@ -31,4 +31,15 @@ $(document).ready(function() {
             this.nabuTable.editor(params.selection[0]);
         })
     ;
+
+    $('#items_tree')
+        .on('pressed.add.toolbar.tree.nabu', function(e, params) {
+            console.log('Add');
+            this.nabuTree.editor();
+        })
+        .on('pressed,edit.toolbar.tree.nabu', function(e, params) {
+            console.log('Edit');
+            this.nabuTree.editor(params.selection[0]);
+        })
+    ;
 });

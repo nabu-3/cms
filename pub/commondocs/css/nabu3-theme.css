@@ -241,7 +241,7 @@ span + .flag {
 }
 
 .dropdown .btn-default {
-    background-color: #fdf6e3;
+    background-color: #fff;
 }
 
 .dropdown .dropdown-toggle {
@@ -1176,20 +1176,20 @@ input[type="checkbox"] {
     margin-top: 5px;
 }
 
-.tree .tree-level .tree-item.expanded > .tree-item-toolbar > .btn.btn-expand > .fa-minus-square-o {
-    display: inline-block;
-}
-
-.tree .tree-level .tree-item:not(.expanded) > .tree-item-toolbar > .btn.btn-expand > .fa-minus-square-o {
+.tree .tree-level .tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-minus-square-o {
     display: none;
 }
 
-.tree .tree-level .tree-item.expanded > .tree-item-toolbar > .btn.btn-expand > .fa-plus-square-o {
-    display: none;
+.tree .tree-level .expanded > .tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-minus-square-o {
+    display: inline-block;
 }
 
-.tree .tree-level .tree-item:not(.expanded) > .tree-item-toolbar > .btn.btn-expand > .fa-max-square-o {
+.tree .tree-level .tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-max-square-o {
     display: inline-block;
+}
+
+.tree .tree-level .expanded > .tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-plus-square-o {
+    display: none;
 }
 
 .tree-level > li.expanded > .tree-level {
