@@ -1108,9 +1108,10 @@ input[type="checkbox"] {
 
 .tree > .tree-level {
     margin-left: 0;
+    margin-bottom: 15px;
 }
 
-.tree .tree-level .tree-item {
+.tree-item {
     position: relative;
     border: 1px solid gray;
     border-radius: 5px;
@@ -1125,74 +1126,82 @@ input[type="checkbox"] {
     align-content: flex-start;
 }
 
-.tree .tree-level .tree-item:hover {
+.tree-item:hover {
     background-color: #93a1a1;
 }
 
-.tree .tree-level > li > .tree-item.editing {
+.tree-item.editing {
     background-color: #586e75;
     color: #fdf6e3;
 }
 
-.tree .tree-level .tree-item > .tree-item-toolbar {
+.tree-item > .tree-item-toolbar {
     margin: 0;
     flex: 0 0 auto;
 }
 
-.tree .tree-level .tree-item > .tree-item-content {
+.tree-item > .tree-item-content {
     flex: 1 1 0;
 }
 
-.tree .tree-level .tree-item > .tree-item-flags {
+.tree-item > .tree-item-flags {
     flex: 0 0 auto;
 }
 
-.tree .tree-level .tree-item > .tree-item-flags > :first-child {
+.tree-item > .tree-item-flags > :first-child {
     margin-left: 10px;
 }
 
-.tree .tree-level .tree-item > .tree-item-toolbar .btn:last-child {
+.tree-item > .tree-item-toolbar .btn:last-child {
     margin-right: 10px;
 }
 
-.tree .tree-level .tree-item > .tree-item-toolbar .btn + .btn {
+.tree-item > .tree-item-toolbar .btn + .btn {
     margin-left: 10px;
 }
 
-.tree .tree-level .tree-item .tree-item-content .flag {
+.tree-item .tree-item-content .flag {
     float: left;
 }
 
-.tree .tree-level .tree-item .tree-item-content .flag + .text {
+.tree-item .tree-item-content .flag + .text {
     margin-left: 35px;
 }
 
-.tree .tree-level > li > .tree-level {
+li > .tree-level {
     display: none;
     margin-top: 5px;
 }
 
-.tree .tree-level > li + li {
+.tree-level > li + li {
     margin-top: 5px;
 }
 
-.tree .tree-level .tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-minus-square-o {
+.tree-level > span + li {
+    margin-top: 5px;
+}
+
+.tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-minus-square-o {
     display: none;
 }
 
-.tree .tree-level .expanded > .tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-minus-square-o {
+.expanded > .tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-minus-square-o {
     display: inline-block;
 }
 
-.tree .tree-level .tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-max-square-o {
+.tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-max-square-o {
     display: inline-block;
 }
 
-.tree .tree-level .expanded > .tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-plus-square-o {
+.expanded > .tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-plus-square-o {
     display: none;
 }
 
-.tree-level > li.expanded > .tree-level {
+.dragging[data-toggle="drag-item"] {
+    list-style: none;
+}
+
+.tree-level > .expanded > .tree-level {
     display: block;
 }
 
@@ -1452,4 +1461,10 @@ pre.ace_editor {
 .input-group .cke:not(:last-child) .cke_inner {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
+}
+
+/* Drag & Drop */
+.dragging {
+    position: absolute;
+    z-index: 10000;
 }
