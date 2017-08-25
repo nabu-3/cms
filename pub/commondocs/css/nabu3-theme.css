@@ -1106,7 +1106,11 @@ input[type="checkbox"] {
     padding-left: 0;
 }
 
-.tree > .tree-level {
+.tree-inner {
+    position: relative;
+}
+
+.tree-inner > .tree-level {
     margin-left: 0;
     margin-bottom: 15px;
 }
