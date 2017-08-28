@@ -1177,11 +1177,15 @@ li > .tree-level {
     margin-top: 5px;
 }
 
-.tree-level > li + li {
-    margin-top: 5px;
+.tree-inner .interstitial {
+    border: 2px dashed #6c71c4;
 }
 
-.tree-level > span + li {
+.tree-level > li + li,
+.tree-level > span + li,
+.tree-level > span + .interstitial,
+.tree-level > .interstitial + li,
+.tree-level > li + .interstitial {
     margin-top: 5px;
 }
 
