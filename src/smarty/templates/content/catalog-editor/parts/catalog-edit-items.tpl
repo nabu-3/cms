@@ -36,8 +36,10 @@
     ]
 {/nabu_raw_assign}
 {nabu_assign var=ajax_editor cta=ajax_items}
+{nabu_assign var=api_items cta=api_items}
 {assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_catalog.id:'%s'}"}
+{assign var=api_items value="{$api_items.translations[$nb_site.api_language_id].final_url|sprintf:$edit_catalog.id:'%s'}"}
 {include file="content/parts/tree-splitted-panels.tpl" id=items_tree editor=$ajax_editor editor_mode=ajax
-         data=$edit_catalog.items field_id=id field_name=title field_childs=childs
+         api=$api_items data=$edit_catalog.items field_id=id field_name=title field_childs=childs
          languages=$edit_catalog.languages metadata=$tree_metadata section=empty_items
          template="content/catalog-editor/parts/catalog-edit-items-item.tpl"}
