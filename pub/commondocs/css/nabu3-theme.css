@@ -1115,7 +1115,7 @@ input[type="checkbox"] {
     margin-bottom: 15px;
 }
 
-.tree-item {
+.tree-item-caret {
     position: relative;
     border: 1px solid gray;
     border-radius: 5px;
@@ -1130,45 +1130,45 @@ input[type="checkbox"] {
     align-content: flex-start;
 }
 
-.tree-item:hover {
+.tree-item-caret:hover {
     background-color: #93a1a1;
 }
 
-.tree-item.editing {
+.tree-item-caret.editing {
     background-color: #586e75;
     color: #fdf6e3;
 }
 
-.tree-item > .tree-item-toolbar {
+.tree-item-caret > .tree-item-caret-toolbar {
     margin: 0;
     flex: 0 0 auto;
 }
 
-.tree-item > .tree-item-content {
+.tree-item-caret > .tree-item-caret-content {
     flex: 1 1 0;
 }
 
-.tree-item > .tree-item-flags {
+.tree-item-caret > .tree-item-caret-flags {
     flex: 0 0 auto;
 }
 
-.tree-item > .tree-item-flags > :first-child {
+.tree-item-caret > .tree-item-caret-flags > :first-child {
     margin-left: 10px;
 }
 
-.tree-item > .tree-item-toolbar .btn:last-child {
+.tree-item-caret > .tree-item-caret-toolbar .btn:last-child {
     margin-right: 10px;
 }
 
-.tree-item > .tree-item-toolbar .btn + .btn {
+.tree-item-caret > .tree-item-caret-toolbar .btn + .btn {
     margin-left: 10px;
 }
 
-.tree-item .tree-item-content .flag {
+.tree-item-caret .tree-item-caret-content .flag {
     float: left;
 }
 
-.tree-item .tree-item-content .flag + .text {
+.tree-item-caret .tree-item-caret-content .flag + .text {
     margin-left: 35px;
 }
 
@@ -1189,19 +1189,19 @@ li > .tree-level {
     margin-top: 5px;
 }
 
-.tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-minus-square-o {
+.tree-item-caret > .tree-item-caret-toolbar > .btn.btn-expand > .fa-minus-square-o {
     display: none;
 }
 
-.expanded > .tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-minus-square-o {
+.expanded > .tree-item .tree-item-caret > .tree-item-caret-toolbar > .btn.btn-expand > .fa-minus-square-o {
     display: inline-block;
 }
 
-.tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-max-square-o {
+.tree-item-caret > .tree-item-caret-toolbar > .btn.btn-expand > .fa-max-square-o {
     display: inline-block;
 }
 
-.expanded > .tree-item > .tree-item-toolbar > .btn.btn-expand > .fa-plus-square-o {
+.expanded > .tree-item .tree-item-caret > .tree-item-caret-toolbar > .btn.btn-expand > .fa-plus-square-o {
     display: none;
 }
 
