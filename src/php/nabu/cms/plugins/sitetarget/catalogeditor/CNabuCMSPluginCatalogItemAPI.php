@@ -84,6 +84,12 @@ class CNabuCMSPluginCatalogItemAPI extends CNabuCMSPluginAbstractAPI
         if ($this->nb_request->hasGETField('action')) {
             $action = $this->nb_request->getGETField('action');
             switch (strtolower($action)) {
+                case 'move':
+                    $this->doMove();
+                    break;
+                case 'append':
+                    $this->doAppend();
+                    break;
                 default:
                     $this->setStatusError(sprintf('Action [%s] not supported', $action));
             }
@@ -160,6 +166,39 @@ class CNabuCMSPluginCatalogItemAPI extends CNabuCMSPluginAbstractAPI
         }
 
         return true;
+    }
+
+    /**
+     * Performs a movement inside the Catalog Items Tree to change the position of an item respect to other.
+     */
+    private function doMove()
+    {
+        if ($this->nb_request->hasGETField('before')) {
+            $before_id = $this->nb_request->getGETField('before');
+            if (is_numeric($before_id) && $this->nb_catalog->moveItemBefore($this->nb_catalog_item, $before_id)) {
+                $this->setStatusOK();
+                $this->nb_catalog_item->refresh(true);
+                $this->setData($this->nb_catalog_item->getTreeData(null, true));
+            } else {
+                $this->setStatusError('Invalid [before] node');
+            }
+        } elseif ($this->nb_request->hasGETField('after')) {
+            $after_id = $this->nb_request->getGETField('after');
+            if (is_numeric($after_id) && $this->nb_catalog->moveItemAfter($this->nb_catalog_item, $after_id)) {
+                $this->setStatusOK();
+                $this->nb_catalog_item->refresh(true);
+                $this->setData($this->nb_catalog_item->getTreeData(null, true));
+                $this->setStatusError('Invalid [after] node');
+            }
+        }
+    }
+
+    /**
+     * Appends an existent element (move to a different branch) in the Catalog Items Tree.
+     */
+    private function doAppend()
+    {
+
     }
 
     public function beforeDisplayTarget()
