@@ -19,9 +19,11 @@
 
 namespace nabu\cms\plugins\sitetarget\catalogeditor;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
+use nabu\core\exceptions\ENabuCoreException;
 use nabu\data\catalog\CNabuCatalog;
 use nabu\data\catalog\CNabuCatalogItem;
 use nabu\data\catalog\CNabuCatalogItemLanguage;
+use nabu\data\catalog\exceptions\ENabuCatalogException;
 use nabu\data\site\CNabuSiteTargetCTAList;
 
 /**
@@ -175,19 +177,51 @@ class CNabuCMSPluginCatalogItemAPI extends CNabuCMSPluginAbstractAPI
     {
         if ($this->nb_request->hasGETField('before')) {
             $before_id = $this->nb_request->getGETField('before');
-            if (is_numeric($before_id) && $this->nb_catalog->moveItemBefore($this->nb_catalog_item, $before_id)) {
-                $this->setStatusOK();
-                $this->nb_catalog_item->refresh(true);
-                $this->setData($this->nb_catalog_item->getTreeData(null, true));
+            if (is_numeric($before_id)) {
+                try {
+                    if ($this->nb_catalog_item->moveBefore($before_id)) {
+                        $this->nb_catalog_item->refresh(true);
+                    }
+                    $this->setStatusOK();
+                    $this->setData($this->nb_catalog_item->getTreeData(null, true));
+                } catch (ENabuCoreException $ex) {
+                    if ($ex->getCode() === ENabuCoreException::ERROR_UNEXPECTED_PARAM_VALUE) {
+                        $this->setStatusError('Invalid [before] node');
+                    } else {
+                        throw $ex;
+                    }
+                } catch (ENabuCatalogException $ex) {
+                    if ($ex->getCode() === ENabuCatalogException::ERROR_ITEM_NOT_INCLUDED_IN_CATALOG) {
+                        $this->setStatusError('Invalid [before] node');
+                    } else {
+                        throw $ex;
+                    }
+                }
             } else {
                 $this->setStatusError('Invalid [before] node');
             }
         } elseif ($this->nb_request->hasGETField('after')) {
             $after_id = $this->nb_request->getGETField('after');
-            if (is_numeric($after_id) && $this->nb_catalog->moveItemAfter($this->nb_catalog_item, $after_id)) {
-                $this->setStatusOK();
-                $this->nb_catalog_item->refresh(true);
-                $this->setData($this->nb_catalog_item->getTreeData(null, true));
+            if (is_numeric($after_id)) {
+                try {
+                    $this->nb_catalog->moveItemAfter($this->nb_catalog_item, $after_id);
+                    $this->setStatusOK();
+                    $this->nb_catalog_item->refresh(true);
+                    $this->setData($this->nb_catalog_item->getTreeData(null, true));
+                } catch (ENabuCoreException $ex) {
+                    if ($ex->getCode() === ENabuCoreException::ERROR_UNEXPECTED_PARAM_VALUE) {
+                        $this->setStatusError('Invalid [after] node');
+                    } else {
+                        throw $ex;
+                    }
+                } catch (ENabuCatalogException $ex) {
+                    if ($ex->getCode() === ENabuCoreException::ERROR_UNEXPECTED_PARAM_VALUE) {
+                        $this->setStatusError('Invalid [after] node');
+                    } else {
+                        throw $ex;
+                    }
+                }
+            } else {
                 $this->setStatusError('Invalid [after] node');
             }
         }
