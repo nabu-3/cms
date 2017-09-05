@@ -204,9 +204,10 @@ class CNabuCMSPluginCatalogItemAPI extends CNabuCMSPluginAbstractAPI
             $after_id = $this->nb_request->getGETField('after');
             if (is_numeric($after_id)) {
                 try {
-                    $this->nb_catalog->moveItemAfter($this->nb_catalog_item, $after_id);
+                    if ($this->nb_catalog_item->moveAfter($after_id)) {
+                        $this->nb_catalog_item->refresh(true);
+                    }
                     $this->setStatusOK();
-                    $this->nb_catalog_item->refresh(true);
                     $this->setData($this->nb_catalog_item->getTreeData(null, true));
                 } catch (ENabuCoreException $ex) {
                     if ($ex->getCode() === ENabuCoreException::ERROR_UNEXPECTED_PARAM_VALUE) {
@@ -215,7 +216,7 @@ class CNabuCMSPluginCatalogItemAPI extends CNabuCMSPluginAbstractAPI
                         throw $ex;
                     }
                 } catch (ENabuCatalogException $ex) {
-                    if ($ex->getCode() === ENabuCoreException::ERROR_UNEXPECTED_PARAM_VALUE) {
+                    if ($ex->getCode() === ENabuCatalogException::ERROR_ITEM_NOT_INCLUDED_IN_CATALOG) {
                         $this->setStatusError('Invalid [after] node');
                     } else {
                         throw $ex;
