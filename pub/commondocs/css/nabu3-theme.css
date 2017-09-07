@@ -1177,23 +1177,31 @@ li > .tree-level {
     margin-top: 5px;
 }
 
-.tree-inner .interstitial {
+.tree-inner .dad-interstitial {
     border: 2px dashed #6c71c4;
 }
 
 .tree-level > li + li,
 .tree-level > span + li,
-.tree-level > span + .interstitial,
-.tree-level > .interstitial + li,
-.tree-level > li + .interstitial {
+.tree-level > span + .dad-interstitial,
+.tree-level > .dad-interstitial + li,
+.tree-level > li + .dad-interstitial {
     margin-top: 5px;
+}
+
+.tree-item.drag-item.drag-over {
+    min-height: 89px;
+}
+
+.tree-item.drag-item.drag-over > .tree-level {
+    min-height: 42px;
 }
 
 .tree-item-caret > .tree-item-caret-toolbar > .btn.btn-expand > .fa-minus-square-o {
     display: none;
 }
 
-.expanded > .tree-item .tree-item-caret > .tree-item-caret-toolbar > .btn.btn-expand > .fa-minus-square-o {
+.expanded > .tree-item-caret > .tree-item-caret-toolbar > .btn.btn-expand > .fa-minus-square-o {
     display: inline-block;
 }
 
@@ -1201,7 +1209,7 @@ li > .tree-level {
     display: inline-block;
 }
 
-.expanded > .tree-item .tree-item-caret > .tree-item-caret-toolbar > .btn.btn-expand > .fa-plus-square-o {
+.expanded > .tree-item-caret > .tree-item-caret-toolbar > .btn.btn-expand > .fa-plus-square-o {
     display: none;
 }
 
