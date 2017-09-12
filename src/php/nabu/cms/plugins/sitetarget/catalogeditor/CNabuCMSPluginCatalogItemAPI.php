@@ -233,7 +233,32 @@ class CNabuCMSPluginCatalogItemAPI extends CNabuCMSPluginAbstractAPI
      */
     private function doAppend()
     {
-
+        if ($this->nb_request->hasGETField('parent')) {
+            $parent_id = $this->nb_request->getGETField('parent');
+            if (is_numeric($parent_id)) {
+                try {
+                    if ($this->nb_catalog_item->moveInto($parent_id)) {
+                        $this->nb_catalog_item->refresh(true);
+                    }
+                    $this->setStatusOK();
+                    $this->setData($this->nb_catalog_item->getTreeData(null, true));
+                } catch (ENabuCoreException $ex) {
+                    if ($ex->getCode() === ENabuCoreException::ERROR_UNEXPECTED_PARAM_VALUE) {
+                        $this->setStatusError('Invalid [parent] node');
+                    } else {
+                        throw $ex;
+                    }
+                } catch (ENabuCatalogException $ex) {
+                    if ($ex->getCode() === ENabuCatalogException::ERROR_ITEM_NOT_INCLUDED_IN_CATALOG) {
+                        $this->setStatusError('Invalid [parent] node');
+                    } else {
+                        throw $ex;
+                    }
+                }
+            } else {
+                $this->setStatusError('Invalid [parent] node');
+            }
+        }
     }
 
     public function beforeDisplayTarget()
