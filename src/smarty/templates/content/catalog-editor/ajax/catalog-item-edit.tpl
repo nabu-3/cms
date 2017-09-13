@@ -33,10 +33,13 @@
                 {/nabu_form_fieldset}
                 {nabu_form_fieldset title={nabu_static key=tit_content}}
                     {nabu_form_row}
+                        {nabu_form_select from=$edit_item field=catalog_taxonomy_id options=$nb_catalog.taxonomies options_name=title class="col-sm-9" label={nabu_static key=lbl_taxonomy}}
+                    {/nabu_form_row}
+                    {*nabu_form_row}
                         <div class="col-sm-12">
                             {include file="content/parts/medioteca-selector.tpl"}
                         </div>
-                    {/nabu_form_row}
+                    {/nabu_form_row*}
                     {nabu_form_row}
                         {nabu_form_textbox from=$edit_item field=image multilang=$nb_all_languages label={nabu_static key=lbl_image} class="col-sm-12"}
                     {/nabu_form_row}
