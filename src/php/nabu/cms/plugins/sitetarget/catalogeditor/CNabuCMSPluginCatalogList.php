@@ -36,7 +36,8 @@ class CNabuCMSPluginCatalogList extends CNabuHTTPSiteTargetPluginAdapter
 
     public function prepareTarget()
     {
-        $this->catalog_data = $this->nb_work_customer->getCatalogs(true);
+        $this->nb_work_customer->refresh(true, true);
+        $this->catalog_data = $this->nb_work_customer->getCatalogs();
 
         return true;
     }
