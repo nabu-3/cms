@@ -54,34 +54,34 @@
                     {/nabu_form_row}
                     {nabu_form_row}
                         <div data-toggle="ckeditor">
-                            {nabu_form_textbox type=textarea rows=5 from=$edit_item field=opening multilang=$nb_all_languages label={nabu_static key=lbl_opening} class="col-sm-12"}
+                            {nabu_form_textbox type=textarea rows=5 id=opening from=$edit_item field=opening multilang=$nb_all_languages label={nabu_static key=lbl_opening} class="col-sm-12"}
                         </div>
                     {/nabu_form_row}
                     {nabu_form_row}
                         <div data-toggle="ckeditor">
-                            {nabu_form_textbox type=textarea rows=5 from=$edit_item field=content multilang=$nb_all_languages label={nabu_static key=lbl_content} class="col-sm-12"}
+                            {nabu_form_textbox type=textarea rows=5 id=content from=$edit_item field=content multilang=$nb_all_languages label={nabu_static key=lbl_content} class="col-sm-12"}
                         </div>
                     {/nabu_form_row}
                     {nabu_form_row}
                         <div data-toggle="ckeditor">
-                            {nabu_form_textbox type=textarea rows=5 from=$edit_item field=footer multilang=$nb_all_languages label={nabu_static key=lbl_footer} class="col-sm-12"}
+                            {nabu_form_textbox type=textarea rows=5 id=footer from=$edit_item field=footer multilang=$nb_all_languages label={nabu_static key=lbl_footer} class="col-sm-12"}
                         </div>
                     {/nabu_form_row}
                     {nabu_form_row}
                         <div data-toggle="ckeditor">
-                            {nabu_form_textbox type=textarea rows=5 from=$edit_item field=aside multilang=$nb_all_languages label={nabu_static key=lbl_aside} class="col-sm-12"}
+                            {nabu_form_textbox type=textarea rows=5 id=aside from=$edit_item field=aside multilang=$nb_all_languages label={nabu_static key=lbl_aside} class="col-sm-12"}
                         </div>
                     {/nabu_form_row}
                 {/nabu_form_fieldset}
                 {nabu_form_fieldset title={nabu_static key=tit_config}}
                     {nabu_form_row}
                         <div class="col-sm-12" data-toggle="ace-editor" data-ace-theme="solarized_light" data-ace-mode="json" data-ace-min-lines="5" data-ace-max-lines="20">
-                            {nabu_form_textbox type=textarea rows=5 from=$edit_item field=attributes name=attrs label={nabu_static key=lbl_main_attributes}}
+                            {nabu_form_textbox type=textarea rows=5 id=attrs from=$edit_item field=attributes name=attrs label={nabu_static key=lbl_main_attributes}}
                         </div>
                     {/nabu_form_row}
                     {nabu_form_row}
                         <div data-toggle="ace-editor" data-ace-theme="solarized_light" data-ace-mode="json" data-ace-min-lines="5" data-ace-max-lines="20">
-                            {nabu_form_textbox type=textarea rows=5 from=$edit_item field=attributes name=lang_attrs multilang=$nb_all_languages label={nabu_static key=lbl_lang_attributes} class="col-sm-12"}
+                            {nabu_form_textbox type=textarea rows=5 id=attrs_lang from=$edit_item field=attributes name=lang_attrs multilang=$nb_all_languages label={nabu_static key=lbl_lang_attributes} class="col-sm-12"}
                         </div>
                     {/nabu_form_row}
                 {/nabu_form_fieldset}
