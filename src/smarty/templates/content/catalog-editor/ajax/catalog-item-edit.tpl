@@ -31,6 +31,11 @@
                         {nabu_form_textbox from=$edit_item field=slug multilang=$nb_all_languages label={nabu_static key=lbl_slug} class="col-sm-9"}
                     {/nabu_form_row}
                 {/nabu_form_fieldset}
+                {nabu_form_fieldset title={nabu_static key=tit_appearance}}
+                    {nabu_form_row}
+                        {nabu_form_textbox from=$edit_item field=css_class label={nabu_static key=lbl_css_class} class="col-sm-6"}
+                    {/nabu_form_row}
+                {/nabu_form_fieldset}
                 {nabu_form_fieldset title={nabu_static key=tit_content}}
                     {nabu_form_row}
                         {nabu_form_select from=$edit_item field=catalog_taxonomy_id options=$nb_catalog.taxonomies options_name=title class="col-sm-9" label={nabu_static key=lbl_taxonomy}}

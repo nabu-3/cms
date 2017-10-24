@@ -114,7 +114,8 @@ class CNabuCMSPluginCatalogItemAPI extends CNabuCMSPluginAbstractAPI
                 array(
                     'key' => 'nb_catalog_item_key',
                     'hash' => 'nb_catalog_item_hash',
-                    'catalog_taxonomy_id' => 'nb_catalog_taxonomy_id'
+                    'catalog_taxonomy_id' => 'nb_catalog_taxonomy_id',
+                    'css_class' => 'nb_catalog_item_css_class'
                 )
             );
             $this->nb_catalog_item->grantHash();
