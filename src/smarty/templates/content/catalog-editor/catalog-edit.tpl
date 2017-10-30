@@ -2,7 +2,7 @@
 <div class="label-list">
     {include file="content/parts/common-labels.tpl" data=$edit_catalog}
 </div>
-<div id="edit_zone" class="edit-zone" data-toggle="nabu-multiform">
+<div id="edit_zone" class="edit-zone catalog" data-toggle="nabu-multiform">
     {include file="content/parts/flag-selector.tpl" lang_list=$edit_catalog.languages default_lang=$edit_catalog.default_language_id}
     <ul class="nav nav-tabs" role="tablist" data-toggle="tab-persistence" data-persistence-id="{$edit_catalog.id}">
         <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">{nabu_static key=tab_main}</a></li>

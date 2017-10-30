@@ -1226,6 +1226,23 @@ li > .tree-level {
     height: 100%;
 }
 
+.catalog .tree .tree-item-caret .text .sku {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.catalog .tree .tree-item-caret .text .taxonomy::before,
+.catalog .tree .tree-item-caret .text .taxonomy::after {
+    clear: both;
+    display: table;
+}
+
+.catalog .tree .tree-item-caret .text .taxonomy {
+    font-style: italic;
+    font-family: 'Roboto Condensed', sans-serif;
+    display: block;
+}
+
 /** Edit container **/
 .edit-container {
     height: 100%;
