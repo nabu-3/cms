@@ -47,15 +47,12 @@ class CNabuCMSPluginSiteEdit extends CNabuHTTPSiteTargetPluginAdapter
 
         $fragments = $this->nb_request->getRegExprURLFragments();
         if (is_array($fragments) && count($fragments) > 1) {
-            error_log("HOLA 1");
             $id = $fragments[1];
             $this->title_part = '#' . $id;
-            error_log(print_r($this->nb_work_customer->getTreeData(null, true), true));
             $this->nb_work_customer->refresh(true, true);
             if (($this->edit_site = $this->nb_work_customer->getSite($id)) instanceof CNabuSite &&
                 $this->edit_site->refresh(true, true)
             ) {
-                error_log("HOLA 2");
                 if (($translation = $this->edit_site->getTranslation($this->nb_language)) instanceof CNabuSiteLanguage &&
                     (strlen($this->title_part = $translation->getName()) === 0) &&
                     (strlen($this->title_part = $this->edit_site->getKey()) === 0)
@@ -67,7 +64,6 @@ class CNabuCMSPluginSiteEdit extends CNabuHTTPSiteTargetPluginAdapter
                     'slug' => $id
                 );
             } else {
-                error_log("HOLA 4");
                 $retval = $this->nb_site->getTargetByKey('site_list');
             }
         }
