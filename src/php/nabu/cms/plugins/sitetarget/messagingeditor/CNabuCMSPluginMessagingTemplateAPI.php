@@ -148,7 +148,7 @@ class CNabuCMSPluginMessagingTemplateAPI extends CNabuCMSPluginAbstractAPI
             $this->nb_messaging_template->getTranslations(true)->iterate(
                 function($key, CNabuMessagingTemplateLanguage $nb_translation) use ($nb_messaging_factory) {
                     $nb_messaging_factory->postTemplateMessage(
-                        $this->nb_messaging_template, $nb_translation->getLanguageId(), $this->nb_user, null, null, null
+                        $this->nb_messaging_template, $nb_translation->getLanguageId(), $this->nb_user, null, null, $this->nb_user->getTreeData(null, true)
                     );
                     return true;
                 }
