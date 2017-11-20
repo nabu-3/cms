@@ -1231,16 +1231,24 @@ li > .tree-level {
     margin-right: 5px;
 }
 
-.catalog .tree .tree-item-caret .text .taxonomy::before,
-.catalog .tree .tree-item-caret .text .taxonomy::after {
+.catalog .tree .tree-item-caret .taxonomy::before,
+.catalog .tree .tree-item-caret .taxonomy::after {
     clear: both;
     display: table;
 }
 
-.catalog .tree .tree-item-caret .text .taxonomy {
-    font-style: italic;
-    font-family: 'Roboto Condensed', sans-serif;
-    display: block;
+.catalog .tree .tree-item-caret .taxonomy {
+	font-style: italic;
+	font-family: 'Roboto Condensed', sans-serif;
+	display: block;
+	background-color: #2aa198;
+	padding: 2px 10px 0;
+	margin-bottom: 5px;
+	color: #fdf6e3;
+	text-align: right;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+	border-radius: 5px;
 }
 
 /** Edit container **/
