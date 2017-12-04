@@ -40,6 +40,7 @@ class CNabuCMSPluginIContactAPI extends CNabuCMSPluginAbstractAPI
             if (is_numeric($fragments[1])) {
                 $this->nb_icontact = $this->nb_work_customer->getIContact($fragments[1]);
                 $this->nb_icontact->refresh(true, false);
+                $this->nb_icontact->grantHash(true);
             } elseif (!$fragments[1]) {
                 $this->nb_icontact = new CNabuIContact();
                 $this->nb_icontact->setCustomer($this->nb_work_customer);
