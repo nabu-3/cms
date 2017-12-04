@@ -40,11 +40,9 @@ class CNabuCMSPluginIContactAPI extends CNabuCMSPluginAbstractAPI
             if (is_numeric($fragments[1])) {
                 $this->nb_icontact = $this->nb_work_customer->getIContact($fragments[1]);
                 $this->nb_icontact->refresh(true, false);
-                $this->nb_icontact->grantHash(true);
             } elseif (!$fragments[1]) {
                 $this->nb_icontact = new CNabuIContact();
                 $this->nb_icontact->setCustomer($this->nb_work_customer);
-                $this->nb_icontact->grantHash();
             }
         }
 
@@ -65,6 +63,7 @@ class CNabuCMSPluginIContactAPI extends CNabuCMSPluginAbstractAPI
                     'email_template_arrival' => 'nb_icontact_email_template_arrival'
                 )
             );
+            $this->nb_icontact->grantHash();
             if ($this->nb_icontact->save()) {
                 $languages = $this->nb_request->getCombinedPostIndexes(array('name'));
                 if (count($languages) > 0) {
