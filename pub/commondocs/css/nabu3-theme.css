@@ -802,7 +802,7 @@ input[type="checkbox"] {
     background-color: transparent;
 }
 
-.table-bordered > thead > tr > th {
+.table-bordered > thead {
     border-bottom: 2px solid #cb4b16;
 }
 
@@ -818,13 +818,20 @@ input[type="checkbox"] {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+.table-empty-row p {
+    margin: 0;
+}
+
 .table-hover > tbody > tr:hover:not(.table-empty-row) {
-  background-color: #93a1a1;
-  color: #fdf6e3;
+    background-color: #93a1a1;
+    color: #fdf6e3;
+}
+
+.table > thead {
+    background-color: #859900;
 }
 
 .table > thead > tr > th {
-    background-color: #859900;
     color: #fdf6e3;
     font-weight: normal;
     vertical-align: top;

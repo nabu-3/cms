@@ -24,7 +24,7 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
- * @since 3.0.1 Surface
+ * @since 3.0.2 Surface
  * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget\icontacteditor
  */
@@ -35,6 +35,7 @@ class CNabuCMSPluginIContactList extends CNabuHTTPSiteTargetPluginAdapter
 
     public function prepareTarget()
     {
+        $this->nb_work_customer->refresh(true, true);
         $this->icontact_list = $this->nb_work_customer->getIContacts(true);
 
         return true;
