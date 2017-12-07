@@ -114,7 +114,7 @@ class CNabuCMSPluginSiteTargetAPI extends CNabuCMSPluginAbstractAPI
                 $this->nb_site_target_edit->setAttributes($this->nb_request->getPOSTField('attributes'));
             }
 
-            if ($this->nb_site_target_edit->save()) {
+            if ($this->nb_site_target_edit->save(true)) {
                 $languages = $this->nb_request->getCombinedPostIndexes(array('title', 'url', 'head_title'));
                 if (count($languages) > 0) {
                     foreach ($languages as $lang_id) {

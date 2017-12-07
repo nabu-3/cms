@@ -5,7 +5,7 @@
 </div>
 <div id="edit_zone" class="edit-zone" data-toggle="nabu-multiform">
     {include file="content/parts/flag-selector.tpl" lang_list=$edit_site.languages default_lang=$edit_site.default_language_id}
-    <ul class="nav nav-tabs" role="tablist">
+    <ul class="nav nav-tabs" role="tablist" data-toggle="tab-persistence" data-persistence-id="{$edit_site.id}">
         <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab"><i class="fa fa-home"></i>&nbsp;{nabu_static key=tab_main}</a></li>
         <li role="presentation"><a href="#languages" aria-controls="languages" role="tab" data-toggle="tab"><i class="fa fa-language"></i>&nbsp;{nabu_static key=tab_languages}</a></li>
         <li role="presentation"><a href="#targets" aria-controls="targets" role="tab" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;{nabu_static key=tab_end_points}</a></li>
