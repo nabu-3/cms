@@ -82,12 +82,14 @@ class CNabuCMSPluginSiteTargetAPI extends CNabuCMSPluginAbstractAPI
                 array(
                     'hash' => 'nb_site_target_hash',
                     'order' => 'nb_site_target_order',
+                    'begin_date' => 'nb_site_target_begin_date',
                     'url_filter' => 'nb_site_target_url_filter',
                     'key' => 'nb_site_target_key',
                     'zone' => 'nb_site_target_zone',
                     'use_http' => 'nb_site_target_use_http',
                     'use_https' => 'nb_site_target_use_https',
                     'output_type' => 'nb_site_target_output_type',
+                    'transform_interface' => 'nb_site_target_transform_interface',
                     'mimetype_id' => 'nb_mimetype_id',
                     'attachment' => 'nb_site_target_attachment',
                     'smarty_display_file' => 'nb_site_target_smarty_display_file',
@@ -107,6 +109,11 @@ class CNabuCMSPluginSiteTargetAPI extends CNabuCMSPluginAbstractAPI
                     'meta_robots' => 'nb_site_target_meta_robots',
                     'icon' => 'nb_site_target_icon',
                     'apps_slot' => 'nb_site_target_apps_slot'
+                ),
+                null,
+                array(
+                    'begin_date' => '',
+                    'transform_interface' => ''
                 )
             );
 

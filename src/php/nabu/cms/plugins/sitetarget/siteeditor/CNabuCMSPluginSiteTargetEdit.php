@@ -24,6 +24,7 @@ use nabu\data\site\CNabuSiteAlias;
 use nabu\data\site\CNabuSiteTarget;
 use nabu\data\site\CNabuSiteLanguage;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
+use nabu\provider\CNabuProviderFactory;
 
 class CNabuCMSPluginSiteTargetEdit extends CNabuHTTPSiteTargetPluginAdapter
 {
@@ -110,6 +111,18 @@ class CNabuCMSPluginSiteTargetEdit extends CNabuHTTPSiteTargetPluginAdapter
         $render->smartyAssign('title_part', $this->title_part);
         $render->smartyAssign('breadcrumb_part', $this->breadcrumb_part);
         $render->smartyAssign('base_url', $this->base_url);
+
+        if ($this->nb_site_target->getKey() === 'ajax_site_target_edit_policy') {
+            $render->smartyAssign(
+                'transform_interfaces',
+                $this->nb_engine->getProvidersInterfaceDescriptors(CNabuProviderFactory::INTERFACE_RENDER_TRANSFORM),
+                $this->nb_language
+            );
+            $render->smartyAssign(
+                'used_mimetypes',
+                $this->nb_site->getUsedMimeTypes()
+            );
+        }
 
         return true;
     }

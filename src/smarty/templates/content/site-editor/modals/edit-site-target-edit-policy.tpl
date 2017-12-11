@@ -20,11 +20,18 @@
                             ]
                         {/nabu_raw_assign}
                         {nabu_form_row}
-                            {nabu_form_textbox class="col-sm-6" label={nabu_static key=lbl_mime_type} from=$edit_site_target field=mimetype_id}
+                            {nabu_form_textbox class="col-sm-4" label={nabu_static key=lbl_publication_date} from=$edit_site_target field=begin_date}
+                        {/nabu_form_row}
+                        {nabu_form_row}
+                            {nabu_form_textbox id=memetype_id class="col-sm-6" label={nabu_static key=lbl_mime_type} from=$edit_site_target field=mimetype_id datalist=$used_mimetypes}
+                            <div class="col-sm-6 container-checkbox">{nabu_form_checkbox label={nabu_static key=chk_download_as_attachment} from=$edit_site_target field=attachment check=T uncheck=F}</div>
                         {/nabu_form_row}
                         {nabu_form_row}
                             {nabu_form_select class="col-sm-6" label={nabu_static key=lbl_render_output} from=$edit_site_target field=output_type options=$sel_options}
-                            {nabu_form_select class="col-sm-6" label={nabu_static key=lbl_render_transform} from=$edit_site_target field=transform_type options=$transform_options}
+                            {nabu_form_select class="col-sm-6" label={nabu_static key=lbl_render_transform}
+                                              from=$edit_site_target field=transform_interface
+                                              options=$transform_interfaces options_name=interface_name
+                                              options_default_id='' options_default_name={nabu_static key=sel_default_render_transform}}
                         {/nabu_form_row}
                         {*<div class="col-sm-6 container-checkbox">{nabu_form_checkbox label={nabu_static key=chk_ignore_site_policies} from=$edit_site_target field=ignore_policies check=T uncheck=F}</div>*}
                     </section>
