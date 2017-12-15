@@ -2,9 +2,9 @@
 {nabu_assign var=info_section section=empty_targets}
 {nabu_raw_assign}
     lookup_path: [
-        U: "URL Estática"
-        R: "Expresión Regular"
-        L: "SQL Like"
+        U: "<span class=\"label label-success\">URL Estática</span>"
+        R: "<span class=\"label label-info\">Expresión Regular</span>"
+        L: "<span class=\"label label-warning\">SQL Like</span>"
     ]
     lookup_zone: [
         O: "Pública"
@@ -119,5 +119,5 @@
 {assign var=edit_target_url value={$edit_target_url.translation.final_url|sprintf:$edit_site.id:'%s'}}
 {nabu_table id=site_edit_targets data=$edit_targets metadata=$table_metadata selectable=true
             draw_empty=true bordered=true striped=true hover=true condensed=true
-            search=false pager=false size=25 column_selector=true
+            search=false pager=false size=25 column_selector=true languages=$edit_site.languages
             api=api_call editor=$edit_target_url edit_button=line}
