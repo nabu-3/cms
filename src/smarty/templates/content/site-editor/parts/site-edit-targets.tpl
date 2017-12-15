@@ -7,9 +7,9 @@
         L: "<span class=\"label label-warning\">SQL Like</span>"
     ]
     lookup_zone: [
-        O: "Pública"
-        P: "Privada"
-        B: "Todas"
+        O: "<span class=\"label label-success\">{nabu_static key=tbl_public_zone}</span>"
+        P: "<span class=\"label label-danger\">{nabu_static key=tbl_private_zone}</span>"
+        B: "<span class=\"label label-info\">{nabu_static key=tbl_overall_zone}</span>"
     ]
     lookup_yesno: [
         T: "Si"

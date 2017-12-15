@@ -37,6 +37,14 @@
                         {nabu_form_textbox type=textarea from=$edit_static_content field=text label="{nabu_static key=lbl_content}" multilang=$nb_all_languages class="col-sm-12"}
                     {/nabu_form_row}
                 {/nabu_form_fieldset}
+                {nabu_form_fieldset title={nabu_static key=tit_hack_it}}
+                    <h4>Smarty</h4>
+                    <code>{ldelim}nabu_static key="{$edit_static_content.key}"{rdelim}</code>
+                    <h4>PHP</h4>
+                    <p>{nabu_static key="lbl_by_id"}</p>
+                    <code>$this->nb_site->getStaticContent('{$edit_static_content.key}');</code>
+                    <p>{nabu_static key="lbl_by_key"}</p>
+                    <code>$this->nb_site->getStaticContentByKey('{$edit_static_content.key}');</code>
             {/nabu_form}
         {/if}
     </div>
