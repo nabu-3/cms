@@ -44,6 +44,7 @@ class CNabuCMSPluginSiteList extends CNabuHTTPSiteTargetPluginAdapter
     {
         $render = $this->nb_response->getRender();
         $render->smartyAssign('nb_languages', $this->nb_work_customer->getSiteSetUsedLanguages());
+        $render->smartyAssign('nb_roles', $this->nb_work_customer->getRoles(), $this->nb_language);
         $render->smartyAssign('data', $this->site_data, $this->nb_language);
 
         return true;

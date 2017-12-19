@@ -112,9 +112,14 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
         }
     }
 
+    /**
+     * Process notify action.
+     */
     private function doNotify()
     {
         $nb_user_list = $this->nb_work_customer->getUsers();
+        $force_notification = ($this->nb_request->getPOSTField('reset_notifications') === 'T');
+        $force_role = $this->nb_request->hasPOSTField('apply_role') ? $this->nb_request->getPOSTField('apply_role') : '-1';
 
         if ($nb_user_list->getSize() > 0) {
             $nb_messaging = $this->edit_site->getMessaging($this->nb_work_customer);
@@ -124,15 +129,27 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
             if (($nb_messaging_factory = $nb_messaging_pool_manager->getFactory($nb_messaging)) instanceof CNabuMessagingFactory) {
                 error_log("Items " . $nb_user_list->getSize());
                 $nb_user_list->iterate(
-                    function ($key, CNabuUser $nb_user) use ($nb_messaging_factory, $nb_messaging_template)
+                    function ($key, CNabuUser $nb_user)
+                         use ($nb_messaging_factory, $nb_messaging_template, $force_notification, $force_role)
                     {
+                        $nb_site_user = $this->edit_site->getUserProfile($nb_user);
+                        if ($force_notification &&
+                            $nb_user->getAllowNotification() !== 'T' &&
+                            ($force_role == -1 || $force_role == $nb_site_user->getRoleId())
+                        ) {
+                            $nb_user->setAllowNotification('T');
+                            $nb_user->save();
+                        }
                         if ($nb_user->getAllowNotification() === 'T') {
-                            error_log("Sending to " . $nb_user->getEmail());
-                            $nb_site_user = $this->edit_site->getUserProfile($nb_user);
-                            if ($nb_site_user instanceof CNabuSiteUser) {
+                            if ($nb_site_user instanceof CNabuSiteUser &&
+                                ($force_role == -1 || $force_role == $nb_site_user->getRoleId())
+                            ) {
+                                error_log("Sending to " . $nb_user->getEmail());
+                                /*
                                 $nb_messaging_factory->postTemplateMessage(
                                     $nb_messaging_template, $nb_site_user->getLanguageId(), $nb_user, null, null, null
                                 );
+                                */
                             }
                         }
                         return true;
