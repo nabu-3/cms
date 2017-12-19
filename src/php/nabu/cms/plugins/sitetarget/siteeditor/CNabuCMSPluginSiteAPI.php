@@ -145,11 +145,9 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                                 ($force_role == -1 || $force_role == $nb_site_user->getRoleId())
                             ) {
                                 error_log("Sending to " . $nb_user->getEmail());
-                                /*
                                 $nb_messaging_factory->postTemplateMessage(
                                     $nb_messaging_template, $nb_site_user->getLanguageId(), $nb_user, null, null, null
                                 );
-                                */
                             }
                         }
                         return true;
