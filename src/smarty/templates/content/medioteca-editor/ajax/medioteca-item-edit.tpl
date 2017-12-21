@@ -34,7 +34,7 @@
                 {/nabu_form_fieldset}
                 {nabu_form_fieldset title="{nabu_static key=tit_visibility}"}
                     {nabu_form_row}
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 container-checkbox">
                             {nabu_form_checkbox from=$edit_item field=visible name=visible check='T' uncheck='F' label="{nabu_static key=lbl_visible}"}
                         </div>
                         {nabu_form_textbox from=$edit_item field=order label="{nabu_static key=lbl_position}" class="col-sm-2"}
