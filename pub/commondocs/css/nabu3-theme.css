@@ -59,6 +59,8 @@ code {
     border: 1px solid #93a1a1;
     padding: 5px 10px;
     margin: 10px 0;
+    color: #d33682;
+    background-color: #eee8d5;
 }
 
 .nabu3 {
@@ -672,6 +674,14 @@ footer.navbar .navbar-nav > li > a + span {
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 14px;
     font-style: italic;
+}
+
+.help-block code,
+.help-block .code {
+    display: inline;
+    border: 0 none transparent;
+    padding: 2px 4px;
+    margin: 0;
 }
 
 input[type="radio"],

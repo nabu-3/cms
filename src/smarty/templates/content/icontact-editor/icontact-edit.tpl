@@ -7,7 +7,7 @@
     <ul id="main_tabs" class="nav nav-tabs" role="tablist" data-toggle="tab-persistence" data-persistence-id="{$edit_icontact.id}">
         <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab"><i class="fa fa-home"></i>&nbsp;{nabu_static key=tab_main}</a></li>
         <li role="presentation"><a href="#languages" aria-controls="languages" role="tab" data-toggle="tab"><i class="fa fa-language"></i>&nbsp;{nabu_static key=tab_languages}</a></li>
-        <li role="presentation"><a href="#status_types" aria-controls="status_types" role="tab" data-toggle="tab"><i class="fa fa-language"></i>&nbsp;{nabu_static key=tab_status_types}</a></li>
+        <li role="presentation"><a href="#status_types" aria-controls="status_types" role="tab" data-toggle="tab"><i class="fa fa-tags"></i>&nbsp;{nabu_static key=tab_status_types}</a></li>
         <li role="presentation"><a href="#config" aria-controls="config" role="tab" data-toggle="tab"><i class="fa fa-cog"></i>&nbsp;{nabu_static key=tab_config}</a></li>
     </ul>
     <div class="tab-content">
