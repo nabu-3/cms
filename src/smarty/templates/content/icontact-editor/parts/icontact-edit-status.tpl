@@ -57,4 +57,4 @@
 {nabu_assign var=ajax_editor cta=ajax_status_type}
 {assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_icontact.id:'%s'}"}
 {include file="content/parts/table-splitted-panels.tpl" id=status_types_list editor=$ajax_editor editor_mode=ajax
-         data=$edit_icontact.prospect_status metadata=$table_metadata languages=$edit_icontact.languages}
+         data=$edit_icontact.prospect_status_types metadata=$table_metadata languages=$edit_icontact.languages}
