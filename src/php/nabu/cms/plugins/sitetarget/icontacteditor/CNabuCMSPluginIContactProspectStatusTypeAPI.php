@@ -49,7 +49,7 @@ class CNabuCMSPluginIContactProspectStatusTypeAPI extends CNabuCMSPluginAbstract
             if ($this->nb_icontact instanceof CNabuIContact) {
                 $this->nb_icontact->refresh();
                 if (is_numeric($fragments[2])) {
-                    $this->nb_icontact_prospect_status_type = $this->nb_icontact->getItems()->getItem($fragments[2]);
+                    $this->nb_icontact_prospect_status_type = $this->nb_icontact->getProspectStatusType($fragments[2]);
                     $this->nb_icontact_prospect_status_type->refresh();
                 } elseif (!$fragments[2]) {
                     $this->nb_icontact_prospect_status_type = new CNabuIContactProspectStatusType();

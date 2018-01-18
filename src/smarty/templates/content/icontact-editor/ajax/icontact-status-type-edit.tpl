@@ -16,12 +16,12 @@
     <div class="box-body">
         {if is_array($api) && array_key_exists('translations', $api) && is_array($api.translations) && array_key_exists($nb_site.api_language_id, $api.translations)}
             {if $edit_prospect_status_type!==null}
-                {assign var=url value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$edit_prospect_status_type.id:$edit_prospect_status_type.id}"}
+                {assign var=url value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$edit_icontact.id:$edit_prospect_status_type.id}"}
                 {assign var=url_tpl value=null}
                 {assign var=url_field value=null}
             {else}
                 {assign var=url value=null}
-                {assign var=url_tpl value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$edit_prospect_status_type.id:'%s'}"}
+                {assign var=url_tpl value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$edit_icontact.id:'%s'}"}
                 {assign var=url_field value=id}
             {/if}
             {nabu_form method="ajax-post" layout=vertical multiform=":root:category:{if $edit_prospect_status_type!==null}{$edit_prospect_status_type.id}{else}%s{/if}" action=$url action_template=$url_tpl action_template_field=$url_field}
@@ -33,7 +33,7 @@
                 {/nabu_form_fieldset}
                 {nabu_form_fieldset title="{nabu_static key=tit_content}"}
                     {nabu_form_row}
-                        {nabu_form_textbox from=$edit_prospect_status_type field=name label="{nabu_static key=lbl_name}" multilang=$edit_prospect_status_type.languages class="col-sm-12"}
+                        {nabu_form_textbox from=$edit_prospect_status_type field=name label="{nabu_static key=lbl_name}" multilang=$edit_icontact.languages class="col-sm-12"}
                     {/nabu_form_row}
                 {/nabu_form_fieldset}
             {/nabu_form}
