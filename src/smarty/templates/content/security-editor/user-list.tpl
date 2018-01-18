@@ -82,7 +82,7 @@
 <div class="edit-zone">
     {nabu_table id=user_list data=$data metadata=$table_metadata selectable=true
                 bordered=true striped=true hover=true condensed=true scrolled=true
-                search=false pager=false size=25 column_selector=true draw_empty=true
+                search=false pager=true size=25 column_selector=true draw_empty=true
                 api=api_call editor=item_edit edit_button=line}
 </div>
 {include file="content/security-editor/modals/send-user-email.tpl"}
