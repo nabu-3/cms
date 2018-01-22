@@ -1,5 +1,4 @@
-{nabu_model model="bootstrap-3.3.7"}
-{nabu_assign var=info_section section=empty_data}
+{nabu_assign var=info_section section=empty_sites}
 {nabu_raw_assign}
     table_metadata: [
         toolbar: [
@@ -10,7 +9,6 @@
                             type: "default"
                             icon: "fa fa-plus"
                             apply: "all"
-                            modal: "modal_new_user"
                         ]
                         edit: [
                             type: "default"
@@ -28,44 +26,29 @@
                         ]
                     ]
                 ]
-                3: [
-                    buttons: [
-                        lock: [
-                            type: "default"
-                            icon: "fa fa-lock"
-                            apply: "multiple"
-                        ]
-                        unlock: [
-                            type: "default"
-                            icon: "fa fa-unlock"
-                            apply: "multiple"
-                        ]
-                        email: [
-                            type: "default"
-                            icon: "fa fa-envelope"
-                            apply: "multiple"
-                            modal: "modal_send_email"
-                        ]
-                    ]
-                ]
             ]
         ]
         fields: [
-            id: [
+            site_id: [
                 title: "ID"
-                order: "number"
+                order: "alpha"
+                align: "right"
                 id: true
             ]
-            first_name: [
-                title: "Nombre"
+            key: [
+                title: "Key"
                 order: "alpha"
             ]
-            last_name: [
-                title: "Apellidos"
+            site: [
+                title: "Sitio"
                 order: "alpha"
             ]
-            login: [
-                title: "Alias"
+            role: [
+                title: "Rol"
+                order: "alpha"
+            ]
+            language: [
+                title: "Idioma"
                 order: "alpha"
             ]
         ]
@@ -79,11 +62,7 @@
         ]
     ]
 {/nabu_raw_assign}
-<div class="edit-zone">
-    {nabu_table id=user_list data=$data metadata=$table_metadata selectable=true
-                bordered=true striped=true hover=true condensed=true scrolled=true
-                search=false pager=true size=25 column_selector=true draw_empty=true
-                api=api_call editor=item_edit edit_button=line}
-</div>
-{include file="content/security-editor/modals/new-user.tpl"}
-{include file="content/security-editor/modals/send-user-email.tpl"}
+{nabu_assign var=ajax_editor cta=ajax_site}
+{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_icontact.id:'%s'}"}
+{include file="content/parts/table-splitted-panels.tpl" id=sites editor=$ajax_editor editor_mode=ajax
+         data=$edit_user.profiles metadata=$table_metadata}

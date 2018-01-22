@@ -18,14 +18,15 @@
  *  limitations under the License.
  */
 
-namespace nabu\cms\plugins\sitetarget;
+namespace nabu\cms\plugins\sitetarget\securityeditor;
 use nabu\data\security\CNabuUser;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
- * @version 3.0.0 Surface
- * @package \nabu\cms\plugins\sitetarget
+ * @since 3.0.0 Surface
+ * @version 3.0.2 Surface
+ * @package \nabu\cms\plugins\sitetarget\securityeditor
  */
 class CNabuCMSPluginuserList extends CNabuHTTPSiteTargetPluginAdapter
 {

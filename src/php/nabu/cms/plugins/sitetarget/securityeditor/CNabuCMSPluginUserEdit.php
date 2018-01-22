@@ -18,7 +18,7 @@
  *  limitations under the License.
  */
 
-namespace nabu\cms\plugins\sitetarget;
+namespace nabu\cms\plugins\sitetarget\securityeditor;
 use nabu\data\security\CNabuUser;
 use nabu\http\CNabuHTTPRequest;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
@@ -27,7 +27,7 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
  * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
  * @since 3.0.0 Surface
  * @version 3.0.2 Surface
- * @package \nabu\cms\plugins\sitetarget
+ * @package \nabu\cms\plugins\sitetarget\securityeditor
  */
 class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
 {
@@ -99,6 +99,10 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
 
     public function beforeDisplayTarget()
     {
+        if ($this->edit_user instanceof CNabuUser) {
+            $this->edit_user->getProfiles();
+        }
+        
         $render = $this->nb_response->getRender();
         $render->smartyAssign('edit_user', $this->edit_user);
         $render->smartyAssign('title_part', $this->title_part);
