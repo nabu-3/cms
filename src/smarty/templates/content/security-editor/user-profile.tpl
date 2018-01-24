@@ -9,8 +9,8 @@
 <div id="edit_zone" class="edit-zone" data-toggle="nabu-multiform">
     <ul id="main_tabs" class="nav nav-tabs" role="tablist" data-toggle="tab-persistence" data-persistence-id="{$edit_user.id}">
         <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab"><i class="fa fa-home"></i>&nbsp;{nabu_static key=tab_main}</a></li>
-        <li role="presentation"><a href="#sites" aria-controls="sites" role="tab" data-toggle="tab"><i class="fa fa-language"></i>&nbsp;{nabu_static key=tab_sites}</a></li>
-        <li role="presentation"><a href="#config" aria-controls="config" role="tab" data-toggle="tab"><i class="fa fa-language"></i>&nbsp;{nabu_static key=tab_config}</a></li>
+        <li role="presentation"><a href="#sites" aria-controls="sites" role="tab" data-toggle="tab"><i class="fa fa-globe"></i>&nbsp;{nabu_static key=tab_sites}</a></li>
+        <li role="presentation"><a href="#config" aria-controls="config" role="tab" data-toggle="tab"><i class="fa fa-cog"></i>&nbsp;{nabu_static key=tab_config}</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" role="tabpanel" id="main">

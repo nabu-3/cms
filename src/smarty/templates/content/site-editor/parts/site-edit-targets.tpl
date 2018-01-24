@@ -118,6 +118,6 @@
 {nabu_assign var=edit_target_url cta=target_edit}
 {assign var=edit_target_url value={$edit_target_url.translation.final_url|sprintf:$edit_site.id:'%s'}}
 {nabu_table id=site_edit_targets data=$edit_targets metadata=$table_metadata selectable=true
-            draw_empty=true bordered=true striped=true hover=true condensed=true
+            draw_empty=true bordered=true striped=true hover=true condensed=true scrolled=true
             search=false pager=true size=25 column_selector=true languages=$edit_site.languages
             api=api_call editor=$edit_target_url edit_button=line}
