@@ -1,4 +1,6 @@
 {nabu_assign var=info_section section=empty_sites}
+{assign var=lookup_sites value=$nb_work_customer.sites}
+{assign var=lookup_roles value=$nb_work_customer.roles}
 {nabu_raw_assign}
     table_metadata: [
         toolbar: [
@@ -36,19 +38,31 @@
                 id: true
             ]
             key: [
+                field: "site_id"
                 title: "Key"
+                lookup: $lookup_sites
+                lookup_field_name: "key"
                 order: "alpha"
             ]
-            site: [
-                title: "Sitio"
+            name: [
+                field: "site_id"
+                title: "Site"
+                lookup: $lookup_sites
+                lookup_field_name: "name"
                 order: "alpha"
             ]
-            role: [
+            role_id: [
                 title: "Rol"
+                lookup: $lookup_roles
+                lookup_field_name: "name"
                 order: "alpha"
             ]
-            language: [
+            language_id: [
                 title: "Idioma"
+                lookup: $nb_all_languages
+                lookup_field_name: "name"
+                lookup_field_image: "flag_url"
+                lookup_field_image_class: "flag"
                 order: "alpha"
             ]
         ]
@@ -62,7 +76,7 @@
         ]
     ]
 {/nabu_raw_assign}
-{nabu_assign var=ajax_editor cta=ajax_site}
-{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_icontact.id:'%s'}"}
-{include file="content/parts/table-splitted-panels.tpl" id=sites editor=$ajax_editor editor_mode=ajax
+{nabu_assign var=ajax_editor cta=ajax_user_site}
+{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_user.id:'%s'}"}
+{include file="content/parts/table-splitted-panels.tpl" id=sites_list editor=$ajax_editor editor_mode=ajax
          data=$edit_user.profiles metadata=$table_metadata}

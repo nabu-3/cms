@@ -18,7 +18,7 @@
         {nabu_table selectable=true draw_empty=true empty_message=$empty_message
                     bordered=true striped=true hover=true condensed=true scrolled=true
                     search=true pager=true size=25 column_selector=true
-                    editor_mode=ajax editor_container="{$id}_editor" edit_button=line}
+                    editor_mode=ajax editor_container="{$id}_editor" editor_create_reload=true edit_button=line}
     </div>
     <div class="split-separator"><div class="split-separator-inner"></div></div>
     <div class="split-content"{if isset($id) && strlen($id)>0} id="{$id}_editor"{/if}>

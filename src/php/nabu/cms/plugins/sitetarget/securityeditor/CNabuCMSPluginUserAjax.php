@@ -28,7 +28,7 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
  * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget\securityeditor
  */
-class CNabuCMSPluginAjaxUser extends CNabuHTTPSiteTargetPluginAdapter
+class CNabuCMSPluginUserAjax extends CNabuHTTPSiteTargetPluginAdapter
 {
     /**
      * Results of queried users

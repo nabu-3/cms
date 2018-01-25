@@ -664,6 +664,28 @@ footer.navbar .navbar-nav > li > a + span {
     margin-bottom: 0;
 }
 
+.input-group-addon {
+    border-color: #93a1a1;
+}
+
+.form-control-static {
+    border: 1px solid #93a1a1;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    padding: 6px 12px;
+}
+
+.input-group .form-control-static:not(:last-child) {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.input-group .form-control-static:not(:first-child) {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
 .input-group > .dropdown:last-child > .btn,
 .input-group > .dropdown:last-child > .btn-group > .btn,
 .input-group > .dropdown:last-child > .dropdown-toggle,

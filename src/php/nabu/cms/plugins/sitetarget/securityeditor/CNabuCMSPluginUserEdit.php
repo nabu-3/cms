@@ -70,6 +70,9 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
             }
         }
 
+        $this->nb_work_customer->getRoles(true);
+        $this->nb_work_customer->getSites(true);
+
         return $retval;
     }
 
@@ -102,11 +105,12 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
         if ($this->edit_user instanceof CNabuUser) {
             $this->edit_user->getProfiles();
         }
-        
+
         $render = $this->nb_response->getRender();
         $render->smartyAssign('edit_user', $this->edit_user);
         $render->smartyAssign('title_part', $this->title_part);
         $render->smartyAssign('breadcrumb_part', $this->breadcrumb_part);
+        $render->smartyAssign('nb_all_languages', $this->nb_work_customer->getSiteSetUsedLanguages());
 
         return true;
     }

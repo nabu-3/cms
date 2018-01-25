@@ -7,6 +7,7 @@
     {/if}
 </div>
 <div id="edit_zone" class="edit-zone" data-toggle="nabu-multiform">
+    {include file="content/parts/flag-selector.tpl" lang_list=$nb_all_languages default_lang=$nb_site.default_language_id}
     <ul id="main_tabs" class="nav nav-tabs" role="tablist" data-toggle="tab-persistence" data-persistence-id="{$edit_user.id}">
         <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab"><i class="fa fa-home"></i>&nbsp;{nabu_static key=tab_main}</a></li>
         <li role="presentation"><a href="#sites" aria-controls="sites" role="tab" data-toggle="tab"><i class="fa fa-globe"></i>&nbsp;{nabu_static key=tab_sites}</a></li>
