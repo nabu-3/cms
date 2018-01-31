@@ -19,7 +19,7 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\securityeditor;
-use nabu\data\security\CNabuUser;
+use nabu\data\security\CNabuRole;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
@@ -28,43 +28,23 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
  * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget\securityeditor
  */
-class CNabuCMSPluginUserList extends CNabuHTTPSiteTargetPluginAdapter
+class CNabuCMSPluginRoleList extends CNabuHTTPSiteTargetPluginAdapter
 {
-    /**
-     * Site Target key for API Call
-     * @var string
-     */
-    const TARGET_API_CALL = 'ajax_users';
-    /**
-     * Site Target key for Users Profile editor.
-     * @var string
-     */
-    const TARGET_USER_EDIT = 'user_edit';
-
-    private $user_data = null;
-    private $api_call = null;
+    /** @var CNabuRoleList $role_list Role list. */
+    private $role_list = null;
 
     public function prepareTarget()
     {
-        $nb_site_target = $this->nb_site->getTargetByKey(self::TARGET_API_CALL);
-        $this->user_data = CNabuUser::getFilteredUserList(
-            $this->nb_work_customer,
-            null,
-            array('id', 'first_name', 'last_name', 'login')
-        );
+        $this->role_list = $this->nb_work_customer->getRoles(true);
 
-        return true;
-    }
-
-    public function methodGET()
-    {
         return true;
     }
 
     public function beforeDisplayTarget()
     {
         $render = $this->nb_response->getRender();
-        $render->smartyAssign('data', $this->user_data);
+        $render->smartyAssign('nb_languages', $this->nb_work_customer->getRoleSetUsedLanguages());
+        $render->smartyAssign('data', $this->role_list, $this->nb_language);
 
         return true;
     }
