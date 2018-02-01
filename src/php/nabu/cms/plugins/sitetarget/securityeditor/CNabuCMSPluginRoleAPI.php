@@ -79,7 +79,7 @@ class CNabuCMSPluginRoleAPI extends CNabuCMSPluginAbstractAPI
                         $this->nb_request->updateObjectFromPost(
                             $nb_translation,
                             array(
-                                'name' => 'edit_role_lang_name'
+                                'name' => 'nb_role_lang_name'
                             ),
                             null,
                             null,

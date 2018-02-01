@@ -5,20 +5,22 @@
 {nabu_assign var=api cta=api_role}
 {nabu_assign var=editor cta=item_edit}
 {nabu_modal id=modal_new_role size=lg caller=item_list aria_labelledby=modal_new_role_head}
-    {nabu_form layout="horizontal:2:10" method="ajax-post" action=$api.translations[$nb_site.api_language_id].final_url|sprintf:"" validation=live}
+    {nabu_form layout="horizontal:2:10" method="ajax-post" action=$api.translations[$nb_site.api_language_id].final_url|sprintf:"" validation=live evaluate=visible}
         <div class="modal-steps">
             <div class="modal-step" data-step="1">
                 {nabu_modal_header dismiss=true aria_label_id=modal_new_role_head}{$modal_new.translation.title}{/nabu_modal_header}
                 {nabu_modal_body}
                     <div class="row">
                         <aside class="col-sm-3">{$modal_new.translation.opening}</aside>
-                        <section class="col-sm-9 col-sm-offset-3">
-                            {nabu_form_textbox label={nabu_static key=lbl_key} name=login maxlength=64 help={nabu_static key=hlp_edit_key} mandatory=true rule=filled}
-                            {nabu_form_textbox label={nabu_static key=lbl_name} name=email help={nabu_static key=hlp_edit_role_name} mandatory=true rule=filled}
+                        <section class="col-sm-9 col-sm-offset-3" data-toggle="toggable-lang">
+                            {nabu_form_textbox label={nabu_static key=lbl_key} name=key maxlength=64 help={nabu_static key=hlp_edit_role_key} mandatory=true rule=filled}
+                            {nabu_form_textbox label={nabu_static key=lbl_name} name=name help={nabu_static key=hlp_edit_role_name} multilang=$nb_languages mandatory=true rule=filled}
                         </section>
                     </div>
                 {/nabu_modal_body}
                 {nabu_modal_footer}
+                    {include file="content/parts/flag-selector.tpl" lang_list=$nb_languages
+                             default_lang=$nb_site.default_language_id target="#modal_new_role"}
                     <button type="button" class="btn btn-link" data-dismiss="modal">{nabu_static key=btn_cancel}</button>
                     {nabu_form_command type=submit class="btn btn-success" formfollow=active anchor_text={nabu_static key=btn_create}}
                 {/nabu_modal_footer}

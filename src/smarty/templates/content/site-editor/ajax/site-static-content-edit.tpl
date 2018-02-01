@@ -39,12 +39,12 @@
                 {/nabu_form_fieldset}
                 {nabu_form_fieldset title={nabu_static key=tit_hack_it}}
                     <h4>Smarty</h4>
-                    <code>{ldelim}nabu_static key="{$edit_static_content.key}"{rdelim}</code>
+                    <code class="block">{ldelim}nabu_static key="{$edit_static_content.key}"{rdelim}</code>
                     <h4>PHP</h4>
                     <p>{nabu_static key="lbl_by_id"}</p>
-                    <code>$this->nb_site->getStaticContent({$edit_static_content.id});</code>
+                    <code class="block">$this->nb_site->getStaticContent({$edit_static_content.id});</code>
                     <p>{nabu_static key="lbl_by_key"}</p>
-                    <code>$this->nb_site->getStaticContentByKey('{$edit_static_content.key}');</code>
+                    <code class="block">$this->nb_site->getStaticContentByKey('{$edit_static_content.key}');</code>
             {/nabu_form}
         {/if}
     </div>

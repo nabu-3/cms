@@ -71,8 +71,11 @@ legend {
 
 code {
     background-color: #eee8d5;
-    border: 1px solid #93a1a1;
     color: #d33682;
+}
+
+code.block {
+    border: 1px solid #93a1a1;
     display: block;
     margin: 10px 0;
     padding: 5px 10px;

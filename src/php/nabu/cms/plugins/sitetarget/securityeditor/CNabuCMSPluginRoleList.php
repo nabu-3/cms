@@ -19,12 +19,13 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\securityeditor;
+use nabu\data\lang\CNabuLanguage;
 use nabu\data\security\CNabuRole;
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
- * @since 3.0.0 Surface
+ * @since 3.0.2 Surface
  * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget\securityeditor
  */
@@ -43,7 +44,9 @@ class CNabuCMSPluginRoleList extends CNabuHTTPSiteTargetPluginAdapter
     public function beforeDisplayTarget()
     {
         $render = $this->nb_response->getRender();
-        $render->smartyAssign('nb_languages', $this->nb_work_customer->getRoleSetUsedLanguages());
+        $nb_languages = CNabuLanguage::getAllLanguages();
+
+        $render->smartyAssign('nb_languages', $nb_languages);
         $render->smartyAssign('data', $this->role_list, $this->nb_language);
 
         return true;
