@@ -12,6 +12,14 @@ $(document).ready(function() {
             $('#send_mail_ids').val(param.selection);
         })
     ;
+    $('#languages_list')
+        .on('pressed.add.toolbar.table.nabu', function(e, params) {
+            this.nabuTable.editor();
+        })
+        .on('pressed.edit.toolbar.table.nabu', function(e, params) {
+            this.nabuTable.editor(params.selection[0]);
+        })
+    ;
     $('#sites_list')
         .on('pressed.add.toolbar.table.nabu', function(e, params) {
             this.nabuTable.editor();

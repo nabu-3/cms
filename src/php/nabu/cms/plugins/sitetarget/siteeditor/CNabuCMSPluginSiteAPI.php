@@ -56,29 +56,41 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
         return true;
     }
 
-    /**
-     * Treats the action passed as GET parameter.
-     * @return mixed Return true if success.
-     */
-    public function commandaction()
+    public function methodPOST()
     {
         if ($this->nb_request->hasGETField('action')) {
             $action = $this->nb_request->getGETField('action');
-            if ($this->nb_request->getMethod() === CNabuHTTPRequest::METHOD_POST) {
-                switch ($action) {
-                    case 'download':
-                        $this->doDownload();
-                        break;
-                    case 'notify':
-                        $this->doNotify();
-                        break;
-                    default:
-                        $this->setStatusError("action value [$action] not supported by get verb");
-                }
+            switch (strtolower($action)) {
+                case 'download':
+                    $this->doDownload();
+                    break;
+                case 'notify':
+                    $this->doNotify();
+                    break;
+                default:
+                    $this->setStatusError(sprintf('Action [%s] not supported', $action));
             }
+        } else {
+            $this->doPOSTSave();
         }
 
         return true;
+    }
+
+    private function doPOSTSave()
+    {
+        if ($this->edit_site instanceof CNabuSite) {
+            $this->nb_request->updateObjectFromPost(
+                $this->edit_site,
+                array(
+                    'default_role_id' => 'nb_site_default_role_id'
+                )
+            );
+            if ($this->edit_site->save()) {
+                $this->setStatusOK();
+                $this->setData($this->edit_site->getTreeData(null, true));
+            }
+        }
     }
 
     /**

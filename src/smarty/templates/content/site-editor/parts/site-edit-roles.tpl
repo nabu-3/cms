@@ -1,4 +1,4 @@
-{nabu_assign var=info_section section=empty_languages}
+{nabu_assign var=info_section section=empty_roles}
 {nabu_raw_assign}
     table_metadata: [
         toolbar: [
@@ -29,30 +29,18 @@
             ]
         ]
         fields: [
-            language_id: [
-                title: "{nabu_static key=lbl_language}"
-                order: "alpha"
-                lookup: $nb_all_languages
-                lookup_field_name: "name"
-                lookup_field_image: "flag_url"
-                lookup_field_image_class: "flag"
+            id: [
+                title: "{nabu_static key=tbl_id}"
+                order: "number"
+                align: "right"
                 id: true
             ]
-            status: [
-                title: "{nabu_static key=lbl_status}"
-                order: "alpha"
-                align: "center"
-                lookup: [
-                    E: "Activo"
-                    D: "Bloqueado"
-                ]
-            ]
-            title: [
-                title: "{nabu_static key=lbl_title}"
+            key: [
+                title: "{nabu_static key=tbl_key}"
                 order: "alpha"
             ]
-            slug: [
-                title: "{nabu_static key=lbl_slug}"
+            name: [
+                title: "{nabu_static key=tbl_name}"
                 order: "alpha"
             ]
         ]
@@ -66,7 +54,7 @@
         ]
     ]
 {/nabu_raw_assign}
-{nabu_assign var=ajax_editor cta=ajax_languages}
-{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_catalog.id:'%s'}"}
-{include file="content/parts/table-splitted-panels.tpl" id=languages_list editor=$ajax_editor editor_mode=ajax
-         data=$edit_catalog.translations metadata=$table_metadata section=empty_languages}
+{nabu_assign var=ajax_editor cta=ajax_roles}
+{assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_site.id:'%s'}"}
+{include file="content/parts/table-splitted-panels.tpl" id=role_list editor=$ajax_editor editor_mode=ajax
+         data=$edit_site.roles metadata=$table_metadata languages=$edit_site.languages}

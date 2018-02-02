@@ -11,6 +11,7 @@
         <li role="presentation"><a href="#targets" aria-controls="targets" role="tab" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;{nabu_static key=tab_end_points}</a></li>
         <li role="presentation"><a href="#sitemaps" aria-controls="sitemaps" role="tab" data-toggle="tab"><i class="fa fa-sitemap"></i>&nbsp;{nabu_static key=tab_site_maps}</a></li>
         <li role="presentation"><a href="#statics" aria-controls="statics" role="tab" data-toggle="tab"><i class="fa fa-paperclip"></i>&nbsp;{nabu_static key=tab_static_contents}</a></li>
+        <li role="presentation"><a href="#roles" aria-controls="roles" role="tab" data-toggle="tab"><i class="fa fa-users"></i>&nbsp;{nabu_static key=tab_roles}</a></li>
         <li role="presentation"><a href="#config" aria-controls="config" role="tab" data-toggle="tab"><i class="fa fa-cog"></i>&nbsp;{nabu_static key=tab_config}</a></li>
     </ul>
     <div class="tab-content">
@@ -28,7 +29,11 @@
         <div role="tabpanel" class="tab-pane" id="statics">
             {include file="content/site-editor/parts/site-edit-static-contents.tpl"}
         </div>
+        <div role="tabpanel" class="tab-pane" id="roles">
+            {include file="content/site-editor/parts/site-edit-roles.tpl"}
+        </div>
         <div role="tabpanel" class="tab-pane" id="config">
+            {include file="content/site-editor/parts/site-edit-config.tpl"}
         </div>
     </div>
     <div class="btn-toolbar" role="toolbar" aria-label="Table actions">

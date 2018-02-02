@@ -16,6 +16,7 @@
             {include file="content/security-editor/parts/role-edit-languages.tpl"}
         </div>
         <div role="tabpanel" class="tab-pane" id="config">
+            {include file="content/security-editor/parts/role-edit-config.tpl"}
         </div>
     </div>
     <div class="btn-toolbar" role="toolbar" aria-label="Table actions">

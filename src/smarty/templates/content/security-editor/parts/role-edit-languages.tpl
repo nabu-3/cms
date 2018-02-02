@@ -1,3 +1,4 @@
+{nabu_assign var=info_section section=empty_languages}
 {nabu_raw_assign}
     table_metadata: [
         toolbar: [
@@ -55,4 +56,4 @@
 {nabu_assign var=ajax_editor cta=ajax_languages}
 {assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_role.id:'%s'}"}
 {include file="content/parts/table-splitted-panels.tpl" id=languages_list editor=$ajax_editor editor_mode=ajax
-         data=$edit_role.translations metadata=$table_metadata section=languages_empty}
+         data=$edit_role.translations metadata=$table_metadata section=$info_section}

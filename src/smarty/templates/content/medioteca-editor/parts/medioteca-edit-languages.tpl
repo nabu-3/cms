@@ -1,3 +1,4 @@
+{nabu_assign var=info_section section=empty_languages}
 {nabu_raw_assign}
     table_metadata: [
         toolbar: [

@@ -45,6 +45,7 @@
                     <code class="block">$this->nb_site->getStaticContent({$edit_static_content.id});</code>
                     <p>{nabu_static key="lbl_by_key"}</p>
                     <code class="block">$this->nb_site->getStaticContentByKey('{$edit_static_content.key}');</code>
+                {/nabu_form_fieldset}
             {/nabu_form}
         {/if}
     </div>
