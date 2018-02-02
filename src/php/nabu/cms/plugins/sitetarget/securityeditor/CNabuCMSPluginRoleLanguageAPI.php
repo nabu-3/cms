@@ -72,6 +72,15 @@ class CNabuCMSPluginRoleLanguageAPI extends CNabuCMSPluginAbstractAPI
 
     public function methodPOST()
     {
+        if ($this->nb_role_language instanceof CNabuRoleLanguage &&
+            $this->nb_role_language->isNew() &&
+            $this->nb_request->hasPOSTField('language_id') &&
+            is_numeric($nb_language_id = $this->nb_request->getPOSTField('language_id'))
+        ) {
+            $this->nb_role_language->setLanguageId($nb_language_id);
+            $this->nb_role_language->setRoleId($this->edit_role->getId());
+        }
+        
         if ($this->edit_role_language instanceof CNabuRoleLanguage) {
             $this->nb_request->updateObjectFromPost(
                 $this->edit_role_language,
