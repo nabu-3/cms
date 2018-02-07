@@ -166,8 +166,7 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 ($nb_translation = $nb_site_map->getTranslation($nb_site->getApiLanguageId())) instanceof INabuTranslation
             ) {
                 if (strlen($name = $nb_translation->getContent()) === 0 &&
-                    strlen($name = $nb_translation->getTitle()) === 0 &&
-                    strlen($name = $nb_translation->getKey()) === 0
+                    strlen($name = $nb_translation->getTitle()) === 0
                 ) {
                     $name = '#' . $nb_site_map->getId();
                 }
