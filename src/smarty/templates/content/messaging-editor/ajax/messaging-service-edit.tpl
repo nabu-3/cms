@@ -26,9 +26,7 @@
                     {/nabu_form_row}
                 {/nabu_form_fieldset}
                 {nabu_form_fieldset title="{nabu_static key=tit_connection}"}
-                    {nabu_form_row}
-                        {nabu_form_checkbox from=$edit_service field=status check=E uncheck=D label="Activo" class="col-sm-6"}
-                    {/nabu_form_row}
+                    {nabu_form_checkbox from=$edit_service field=status check=E uncheck=D label="Activo" class="col-sm-6"}
                     {nabu_form_row}
                         {nabu_form_textbox from=$edit_service field=provider label="Proveedor" class="col-sm-12"}
                     {/nabu_form_row}
