@@ -43,17 +43,18 @@ class CNabuCMSPluginUserEdit extends CNabuHTTPSiteTargetPluginAdapter
         $retval = true;
         if ($this->nb_site_target->getKey() === 'my_profile') {
             $this->edit_user = $this->nb_user;
-            $this->edit_user->refresh();
+            $this->edit_user->refresh(true, true);
         } elseif ($this->nb_site_target->isURLRegExpExpression()) {
             if (count($fragments = $this->nb_request->getRegExprURLFragments()) === 2 &&
                 is_numeric($fragments[1])
             ) {
                 $id = $fragments[1];
-                $this->edit_user = new CNabuUser($id);
+                $this->edit_user = $this->nb_work_customer->getUser($id);
                 if ($this->edit_user->isNew() || !$this->edit_user->validateCustomer($this->nb_work_customer)) {
                     $this->edit_user = null;
                     $retval = $this->nb_site->getTargetByKey('user_list');
                 } else {
+                    $this->edit_user->refresh(true, true);
                     $this->title_part = '#' . $id;
                     $name = trim($this->edit_user->getFirstName() . ' ' . $this->edit_user->getLastName());
                     if (strlen($name) === 0) {
