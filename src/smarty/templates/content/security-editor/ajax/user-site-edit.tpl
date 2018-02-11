@@ -42,7 +42,7 @@
                     {nabu_form_fieldset title={nabu_static key=tit_security}}
                         {nabu_form_row}
                             {nabu_form_select from=$edit_site_user field=role_id
-                                              options=$nb_work_customer.roles options_name=name
+                                              options=$edit_site.roles options_name=name
                                               mandatory=true rule=selected
                                               class="col-sm-6" label={nabu_static key=lbl_role}}
                     {/nabu_form_fieldset}
