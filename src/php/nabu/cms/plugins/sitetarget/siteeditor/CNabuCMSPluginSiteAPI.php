@@ -83,7 +83,8 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
             $this->nb_request->updateObjectFromPost(
                 $this->edit_site,
                 array(
-                    'default_role_id' => 'nb_site_default_role_id'
+                    'default_role_id' => 'nb_site_default_role_id',
+                    'messaging_id' => 'nb_messaging_id'
                 )
             );
             if ($this->edit_site->save()) {

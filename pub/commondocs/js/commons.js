@@ -1,6 +1,6 @@
 $(document).ready(function()
 {
-    $('#__x_nb_wc').on('change.nb.select', function(e)
+    $('#__x_nb_wc').on('change.select.nabu', function(e)
     {
         $(this).closest('form').get(0).submit();
     });

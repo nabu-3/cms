@@ -54,6 +54,10 @@ class CNabuCMSPluginSiteEdit extends CNabuHTTPSiteTargetPluginAdapter
             if (($this->edit_site = $this->nb_work_customer->getSite($id)) instanceof CNabuSite &&
                 $this->edit_site->refresh(true, true)
             ) {
+                if (is_numeric($nb_messaging_id = $this->edit_site->getMessagingId())) {
+                    $nb_messaging = $this->nb_work_customer->getMessaging($nb_messaging_id);
+                    $nb_messaging->refresh(true, true);
+                }
                 if (($translation = $this->edit_site->getTranslation($this->nb_language)) instanceof CNabuSiteLanguage &&
                     (strlen($this->title_part = $translation->getName()) === 0) &&
                     (strlen($this->title_part = $this->edit_site->getKey()) === 0)
