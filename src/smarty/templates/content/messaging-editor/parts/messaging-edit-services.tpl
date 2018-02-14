@@ -56,12 +56,12 @@
                 ]
                 align: "center"
             ]
-            provider: [
-                title: "Módulo"
-                order: 'alpha'
-            ]
             name: [
                 title: 'Servicio'
+                order: 'alpha'
+            ]
+            provider: [
+                title: "{nabu_static key=tbl_provider}"
                 order: 'alpha'
             ]
         ]

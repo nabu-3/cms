@@ -76,8 +76,8 @@ class CNabuCMSPluginMessagingLanguageAPI extends CNabuCMSPluginAbstractAPI
             $this->nb_request->updateObjectFromPost(
                 $this->nb_messaging_language,
                 array(
-                    'key' => 'nb_messaging_lang_key',
-                    'hash' => 'nb_messaging_lang_hash'
+                    'templates_status' => 'nb_messaging_lang_templates_status',
+                    'name' => 'nb_messaging_lang_name'
                 )
             );
             if ($this->nb_messaging_language->save()) {
@@ -94,14 +94,14 @@ class CNabuCMSPluginMessagingLanguageAPI extends CNabuCMSPluginAbstractAPI
         $render = $this->nb_response->getRender();
         if ($this->getStatus() === 'OK') {
             $api_mask = $this->nb_site_target->getFullyQualifiedURL($this->nb_language, true);
-            $api_url = sprintf($api_mask, $this->nb_messaging->getId(), $this->nb_messaging_language->getId());
+            $api_url = sprintf($api_mask, $this->nb_messaging->getId(), $this->nb_messaging_language->getLanguageId());
             $this->setAPICall($api_url);
             $editor_cta = $this->nb_site_target->getCTAs()->getItem('ajax_languages', CNabuSiteTargetCTAList::INDEX_KEY);
             $editor_cta->canonize();
             $urls = array();
             $editor_cta->getTranslations()->iterate(function ($key, $translation) use(&$urls) {
                 $editor_mask = $translation->getFinalURL();
-                $urls[$key] = sprintf($editor_mask, $this->nb_messaging->getId(), $this->nb_messaging_language->getId());
+                $urls[$key] = sprintf($editor_mask, $this->nb_messaging->getId(), $this->nb_messaging_language->getLanguageId());
             });
             $this->setEditorCall($urls);
         }
