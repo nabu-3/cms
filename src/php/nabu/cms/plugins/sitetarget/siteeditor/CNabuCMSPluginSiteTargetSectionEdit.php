@@ -48,11 +48,8 @@ class CNabuCMSPluginSiteTargetSectionEdit extends CNabuHTTPSiteTargetPluginAdapt
             is_numeric($site_id = $fragments[1]) &&
             is_numeric($target_id = $fragments[2]) &&
             $this->nb_work_customer instanceof CNabuCustomer &&
-            $this->nb_work_customer->refresh(true, false) &&
             ($this->edit_site = $this->nb_work_customer->getSite($site_id)) instanceof CNabuSite &&
-            $this->edit_site->refresh(true, true) &&
-            ($this->edit_site_target = $this->edit_site->getTarget($target_id)) instanceof CNabuSiteTarget &&
-            $this->edit_site_target->refresh(true, true)
+            ($this->edit_site_target = $this->edit_site->getTarget($target_id)) instanceof CNabuSiteTarget //&&
         ) {
             if (is_numeric($section_id = $fragments[3])) {
                 $this->edit_section = $this->edit_site_target->getSection($section_id);

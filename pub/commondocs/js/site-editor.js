@@ -67,10 +67,6 @@ $(document).ready(function() {
         })
     ;
 
-    $('#messaging_select').on('change.select.nabu', function() {
-        alert('Hola');
-    });
-
     $('#tree_sitemap').bind('click.tree.nabu', function(e, id) {
         if (typeof id !== 'undefined') {
             $('#sitemap_edit > .panel-info').addClass('hide');
