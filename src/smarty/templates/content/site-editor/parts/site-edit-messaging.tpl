@@ -8,7 +8,7 @@
                 <div class="col-sm-4 col-md-3">
                     {nabu_form_select id=messaging_select from=$edit_site field=messaging_id
                                       options=$nb_work_customer.messagings options_name=name
-                                      reflect="#messaging_templates_container"}
+                                      reflect=".messaging_templates_container"}
                 </div>
             {/nabu_form_row}
         {/nabu_form_fieldset}
@@ -19,8 +19,9 @@
                 {assign var=templates value=null}
             {/if}
             {nabu_assign var=ajax_refresh cta=ajax_messaging_reload}
-            <div id="messaging_templates_container" data-refresh="{$ajax_refresh.translation.final_url|sprintf:$edit_site.id:'%s'}">
-                {include file="content/site-editor/parts/site-edit-messaging-templates.tpl" templates=$templates}
+            <div class="messaging_templates_container" data-refresh="{$ajax_refresh.translation.final_url|sprintf:$edit_site.id:'%s'}">
+                {include file="content/site-editor/parts/site-edit-messaging-templates.tpl"
+                         edit_source=$edit_site templates=$templates class="col-md-3 col-sm-4"}
             </div>
         {/nabu_form_fieldset}
     {/nabu_form}

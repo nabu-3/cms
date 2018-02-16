@@ -150,6 +150,16 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                     'base_path' => 'nb_site_base_path',
                     'modules_slots' => 'nb_site_modules_slots',
                     'notification_email' => 'nb_site_notification_email'
+                ),
+                null,
+                array(
+                    'messaging_template_new_user' => '0',
+                    'messaging_template_forgot_password' => '0',
+                    'messaging_template_notify_new_user' => '0',
+                    'messaging_template_remember_new_user' => '0',
+                    'messaging_template_invite_user' => '0',
+                    'messaging_template_invite_friend' => '0',
+                    'messaging_template_new_message' => '0'
                 )
             );
             if ($this->edit_site->save()) {

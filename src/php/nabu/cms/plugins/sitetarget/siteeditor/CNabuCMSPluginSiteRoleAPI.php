@@ -23,7 +23,6 @@ use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
 use nabu\data\security\CNabuRole;
 use nabu\data\site\CNabuSite;
 use nabu\data\site\CNabuSiteRole;
-use nabu\data\site\CNabuSiteRoleLanguage;
 use nabu\data\site\CNabuSiteTargetCTAList;
 
 /**
@@ -55,7 +54,7 @@ class CNabuCMSPluginSiteRoleAPI extends CNabuCMSPluginAbstractAPI
                 if (is_numeric($fragments[2])) {
                     $this->nb_edit_role = $this->nb_work_customer->getRole($fragments[2]);
                     $this->nb_edit_role->refresh(true, true);
-                    $this->nb_edit_site_role = $this->nb_edit_site->getRole($fragments[2]);
+                    $this->nb_edit_site_role = $this->nb_edit_site->getSiteRole($fragments[2]);
                     $this->nb_edit_site_role->refresh();
                 } elseif (!$fragments[2]) {
                     $this->nb_edit_site_role = new CNabuSiteRole();
@@ -70,6 +69,7 @@ class CNabuCMSPluginSiteRoleAPI extends CNabuCMSPluginAbstractAPI
     public function methodGET()
     {
         if ($this->nb_edit_site_role instanceof CNabuSiteRole) {
+            error_log(print_r($this->nb_edit_site_role->getTreeData(null, true), true));
             $this->setStatusOK();
             $this->setData($this->nb_edit_site_role->getTreeData(null, true));
         }
@@ -95,10 +95,28 @@ class CNabuCMSPluginSiteRoleAPI extends CNabuCMSPluginAbstractAPI
     private function doPOSTSave()
     {
         if ($this->nb_edit_site_role instanceof CNabuSiteRole) {
+            error_log(__METHOD__);
             $this->nb_request->updateObjectFromPost(
                 $this->nb_edit_site_role,
                 array(
-                    'role_id' => 'nb_role_id'
+                    'role_id' => 'nb_role_id',
+                    'messaging_template_new_user' => 'nb_messaging_template_new_user',
+                    'messaging_template_forgot_password' => 'nb_messaging_template_forgot_password',
+                    'messaging_template_notify_new_user' => 'nb_messaging_template_notify_new_user',
+                    'messaging_template_remember_new_user' => 'nb_messaging_template_remember_new_user',
+                    'messaging_template_invite_user' => 'nb_messaging_template_invite_user',
+                    'messaging_template_invite_friend' => 'nb_messaging_template_invite_friend',
+                    'messaging_template_new_message' => 'nb_messaging_template_new_message'
+                ),
+                null,
+                array(
+                    'messaging_template_new_user' => '0',
+                    'messaging_template_forgot_password' => '0',
+                    'messaging_template_notify_new_user' => '0',
+                    'messaging_template_remember_new_user' => '0',
+                    'messaging_template_invite_user' => '0',
+                    'messaging_template_invite_friend' => '0',
+                    'messaging_template_new_message' => '0'
                 )
             );
             if ($this->nb_edit_site_role->save()) {

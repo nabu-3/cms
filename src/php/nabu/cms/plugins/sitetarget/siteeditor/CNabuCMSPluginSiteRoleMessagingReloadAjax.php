@@ -20,6 +20,9 @@
 
 namespace nabu\cms\plugins\sitetarget\siteeditor;
 
+use nabu\data\site\CNabuSite;
+use nabu\data\site\CNabuSiteRole;
+
 use nabu\data\messaging\CNabuMessaging;
 
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
@@ -30,24 +33,26 @@ use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
  * @version 3.0.2 Surface
  * @package \nabu\cms\plugins\sitetarget\siteeditor
  */
-class CNabuCMSPluginSiteMessagingReloadAjax extends CNabuHTTPSiteTargetPluginAdapter
+class CNabuCMSPluginSiteRoleMessagingReloadAjax extends CNabuHTTPSiteTargetPluginAdapter
 {
+    /** @var CNabuSite The Site instance to be requested */
     private $nb_edit_site = null;
+    /** @var CNabuSiteRole The Site Role instance to be edited */
+    private $nb_edit_site_role = null;
+    /** @var CNabuMessaging The Messaging instance to be requested */
     private $nb_edit_messaging = null;
 
     public function prepareTarget()
     {
         $fragments = $this->nb_request->getRegExprURLFragments();
-        if (is_array($fragments) && count($fragments) === 3) {
+        if (is_array($fragments) && count($fragments) === 4) {
             $this->nb_edit_site = $this->nb_work_customer->getSite($fragments[1]);
-            $this->nb_edit_messaging = $this->nb_work_customer->getMessaging($fragments[2]);
+            $this->nb_edit_site_role = $this->nb_edit_site->getSiteRole($fragments[2]);
+            $this->nb_edit_messaging = $this->nb_work_customer->getMessaging($fragments[3]);
             if (!($this->nb_edit_messaging instanceof CNabuMessaging)) {
                 $this->nb_edit_messaging = null;
             }
         }
-
-        error_log(print_r($this->nb_edit_site, true));
-        error_log(print_r($this->nb_edit_messaging, true));
 
         return true;
     }
@@ -55,7 +60,7 @@ class CNabuCMSPluginSiteMessagingReloadAjax extends CNabuHTTPSiteTargetPluginAda
     public function beforeDisplayTarget()
     {
         $render = $this->nb_response->getRender();
-        $render->smartyAssign('edit_source', $this->nb_edit_site, $this->nb_language);
+        $render->smartyAssign('edit_source', $this->nb_edit_site_role, $this->nb_language);
         $render->smartyAssign('templates', ($this->nb_edit_messaging !== null ? $this->nb_edit_messaging->getTemplates(true) : null), $this->nb_language);
 
         return true;
