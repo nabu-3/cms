@@ -318,11 +318,15 @@ span + .flag {
 
 /** Dropdown Menus **/
 .dropdown-menu {
-    background-color: #eee8d5;
+    background-color: #fff;
     border-color: #93a1a1;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
+    max-height: 200px;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .dropdown-menu a:focus,

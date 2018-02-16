@@ -54,6 +54,7 @@ class CNabuCMSPluginSiteEdit extends CNabuHTTPSiteTargetPluginAdapter
             if (($this->edit_site = $this->nb_work_customer->getSite($id)) instanceof CNabuSite &&
                 $this->edit_site->refresh(true, true)
             ) {
+                $this->edit_site->getTargets(true);
                 if (is_numeric($nb_messaging_id = $this->edit_site->getMessagingId())) {
                     $nb_messaging = $this->nb_work_customer->getMessaging($nb_messaging_id);
                     $nb_messaging->refresh(true, true);
