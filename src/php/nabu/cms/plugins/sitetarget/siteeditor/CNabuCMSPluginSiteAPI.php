@@ -19,12 +19,10 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\siteeditor;
-use nabu\data\messaging\CNabuMessagingTemplateLanguage;
 use nabu\data\security\CNabuUser;
 use nabu\data\site\CNabuSite;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
 use nabu\data\site\CNabuSiteUser;
-use nabu\http\CNabuHTTPRequest;
 use nabu\http\renders\CNabuHTTPResponseFileRender;
 use nabu\messaging\CNabuMessagingFactory;
 use nabu\messaging\managers\CNabuMessagingPoolManager;
@@ -151,7 +149,9 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                     'modules_slots' => 'nb_site_modules_slots',
                     'notification_email' => 'nb_site_notification_email',
                     'x_frame_options' => 'nb_site_x_frame_options',
-                    'x_frame_options_url' => 'nb_site_x_frame_options_url'
+                    'x_frame_options_url' => 'nb_site_x_frame_options_url',
+                    'max_signin_retries' => 'nb_site_max_signin_retries',
+                    'force_cookie_as_secure' => 'nb_site_force_cookie_as_secure'
                 ),
                 null,
                 array(

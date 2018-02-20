@@ -7,13 +7,14 @@
     {include file="content/parts/flag-selector.tpl" lang_list=$edit_site.languages default_lang=$edit_site.default_language_id}
     <ul class="nav nav-tabs" role="tablist" data-toggle="tab-persistence" data-persistence-id="{$edit_site.id}">
         <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab"><i class="fa fa-home"></i>&nbsp;{nabu_static key=tab_main}</a></li>
+        <li role="presentation"><a href="#security" aria-controls="security" role="tab" data-toggle="tab"><i class="fa fa-lock"></i>&nbsp;{nabu_static key=tab_security}</a></li>
+        <li role="presentation"><a href="#redir" aria-controls="redir" role="tab" data-toggle="tab"><i class="fa fa-external-link"></i>&nbsp;{nabu_static key=tab_redirections}</a></li>
         <li role="presentation"><a href="#languages" aria-controls="languages" role="tab" data-toggle="tab"><i class="fa fa-language"></i>&nbsp;{nabu_static key=tab_languages}</a></li>
         <li role="presentation"><a href="#targets" aria-controls="targets" role="tab" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;{nabu_static key=tab_end_points}</a></li>
         <li role="presentation"><a href="#sitemaps" aria-controls="sitemaps" role="tab" data-toggle="tab"><i class="fa fa-sitemap"></i>&nbsp;{nabu_static key=tab_site_maps}</a></li>
         <li role="presentation"><a href="#statics" aria-controls="statics" role="tab" data-toggle="tab"><i class="fa fa-paperclip"></i>&nbsp;{nabu_static key=tab_static_contents}</a></li>
         <li role="presentation"><a href="#messaging" aria-control="messaging" role="tab" data-toggle="tab"><i class="fa fa-envelope"></i>&nbsp;{nabu_static key=tab_messaging}</a></li>
         <li role="presentation"><a href="#roles" aria-controls="roles" role="tab" data-toggle="tab"><i class="fa fa-users"></i>&nbsp;{nabu_static key=tab_roles}</a></li>
-        <li role="presentation"><a href="#config" aria-controls="config" role="tab" data-toggle="tab"><i class="fa fa-cog"></i>&nbsp;{nabu_static key=tab_config}</a></li>
     </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="main">
@@ -33,11 +34,14 @@
         <div role="tabpanel" class="tab-pane" id="messaging">
             {include file="content/site-editor/parts/site-edit-messaging.tpl"}
         </div>
+        <div role="tabpanel" class="tab-pane" id="security">
+            {include file="content/site-editor/parts/site-edit-security.tpl"}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="redir" data-toggle="toggable-lang">
+            {include file="content/site-editor/parts/site-edit-redir.tpl"}
+        </div>
         <div role="tabpanel" class="tab-pane" id="roles">
             {include file="content/site-editor/parts/site-edit-roles.tpl"}
-        </div>
-        <div role="tabpanel" class="tab-pane" id="config" data-toggle="toggable-lang">
-            {include file="content/site-editor/parts/site-edit-config.tpl"}
         </div>
     </div>
     <div class="btn-toolbar" role="toolbar" aria-label="Table actions">
