@@ -36,7 +36,7 @@
         <div role="tabpanel" class="tab-pane" id="roles">
             {include file="content/site-editor/parts/site-edit-roles.tpl"}
         </div>
-        <div role="tabpanel" class="tab-pane" id="config">
+        <div role="tabpanel" class="tab-pane" id="config" data-toggle="toggable-lang">
             {include file="content/site-editor/parts/site-edit-config.tpl"}
         </div>
     </div>

@@ -6,26 +6,62 @@
         {nabu_form_fieldset title="{nabu_static key=tit_security}"}
             {nabu_form_row}
                 <div class="col-sm-5 col-md-4">
-                    {nabu_form_select from=$edit_site field=default_role_id options=$edit_site.roles options_name=name}
+                    {nabu_form_select from=$edit_site field=default_role_id options=$edit_site.roles options_name=name label={nabu_static key=lbl_anonymous_role}}
+                </div>
+            {/nabu_form_row}
+            {nabu_form_row}
+                <div class="col-sm-12 col-md-12">
+                    <label for="x_frame_options">{nabu_static key=lbl_x_frame_options}</label>
+                    <div class="form-inline form-group">
+                        <div class="input-group">
+                            {strip}
+                                <span class="input-group-addon"><input type="radio" name="x_frame_options"{if $edit_site.x_frame_options===null} checked{/if} aria-label="{nabu_static key=opt_unasigned}" value="N"></span>
+                                <p class="form-control-static">{nabu_static key=opt_unasigned}</p>
+                            {/strip}
+                        </div>
+						<div class="input-group">
+                            {strip}
+                                <span class="input-group-addon"><input type="radio" name="x_frame_options"{if $edit_site.x_frame_options===D} checked{/if} aria-label="DENY" value="D"></span>
+                                <p class="form-control-static">DENY</p>
+                            {/strip}
+                        </div>
+                        <div class="input-group">
+                            {strip}
+                                <span class="input-group-addon"><input type="radio" name="x_frame_options"{if $edit_site.x_frame_options===S} checked{/if} aria-label="SAMEORIGIN" value="S"></span>
+                                <p class="form-control-static">SAMEORIGIN</p>
+                            {/strip}
+                        </div>
+                        <div class="input-group">
+                            {strip}
+                                <span class="input-group-addon"><input type="radio" name="x_frame_options"{if $edit_site.x_frame_options===A} checked{/if} aria-label="ALLOW-FROM" value="A"></span>
+                                <p class="form-control-static">ALLOW-FROM</p>
+                                {nabu_form_textbox layout="input-group" from=$edit_site field=x_frame_options_url}
+                            {/strip}
+                        </div>
+                    </div>
                 </div>
             {/nabu_form_row}
         {/nabu_form_fieldset}
         {nabu_form_fieldset title="{nabu_static key=tit_forwardings}"}
             <div class="row">
-                <div class="form-group col-md-3 col-sm-4">
+                <div class="col-md-12 col-sm-12">
                     <label>Entrada principal</label>
-                    <div class="input-group">
-                        <span class="input-group-addon"><input type="radio" name="default_target_use_uri" {if $edit_site.default_target_use_uri==='N'} checked{/if}aria-label="" value="N"></span>
-                        <p class="form-control-static">Sin asignar</p>
+                    <div class="form-inline form-group">
+                        <div class="input-group">
+                            {strip}
+                                <span class="input-group-addon"><input type="radio" name="default_target_use_uri"{if $edit_site.default_target_use_uri==='N'} checked{/if} aria-label="" value="N"></span>
+                                <p class="form-control-static">{nabu_static key=opt_unasigned}</p>
+                            {/strip}
+                        </div>
+                        {nabu_form_select layout="input-group" from=$edit_site field=default_target_id
+                                          addon_left=radiobox addon_left_name=default_target_use_uri addon_left_check=T
+                                          value_left=$edit_site.default_target_use_uri
+                                          options=$edit_site.targets options_name=title
+                                          options_default_id=0 options_default_name={nabu_static key=sel_template_unasigned}}
+                        {nabu_form_textbox from=$edit_site field=default_target_url multilang=$edit_site.languages
+                                           addon_left=radiobox addon_left_name=default_target_use_uri addon_left_check=U
+                                           value_left=$edit_site.default_target_use_uri}
                     </div>
-                    {nabu_form_select layout="input-group" from=$edit_site field=default_target_id
-                                      addon_left=radiobox addon_left_name=default_target_use_uri addon_left_check=T
-                                      value_left=$edit_site.default_target_use_uri
-                                      options=$edit_site.targets options_name=title
-                                      options_default_id=0 options_default_name={nabu_static key=sel_template_unasigned}}
-                    {nabu_form_textbox from=$edit_site field=default_target_url multilang=$edit_site.languages
-                                       addon_left=radiobox addon_left_name=default_target_use_uri addon_left_check=U
-                                       value_left=$edit_site.default_target_use_uri}
                 </div>
             </div>
         {/nabu_form_fieldset}

@@ -149,7 +149,9 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                     'static_content_use_alternative' => 'nb_site_static_content_use_alternative',
                     'base_path' => 'nb_site_base_path',
                     'modules_slots' => 'nb_site_modules_slots',
-                    'notification_email' => 'nb_site_notification_email'
+                    'notification_email' => 'nb_site_notification_email',
+                    'x_frame_options' => 'nb_site_x_frame_options',
+                    'x_frame_options_url' => 'nb_site_x_frame_options_url'
                 ),
                 null,
                 array(
@@ -159,9 +161,16 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                     'messaging_template_remember_new_user' => '0',
                     'messaging_template_invite_user' => '0',
                     'messaging_template_invite_friend' => '0',
-                    'messaging_template_new_message' => '0'
+                    'messaging_template_new_message' => '0',
+                    'x_frame_options' => 'N',
+                    'x_frame_options_url' => ''
                 )
             );
+
+            if ($this->edit_site->getXFrameOptions() !== 'A') {
+                $this->edit_site->setXFrameOptionsURL(null);
+            }
+
             if ($this->edit_site->save()) {
                 $this->setStatusOK();
                 $this->setData($this->edit_site->getTreeData(null, true));

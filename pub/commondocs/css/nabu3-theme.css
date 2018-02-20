@@ -688,6 +688,10 @@ footer.navbar .navbar-nav > li > a + span {
     border-top-right-radius: 0;
 }
 
+.input-group .form-control-static {
+    float: left;
+}
+
 .input-group .form-control-static:not(:first-child) {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
@@ -707,6 +711,24 @@ footer.navbar .navbar-nav > li > a + span {
 .input-group[lang] .flag {
     height: 16px;
     width: 24px;
+}
+
+.input-group > .input-group:not(:first-child) > :first-child,
+.input-group > .form-group:not(:first-child) > .input-group > :first-child {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.form-inline .input-group + .input-group {
+    margin-left: 20px;
+}
+
+.form-inline .form-group {
+    vertical-align: top;
+}
+
+.form-inline .input-group .form-control {
+    width: auto;
 }
 
 .help-block {
