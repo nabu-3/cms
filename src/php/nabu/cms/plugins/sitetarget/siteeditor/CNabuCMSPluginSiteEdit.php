@@ -22,6 +22,8 @@ namespace nabu\cms\plugins\sitetarget\siteeditor;
 use nabu\data\lang\CNabuLanguage;
 use nabu\data\site\CNabuSite;
 use nabu\data\site\CNabuSiteLanguage;
+use nabu\data\messaging\CNabuMessaging;
+
 use nabu\http\adapters\CNabuHTTPSiteTargetPluginAdapter;
 
 /**
@@ -55,8 +57,9 @@ class CNabuCMSPluginSiteEdit extends CNabuHTTPSiteTargetPluginAdapter
                 $this->edit_site->refresh(true, true)
             ) {
                 $this->edit_site->getTargets(true);
-                if (is_numeric($nb_messaging_id = $this->edit_site->getMessagingId())) {
-                    $nb_messaging = $this->nb_work_customer->getMessaging($nb_messaging_id);
+                if (is_numeric($nb_messaging_id = $this->edit_site->getMessagingId()) &&
+                    ($nb_messaging = $this->nb_work_customer->getMessaging($nb_messaging_id)) instanceof CNabuMessaging
+                ) {
                     $nb_messaging->refresh(true, true);
                 }
                 if (($translation = $this->edit_site->getTranslation($this->nb_language)) instanceof CNabuSiteLanguage &&
