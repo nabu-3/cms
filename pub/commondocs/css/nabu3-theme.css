@@ -66,7 +66,10 @@ label {
 }
 
 legend {
-    color: #073642;
+	color: #073642;
+	background-color: #93a1a1;
+	padding: 2px 10px;
+	font-size: 16px;
 }
 
 code {
@@ -671,6 +674,10 @@ footer.navbar .navbar-nav > li > a + span {
     margin-bottom: 0;
 }
 
+.form-vertical .form-group.pull-left:not(:last-child) {
+    margin-right: 20px;
+}
+
 .input-group-addon {
     border-color: #93a1a1;
 }
@@ -719,7 +726,10 @@ footer.navbar .navbar-nav > li > a + span {
     border-top-left-radius: 0;
 }
 
-.form-inline .input-group + .input-group {
+.form-inline .input-group + .input-group,
+.form-inline .input-group + .form-group,
+.form-inline .form-group + .input-group,
+.form-inline .form-group + .form-group {
     margin-left: 20px;
 }
 
@@ -1421,7 +1431,8 @@ li > .tree-level {
 /** Edit container **/
 .edit-container {
     height: 100%;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .edit-container .tab-pane {
@@ -1443,23 +1454,8 @@ li > .tree-level {
     margin-left: 0;
 }
 
-.edit-container fieldset:first-child {
-    margin-top: -15px;
-}
-
 .edit-container fieldset + fieldset {
     margin-top: 20px;
-}
-.edit-container legend {
-    background-color: #6c71c4;
-    color: #fdf6e3;  font-size: 16px;
-    margin-bottom: 10px;
-    margin-left: -20px;
-    margin-right: -20px;
-    padding-bottom: 2px;
-    padding-left: 20px;
-    padding-right: 20px;
-    width: calc(100% + 40px);
 }
 
 /* Language Selector */
@@ -1521,7 +1517,7 @@ li > .tree-level {
     flex: 1 1 auto;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding: 5px 10px;
+    padding: 10px;
 }
 
 .box > .box-footer {
