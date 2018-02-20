@@ -6,5 +6,5 @@ require_once 'common.php';
 
 CNabuEngine::setOperationModeClustered();
 CNabuEngine::getEngine()
-    ->enableLogTrace()
+    //->enableLogTrace()
     ->runApplication('\\nabu\\cms\\apps\\CNabuCMSApplication');

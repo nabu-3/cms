@@ -3,9 +3,9 @@
 <div class="edit-container">
     {if is_array($api) && array_key_exists('translations', $api) && is_array($api.translations) && array_key_exists($nb_site.api_language_id, $api.translations)}
         {assign var=url value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$edit_site.id}"}
-        {nabu_form method="ajax-post" layout=vertical multiform=":root:" action=$url}
+        {nabu_form method="ajax-post" layout=vertical multiform=":root:redir:" action=$url}
             {nabu_form_fieldset title={nabu_static key=tit_general_forwardings}}
-                {include file="content/site-editor/parts/site-edit-redir-item.tpl" pattern='default' label={nabu_static key=lbl_default_target}}
+                {include file="content/site-editor/parts/site-edit-redir-item.tpl" pattern='default' label={nabu_static key=lbl_default_target} use_http_code=true}
                 {include file="content/site-editor/parts/site-edit-redir-item.tpl" pattern='policies' label={nabu_static key=lbl_policies_target}}
                 {include file="content/site-editor/parts/site-edit-redir-item.tpl" pattern='page_not_found' label={nabu_static key=lbl_page_not_found_target} use_http_code=true}
             {/nabu_form_fieldset}

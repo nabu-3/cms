@@ -19,6 +19,8 @@
  */
 
 namespace nabu\cms\plugins\sitetarget\siteeditor;
+use nabu\data\site\CNabuSiteLanguage;
+
 use nabu\data\security\CNabuUser;
 use nabu\data\site\CNabuSite;
 use nabu\cms\plugins\sitetarget\base\CNabuCMSPluginAbstractAPI;
@@ -98,6 +100,7 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                     'published' => 'nb_site_published',
                     'default_target_use_uri' => 'nb_site_default_target_use_uri',
                     'default_target_id' => 'nb_site_default_target_id',
+                    'default_error_code' => 'nb_site_default_error_code',
                     'page_not_found_target_use_uri' => 'nb_site_page_not_found_target_use_uri',
                     'page_not_found_target_id' => 'nb_site_page_not_found_target_id',
                     'page_not_found_error_code' => 'nb_site_page_not_found_error_code',
@@ -105,6 +108,11 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                     'login_target_id' => 'nb_site_login_target_id',
                     'login_redirection_target_use_uri' => 'nb_site_login_redirection_target_use_uri',
                     'login_redirection_target_id' => 'nb_site_login_redirection_target_id',
+                    'logout_redirection_target_use_uri' => 'nb_site_logout_redirection_target_use_uri',
+                    'logout_redirection_target_id' => 'nb_site_logout_redirection_target_id',
+                    'login_max_fails_target_use_uri' => 'nb_site_login_max_fails_target_use_uri',
+                    'login_max_fails_target_id' => 'nb_site_login_max_fails_target_id',
+                    'login_max_fails_error_code' => 'nb_site_login_max_fails_error_code',
                     'alias_not_found_target_use_uri' => 'nb_site_alias_not_found_target_use_uri',
                     'alias_not_found_target_id' => 'nb_site_alias_not_found_target_id',
                     'alias_locked_target_use_uri' => 'nb_site_alias_locked_target_use_uri',
@@ -172,6 +180,77 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
             }
 
             if ($this->edit_site->save()) {
+                $languages = $this->nb_request->getCombinedPostIndexes(array(
+                        'enabled', 'name', 'order', 'short_datetime_format', 'middle_datetime_format',
+                        'full_datetime_format', 'short_date_format', 'middle_date_format', 'full_date_format',
+                        'short_time_format', 'full_time_format', 'name', 'default_target_url',
+                        'page_not_found_target_url', 'login_target_url', 'login_redirection_target_url',
+                        'logout_redirection_target_url', 'login_max_fails_target_url', 'alias_not_found_target_url',
+                        'alias_locked_target_url', 'policies_target_url'
+                ));
+                if (count($languages) > 0) {
+                    foreach ($languages as $lang_id) {
+                        $nb_translation = $this->edit_site->getTranslation($lang_id);
+                        $nb_translation->relinkDB();
+                        if (!$nb_translation) {
+                            $nb_translation = new CNabuSiteLanguage();
+                            $nb_translation->setSiteId($this->edit_site->getId());
+                            $nb_translation->setLanguageId($lang_id);
+                            $this->edit_site->setTranslation($nb_translation);
+                        }
+                        $this->nb_request->updateObjectFromPost(
+                            $nb_translation,
+                            array(
+                                'enabled' => 'nb_site_lang_enabled',
+                                'translation_status' => 'nb_site_lang_translation_status',
+                                'editable' => 'nb_site_lang_editable',
+                                'order' => 'nb_site_lang_order',
+                                'short_datetime_format' => 'nb_site_lang_short_datetime_format',
+                                'middle_datetime_format' => 'nb_site_lang_middle_datetime_format',
+                                'full_datetime_format' => 'nb_site_lang_full_datetime_format',
+                                'short_date_format' => 'nb_site_lang_short_date_format',
+                                'middle_date_format' => 'nb_site_lang_middle_date_format',
+                                'full_date_format' => 'nb_site_lang_full_date_format',
+                                'short_time_format' => 'nb_site_lang_short_time_format',
+                                'full_time_format' => 'nb_site_lang_full_datetime_format',
+                                'name' => 'nb_site_lang_name',
+                                'default_target_url' => 'nb_site_lang_default_target_url',
+                                'page_not_found_target_url' => 'nb_site_lang_page_not_found_target_url',
+                                'login_target_url' => 'nb_site_lang_login_target_url',
+                                'login_redirection_target_url' => 'nb_site_lang_login_redirection_target_url',
+                                'logout_redirection_target_url' => 'nb_site_lang_logout_redirection_target_url',
+                                'login_max_fails_target_url' => 'nb_site_lang_login_max_fails_target_url',
+                                'alias_not_found_target_url' => 'nb_site_lang_alias_not_found_target_url',
+                                'alias_locked_target_url' => 'nb_site_lang_alias_locked_target_url',
+                                'policies_target_url' => 'nb_site_lang_policies_target_url'
+                            ),
+                            null,
+                            array(
+                                'short_datetime_format' => '',
+                                'middle_datetime_format' => '',
+                                'full_datetime_format' => '',
+                                'short_date_format' => '',
+                                'middle_date_format' => '',
+                                'full_date_format' => '',
+                                'short_time_format' => '',
+                                'full_time_format' => '',
+                                'name' => '',
+                                'default_target_url' => '',
+                                'page_not_found_target_url' => '',
+                                'login_target_url' => '',
+                                'login_redirection_target_url' => '',
+                                'logout_redirection_target_url' => '',
+                                'login_max_fails_target_url' => '',
+                                'alias_not_found_target_url' => '',
+                                'alias_locked_target_url' => '',
+                                'policies_target_url' => ''
+                            ),
+                            $lang_id
+                        );
+                        $nb_translation->save();
+                    }
+                }
+
                 $this->setStatusOK();
                 $this->setData($this->edit_site->getTreeData(null, true));
             }

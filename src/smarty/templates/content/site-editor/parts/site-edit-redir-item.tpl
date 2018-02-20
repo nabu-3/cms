@@ -2,7 +2,8 @@
 {strip}
     {assign var=target_use_uri value="{$pattern}_target_use_uri"}
     {assign var=target_id value="{$pattern}_target_id"}
-    {assign var=target_url value="{$pattern}_url"}
+    {assign var=target_url value="{$pattern}_target_url"}
+    {assign var=target_error_code value="{$pattern}_error_code"}
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group pull-left">
@@ -22,7 +23,7 @@
                 </div>
             </div>
             {if isset($use_http_code) && $use_http_code===true}
-                {nabu_form_textbox class="pull-left" from=$edit_site field=page_not_found_error_code mandatory=false size=3 maxlength=3 rule=regex rule_param="^[1-5][0-9]{ldelim}2{rdelim}}$" label="{nabu_static key=lbl_http_code}"}
+                {nabu_form_textbox class="pull-left" from=$edit_site field=$target_error_code mandatory=false size=3 maxlength=3 rule=regex rule_param="^[1-5][0-9]{ldelim}2{rdelim}}$" label="{nabu_static key=lbl_http_code}"}
             {/if}
         </div>
     </div>

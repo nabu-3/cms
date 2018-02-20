@@ -3,7 +3,7 @@
 <div class="edit-container">
     {if is_array($api) && array_key_exists('translations', $api) && is_array($api.translations) && array_key_exists($nb_site.api_language_id, $api.translations)}
         {assign var=url value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$edit_site.id}"}
-        {nabu_form method="ajax-post" layout=vertical multiform=":root:" action=$url}
+        {nabu_form method="ajax-post" layout=vertical multiform=":root:security:" action=$url}
             {nabu_form_fieldset title={nabu_static key=tit_roles_and_users}}
                 {nabu_form_row}
                     <div class="col-sm-5 col-md-4">
