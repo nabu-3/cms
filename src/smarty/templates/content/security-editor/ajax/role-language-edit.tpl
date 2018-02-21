@@ -2,7 +2,11 @@
 {nabu_assign var=api cta=api_languages}
 <div class="box box-default">
     <div class="box-heading">
-        {$nb_site_target.translation.title|sprintf:$edit_language.name}
+        {if is_array($edit_language)}
+            {$nb_site_target.translation.title|sprintf:$nb_all_languages[$edit_language.language_id].name}
+        {else}
+            {$nb_site_target.translation.title|sprintf:''}
+        {/if}
         <div class="btn-toolbar pull-right">
             <div class="btn-group">
                 <button type="button" class="btn btn-link btn-xs" data-toggle="box-maximize"><i class="fa fa-window-maximize"></i></button>
@@ -26,15 +30,13 @@
             {/if}
             {nabu_form method="ajax-post" layout=vertical multiform=":root:language:{if $edit_language!==null}{$edit_language.language_id}{else}%s{/if}"
                        action=$url action_template=$url_tpl action_template_field=$url_field}
-                {nabu_form_fieldset title="{nabu_static key=tit_language}"}
-                    {nabu_form_row}
-                        {if $edit_language===null}
+               {if $edit_language===null}
+                    {nabu_form_fieldset title="{nabu_static key=tit_language}"}
+                        {nabu_form_row}
                             {nabu_form_select from=$edit_language field=language_id options=$nb_all_languages options_name=name class="col-sm-6" label={nabu_static key=lbl_language}}
-                        {else}
-                            {nabu_form_static from=$nb_all_languages[$edit_language.language_id] field=name class="col-sm-6" label={nabu_static key=lbl_language}}
-                        {/if}
-                    {/nabu_form_row}
-                {/nabu_form_fieldset}
+                        {/nabu_form_row}
+                    {/nabu_form_fieldset}
+                {/if}
                 {nabu_form_fieldset title="{nabu_static key=tit_content}"}
                     {nabu_form_row}
                         {nabu_form_textbox from=$edit_language field=name label={nabu_static key=lbl_name} class="col-sm-12"}
