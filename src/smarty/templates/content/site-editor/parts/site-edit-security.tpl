@@ -14,6 +14,7 @@
             {nabu_form_fieldset title={nabu_static key=tit_sessions}}
                 {nabu_form_row}
                     {nabu_form_textbox class="col-sm-3 col-md-2" type=number from=$edit_site field=max_signin_retries label={nabu_static key=lbl_max_signin_retries}}
+                    {nabu_form_textbox class="col-sm-3 col-md-2" type=number from=$edit_site field=signin_lock_delay label={nabu_static key=lbl_signin_locked_delay}}
                 {/nabu_form_row}
                 {nabu_form_row}
                     <div class="col-sm-12">

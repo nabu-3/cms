@@ -11,11 +11,13 @@
             </div>
         </aside>
     {/if}
-    {if count($sidebar_menu.childs)>0}
-        <aside>
-            <h3>Menu</h3>
-            {nabu_assign var=sidebar_menu sitemap=main_menu level=1}
-            {nabu_navigation sitemap=$sidebar_menu.childs type=pill position=stacked}
-        </aside>
-    {/if}
+    {nabu_exists sitemap=main_menu}
+        {nabu_assign var=sidebar_menu sitemap=main_menu level=1}
+        {if count($sidebar_menu.childs)>0}
+            <aside>
+                <h3>Menu</h3>
+                {nabu_navigation sitemap=$sidebar_menu.childs type=pill position=stacked}
+            </aside>
+        {/if}
+    {/nabu_exists}
 </div>

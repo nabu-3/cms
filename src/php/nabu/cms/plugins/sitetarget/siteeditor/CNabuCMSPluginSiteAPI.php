@@ -159,7 +159,8 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                     'x_frame_options' => 'nb_site_x_frame_options',
                     'x_frame_options_url' => 'nb_site_x_frame_options_url',
                     'max_signin_retries' => 'nb_site_max_signin_retries',
-                    'force_cookie_as_secure' => 'nb_site_force_cookie_as_secure'
+                    'force_cookie_as_secure' => 'nb_site_force_cookie_as_secure',
+                    'signin_lock_delay' => 'nb_site_signin_lock_delay'
                 ),
                 null,
                 array(
