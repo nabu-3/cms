@@ -29,7 +29,7 @@
                 {nabu_form_fieldset title="{nabu_static key=tit_language}"}
                     {nabu_form_row}
                         {nabu_form_select from=$edit_language field=language_id options=$nb_all_languages options_name=name class="col-sm-6" label="{nabu_static key=lbl_language}"}
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 container-checkbox">
                             {nabu_form_checkbox from=$edit_language field=enabled check='T' uncheck='F' label="{nabu_static key=chk_active}"}
                         </div>
                     {/nabu_form_row}
