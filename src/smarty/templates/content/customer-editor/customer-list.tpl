@@ -24,7 +24,7 @@
                         delete: [
                             type: "danger"
                             icon: "fa fa-trash"
-                            apply: "multiple"
+                            apply: "single"
                         ]
                     ]
                 ]
@@ -54,9 +54,9 @@
 {/nabu_raw_assign}
 <div class="edit-zone">
     {include file="content/parts/flag-selector.tpl" lang_list=$nb_languages default_lang=$nb_language.id}
-    {nabu_table id=medioteca_list data=$data metadata=$table_metadata selectable=true languages=$nb_languages
+    {nabu_table id=customer_list data=$data metadata=$table_metadata selectable=true languages=$nb_languages
                 bordered=true striped=true hover=true condensed=true scrolled=true
-                search=false pager=true size=10 column_selector=true draw_empty=true
+                search=false pager=true size=25 column_selector=true draw_empty=true
                 api=api_call editor=item_edit edit_button=line}
 </div>
 {include file="content/customer-editor/modals/new-customer.tpl"}
