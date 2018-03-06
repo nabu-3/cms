@@ -47,6 +47,8 @@ class CNabuCMSPluginCustomerAPI extends CNabuCMSPluginAbstractAPI
                     $this->edit_customer = null;
                 }
                 $this->edit_customer->refresh(true, false);
+            } else {
+                $this->edit_customer = new CNabuCustomer();
             }
         }
 

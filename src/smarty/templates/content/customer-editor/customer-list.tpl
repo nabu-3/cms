@@ -59,3 +59,4 @@
                 search=false pager=true size=10 column_selector=true draw_empty=true
                 api=api_call editor=item_edit edit_button=line}
 </div>
+{include file="content/customer-editor/modals/new-customer.tpl"}

@@ -3,7 +3,6 @@
     {include file="content/parts/common-labels.tpl" data=$edit_customer}
 </div>
 <div id="edit_zone" class="edit-zone" data-toggle="nabu-multiform">
-    {include file="content/parts/flag-selector.tpl" lang_list=$edit_customer.languages default_lang=$edit_customer.default_language_id}
     <ul class="nav nav-tabs" role="tablist"data-toggle="tab-persistence" data-persistence-id="{$edit_customer.id}">
         <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">Principal</a></li>
         {*<li role="presentation"><a href="#languages" aria-controls="languages" role="tab" data-toggle="tab">Idiomas</a></li>
