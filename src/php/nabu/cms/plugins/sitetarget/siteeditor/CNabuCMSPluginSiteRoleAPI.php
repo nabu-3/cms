@@ -69,7 +69,6 @@ class CNabuCMSPluginSiteRoleAPI extends CNabuCMSPluginAbstractAPI
     public function methodGET()
     {
         if ($this->nb_edit_site_role instanceof CNabuSiteRole) {
-            error_log(print_r($this->nb_edit_site_role->getTreeData(null, true), true));
             $this->setStatusOK();
             $this->setData($this->nb_edit_site_role->getTreeData(null, true));
         }
@@ -95,7 +94,6 @@ class CNabuCMSPluginSiteRoleAPI extends CNabuCMSPluginAbstractAPI
     private function doPOSTSave()
     {
         if ($this->nb_edit_site_role instanceof CNabuSiteRole) {
-            error_log(__METHOD__);
             $this->nb_request->updateObjectFromPost(
                 $this->nb_edit_site_role,
                 array(
