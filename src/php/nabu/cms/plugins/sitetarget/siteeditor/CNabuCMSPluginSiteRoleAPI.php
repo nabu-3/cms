@@ -100,6 +100,8 @@ class CNabuCMSPluginSiteRoleAPI extends CNabuCMSPluginAbstractAPI
                 $this->nb_edit_site_role,
                 array(
                     'role_id' => 'nb_role_id',
+                    'login_redirection_target_use_uri' => 'nb_site_role_login_redirection_target_use_uri',
+                    'login_redirection_target_id' => 'nb_site_role_login_redirection_target_id',
                     'messaging_template_new_user' => 'nb_messaging_template_new_user',
                     'messaging_template_forgot_password' => 'nb_messaging_template_forgot_password',
                     'messaging_template_notify_new_user' => 'nb_messaging_template_notify_new_user',
@@ -110,6 +112,7 @@ class CNabuCMSPluginSiteRoleAPI extends CNabuCMSPluginAbstractAPI
                 ),
                 null,
                 array(
+                    'login_redirection_target_url' => '',
                     'messaging_template_new_user' => '0',
                     'messaging_template_forgot_password' => '0',
                     'messaging_template_notify_new_user' => '0',

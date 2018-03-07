@@ -33,6 +33,12 @@
                         {/nabu_form_row}
                     {/nabu_form_fieldset}
                 {/if}
+                {nabu_form_fieldset title={nabu_static key=tit_general_forwardings}}
+                    {include file="content/site-editor/parts/site-edit-redir-item.tpl" source=$edit_site_role pattern='policies' label={nabu_static key=lbl_policies_target}}
+                {/nabu_form_fieldset}
+                {nabu_form_fieldset title={nabu_static key=tit_access_forwardings}}
+                    {include file="content/site-editor/parts/site-edit-redir-item.tpl" source=$edit_site_role pattern='login_redirection' label={nabu_static key=lbl_login_redirection_target}}
+                {/nabu_form_fieldset}
                 {nabu_form_fieldset title={nabu_static key=tit_messaging_templates}}
                     {if is_numeric($edit_site.messaging_id) && is_array($nb_work_customer.messagings) && array_key_exists($edit_site.messaging_id, $nb_work_customer.messagings)}
                         {assign var=templates value=$nb_work_customer.messagings[$edit_site.messaging_id].templates}
