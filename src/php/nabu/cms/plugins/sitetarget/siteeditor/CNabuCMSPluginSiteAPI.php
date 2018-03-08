@@ -192,12 +192,13 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                 if (count($languages) > 0) {
                     foreach ($languages as $lang_id) {
                         $nb_translation = $this->edit_site->getTranslation($lang_id);
-                        $nb_translation->relinkDB();
                         if (!$nb_translation) {
                             $nb_translation = new CNabuSiteLanguage();
                             $nb_translation->setSiteId($this->edit_site->getId());
                             $nb_translation->setLanguageId($lang_id);
                             $this->edit_site->setTranslation($nb_translation);
+                        } else {
+                            $nb_translation->relinkDB();
                         }
                         $this->nb_request->updateObjectFromPost(
                             $nb_translation,

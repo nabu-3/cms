@@ -89,5 +89,6 @@
                 search=false pager=true size=25 column_selector=true draw_empty=true
                 api=api_site editor=item_edit edit_button=line}
 </div>
+{include file="content/site-editor/modals/new-site.tpl"}
 {include file="content/site-editor/modals/download-site.tpl"}
 {include file="content/site-editor/modals/site-notify.tpl"}
