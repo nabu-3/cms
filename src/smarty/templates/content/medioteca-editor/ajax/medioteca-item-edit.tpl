@@ -38,6 +38,8 @@
                             {nabu_form_checkbox from=$edit_item field=visible name=visible check='T' uncheck='F' label="{nabu_static key=lbl_visible}"}
                         </div>
                         {nabu_form_textbox from=$edit_item field=order label="{nabu_static key=lbl_position}" class="col-sm-2"}
+                        {nabu_form_textbox type=date from=$edit_item field=begin_datetime label="Fecha de publicación" class="col-sm-3"}
+                        {nabu_form_textbox type=date from=$edit_item field=end_datetime label="Fecha de retirada" class="col-sm-3"}
                     {/nabu_form_row}
                 {/nabu_form_fieldset}
                 {nabu_form_fieldset title="{nabu_static key=tit_appearance}"}

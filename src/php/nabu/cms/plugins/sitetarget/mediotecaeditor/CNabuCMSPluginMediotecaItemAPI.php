@@ -101,10 +101,16 @@ class CNabuCMSPluginMediotecaItemAPI extends CNabuCMSPluginAbstractAPI
                     'order' => 'nb_medioteca_item_order',
                     'visible' => 'nb_medioteca_item_visible',
                     'css_class' => 'nb_medioteca_item_css_class',
-                    'icon' => 'nb_medioteca_item_icon'
+                    'icon' => 'nb_medioteca_item_icon',
+                    'begin_datetime' => 'nb_medioteca_item_begin_datetime',
+                    'end_datetime' => 'nb_medioteca_item_end_datetime'
                 ),
                 array(
                     'visible' => 'F'
+                ),
+                array(
+                    'nb_medioteca_item_begin_datetime' => '',
+                    'nb_medioteca_item_end_datetime' => ''
                 )
             );
             if ($this->nb_medioteca_item->isValueEmpty('nb_medioteca_item_hash')) {
