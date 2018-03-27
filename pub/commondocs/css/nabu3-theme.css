@@ -984,6 +984,7 @@ input[type="checkbox"] {
     color: #fdf6e3;
     font-weight: normal;
     vertical-align: top;
+    white-space: nowrap;
 }
 
 .table-scrolled {
@@ -1101,6 +1102,9 @@ input[type="checkbox"] {
     color: #fdf6e3;
 }
 
+.table > thead > tr > th[data-name="id"],
+.table > thead > tr > th[data-name="_id"],
+.table > thead > tr > th[data-name="level"],
 .table > tbody > tr > td[data-name="id"],
 .table > tbody > tr > td[data-name$="_id"],
 .table > tbody > tr > td[data-name="level"] {
