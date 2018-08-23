@@ -114,6 +114,11 @@ class CNabuCMSPluginSiteTargetEdit extends CNabuHTTPSiteTargetPluginAdapter
 
         if ($this->nb_site_target->getKey() === 'ajax_site_target_edit_policy') {
             $render->smartyAssign(
+                'render_interfaces',
+                $this->nb_engine->getProvidersInterfaceDescriptors(CNabuProviderFactory::INTERFACE_RENDER),
+                $this->nb_language
+            );
+            $render->smartyAssign(
                 'transform_interfaces',
                 $this->nb_engine->getProvidersInterfaceDescriptors(CNabuProviderFactory::INTERFACE_RENDER_TRANSFORM),
                 $this->nb_language

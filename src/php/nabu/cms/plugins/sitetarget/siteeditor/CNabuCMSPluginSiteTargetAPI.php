@@ -89,6 +89,7 @@ class CNabuCMSPluginSiteTargetAPI extends CNabuCMSPluginAbstractAPI
                     'use_http' => 'nb_site_target_use_http',
                     'use_https' => 'nb_site_target_use_https',
                     'output_type' => 'nb_site_target_output_type',
+                    'render_interface' => 'nb_site_target_render_interface',
                     'transform_interface' => 'nb_site_target_transform_interface',
                     'mimetype_id' => 'nb_mimetype_id',
                     'attachment' => 'nb_site_target_attachment',
@@ -113,6 +114,7 @@ class CNabuCMSPluginSiteTargetAPI extends CNabuCMSPluginAbstractAPI
                 null,
                 array(
                     'begin_date' => '',
+                    'render_interface' => '',
                     'transform_interface' => ''
                 )
             );
