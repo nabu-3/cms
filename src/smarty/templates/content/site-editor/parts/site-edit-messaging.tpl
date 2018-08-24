@@ -14,7 +14,7 @@
                 {/nabu_form_row}
             {/nabu_form_fieldset}
             {nabu_form_fieldset id=messaging_templates title={nabu_static key=tit_templates}}
-                {if is_numeric($edit_site.messaging_id) && array_key_exists($edit_site.messaging_id, $nb_work_customer.messagings)}
+                {if is_numeric($edit_site.messaging_id) && is_array($nb_work_customer.messagings) && array_key_exists($edit_site.messaging_id, $nb_work_customer.messagings)}
                     {assign var=templates value=$nb_work_customer.messagings[$edit_site.messaging_id].templates}
                 {else}
                     {assign var=templates value=null}

@@ -19,6 +19,7 @@
  */
 
 namespace nabu\cms\plugins\site;
+
 use nabu\data\customer\CNabuCustomer;
 use nabu\data\customer\CNabuCustomerList;
 use nabu\data\security\CNabuRole;
