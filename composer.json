@@ -3,7 +3,7 @@
     "name": "nabu-3/cms",
     "description": "nabu-3 CMS Website to manage nabu-3 database framework entities and websites",
     "keywords": [ "nabu-3", "nabu", "cms", "framework", "database", "web", "website", "websites", "web builder" ],
-    "version": "3.0.1",
+    "version": "3.0.2",
     "license": "Apache-2.0",
     "authors": [
         {

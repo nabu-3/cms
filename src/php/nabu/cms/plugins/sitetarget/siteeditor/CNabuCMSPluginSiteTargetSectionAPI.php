@@ -114,6 +114,7 @@ class CNabuCMSPluginSiteTargetSectionAPI extends CNabuCMSPluginAbstractAPI
                             $nb_translation,
                             array(
                                 'title' => 'nb_site_target_section_lang_title',
+                                'main_image' => 'nb_site_target_section_lang_main_image',
                                 'subtitle' => 'nb_site_target_section_lang_subtitle',
                                 'opening' => 'nb_site_target_section_lang_opening',
                                 'content' => 'nb_site_target_section_lang_content',
