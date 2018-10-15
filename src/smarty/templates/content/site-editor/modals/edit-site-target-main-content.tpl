@@ -8,12 +8,13 @@
                 <div class="row">
                     <aside class="col-sm-3">{$nb_site_target.translation.opening}</aside>
                     <section class="col-sm-9 col-sm-offset-3" data-toggle="toggable-lang">
-                        {nabu_form_textbox label="{nabu_static key=lbl_title}" from=$edit_site_target field=title multilang=$edit_site.languages help="Escribe el título de la página."}
-                        {nabu_form_textbox label="{nabu_static key=lbl_subtitle}" from=$edit_site_target field=subtitle multilang=$edit_site.languages help="Escribe el subtítulo de la página."}
-                        {nabu_form_textbox type=textarea rows=3 label="{nabu_static key=lbl_opening}" from=$edit_site_target field=opening multilang=$edit_site.languages help="Escribe la entradilla de la página."}
-                        {nabu_form_textbox type=textarea rows=6 label="{nabu_static key=lbl_content}" from=$edit_site_target field=content multilang=$edit_site.languages help="Escribe el cuerpo de la página."}
-                        {nabu_form_textbox type=textarea rows=3 label="{nabu_static key=lbl_footer}" from=$edit_site_target field=footer multilang=$edit_site.languages help="Escribe el pie de la página."}
-                        {nabu_form_textbox type=textarea rows=3 label="{nabu_static key=lbl_aside}" from=$edit_site_target field=aside multilang=$edit_site.languages help="Escribe el texto lateral de la página."}
+                        {nabu_form_textbox label={nabu_static key=lbl_title} from=$edit_site_target field=title multilang=$edit_site.languages help="Escribe el título de la página."}
+                        {nabu_form_textbox label={nabu_static key=lbl_image} from=$edit_site_target field=main_image multilang=$edit_site.languages help="Escribe la URL de imagen principal de la página."}
+                        {nabu_form_textbox label={nabu_static key=lbl_subtitle} from=$edit_site_target field=subtitle multilang=$edit_site.languages help="Escribe el subtítulo de la página."}
+                        {nabu_form_textbox type=textarea rows=3 label={nabu_static key=lbl_opening} from=$edit_site_target field=opening multilang=$edit_site.languages help="Escribe la entradilla de la página."}
+                        {nabu_form_textbox type=textarea rows=6 label={nabu_static key=lbl_content} from=$edit_site_target field=content multilang=$edit_site.languages help="Escribe el cuerpo de la página."}
+                        {nabu_form_textbox type=textarea rows=3 label={nabu_static key=lbl_footer} from=$edit_site_target field=footer multilang=$edit_site.languages help="Escribe el pie de la página."}
+                        {nabu_form_textbox type=textarea rows=3 label={nabu_static key=lbl_aside} from=$edit_site_target field=aside multilang=$edit_site.languages help="Escribe el texto lateral de la página."}
                     </section>
                 </div>
             {/nabu_modal_body}
