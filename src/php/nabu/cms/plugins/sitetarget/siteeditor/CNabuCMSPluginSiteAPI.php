@@ -324,7 +324,12 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                             ) {
                                 error_log("Sending to " . $nb_user->getEmail());
                                 $nb_messaging_factory->postTemplateMessage(
-                                    $nb_messaging_template, $nb_site_user->getLanguageId(), $nb_user, null, null, null
+                                    $nb_messaging_template, $nb_site_user->getLanguageId(), $nb_user, null, null, array(
+                                        'encoded_hash' => $nb_user->createStaticEncodedId(),
+                                        'encoded_temp' => $nb_user->createTemporalEncodedId(),
+                                        'encoded_login' => $nb_user->createStaticEncodedLogin(),
+                                        'dns_name' => $this->edit_site->getMainAlias()->getDNSName()
+                                    )
                                 );
                             }
                         }
