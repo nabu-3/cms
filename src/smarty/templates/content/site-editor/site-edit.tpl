@@ -7,6 +7,7 @@
     {include file="content/parts/flag-selector.tpl" lang_list=$edit_site.languages default_lang=$edit_site.default_language_id}
     <ul class="nav nav-tabs" role="tablist" data-toggle="tab-persistence" data-persistence-id="{$edit_site.id}">
         <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab"><i class="fa fa-home"></i>&nbsp;{nabu_static key=tab_main}</a></li>
+        <li role="presentation"><a href="#host" aria-controls="host" role="tab" data-toggle="tab"><i class="fa fa-cloud"></i>&nbsp;Host</a></li>
         <li role="presentation"><a href="#security" aria-controls="security" role="tab" data-toggle="tab"><i class="fa fa-lock"></i>&nbsp;{nabu_static key=tab_security}</a></li>
         <li role="presentation"><a href="#redir" aria-controls="redir" role="tab" data-toggle="tab"><i class="fa fa-external-link"></i>&nbsp;{nabu_static key=tab_redirections}</a></li>
         <li role="presentation"><a href="#languages" aria-controls="languages" role="tab" data-toggle="tab"><i class="fa fa-language"></i>&nbsp;{nabu_static key=tab_languages}</a></li>
@@ -18,6 +19,15 @@
     </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="main">
+        </div>
+        <div role="tabpanel" class="tab-pane" id="host">
+            {include file="content/site-editor/parts/site-edit-host.tpl"}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="security">
+            {include file="content/site-editor/parts/site-edit-security.tpl"}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="redir" data-toggle="toggable-lang">
+            {include file="content/site-editor/parts/site-edit-redir.tpl"}
         </div>
         <div role="tabpanel" class="tab-pane" id="languages">
             {include file="content/site-editor/parts/site-edit-languages.tpl"}
@@ -33,12 +43,6 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="messaging">
             {include file="content/site-editor/parts/site-edit-messaging.tpl"}
-        </div>
-        <div role="tabpanel" class="tab-pane" id="security">
-            {include file="content/site-editor/parts/site-edit-security.tpl"}
-        </div>
-        <div role="tabpanel" class="tab-pane" id="redir" data-toggle="toggable-lang">
-            {include file="content/site-editor/parts/site-edit-redir.tpl"}
         </div>
         <div role="tabpanel" class="tab-pane" id="roles">
             {include file="content/site-editor/parts/site-edit-roles.tpl"}
