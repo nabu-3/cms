@@ -131,7 +131,7 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                     'smarty_configs_path' => 'nb_site_smarty_configs_path',
                     'smarty_models_path' => 'nb_site_smarty_models_path',
                     'plugin_name' => 'nb_site_plugin_name',
-                    'http_suport' => 'nb_site_http_support',
+                    'http_support' => 'nb_site_http_support',
                     'https_support' => 'nb_site_https_support',
                     'google_wmr_domain_id' => 'nb_site_google_wmr_domain_id',
                     'google_wmr_site_id' => 'nb_site_google_wmr_site_id',
