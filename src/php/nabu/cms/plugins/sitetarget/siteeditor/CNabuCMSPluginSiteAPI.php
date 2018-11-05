@@ -98,6 +98,7 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                     'main_alias_id' => 'nb_site_main_alias_id',
                     'mounting_order' => 'nb_site_mounting_order',
                     'published' => 'nb_site_published',
+                    'public_base_path_enabled' => 'nb_site_public_base_path_enabled',
                     'default_target_use_uri' => 'nb_site_default_target_use_uri',
                     'default_target_id' => 'nb_site_default_target_id',
                     'default_error_code' => 'nb_site_default_error_code',
@@ -164,13 +165,6 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                 ),
                 null,
                 array(
-                    'messaging_template_new_user' => '0',
-                    'messaging_template_forgot_password' => '0',
-                    'messaging_template_notify_new_user' => '0',
-                    'messaging_template_remember_new_user' => '0',
-                    'messaging_template_invite_user' => '0',
-                    'messaging_template_invite_friend' => '0',
-                    'messaging_template_new_message' => '0',
                     'x_frame_options' => 'N',
                     'x_frame_options_url' => ''
                 )
@@ -180,7 +174,7 @@ class CNabuCMSPluginSiteAPI extends CNabuCMSPluginAbstractAPI
                 $this->edit_site->setXFrameOptionsURL(null);
             }
 
-            if ($this->edit_site->save()) {
+            if ($this->edit_site->save(true)) {
                 $languages = $this->nb_request->getCombinedPostIndexes(array(
                         'enabled', 'name', 'order', 'short_datetime_format', 'middle_datetime_format',
                         'full_datetime_format', 'short_date_format', 'middle_date_format', 'full_date_format',

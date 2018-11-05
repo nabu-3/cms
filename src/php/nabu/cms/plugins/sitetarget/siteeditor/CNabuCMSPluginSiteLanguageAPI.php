@@ -90,6 +90,7 @@ class CNabuCMSPluginSiteLanguageAPI extends CNabuCMSPluginAbstractAPI
                     'editable' => 'nb_site_lang_editable',
                     'order' => 'nb_site_lang_order',
                     'name' => 'nb_site_lang_name',
+                    'public_base_path' => 'nb_site_lang_public_base_path',
                     'short_datetime_format' => 'nb_site_lang_short_datetime_format',
                     'middle_datetime_format' => 'nb_site_lang_middle_datetime_format',
                     'full_datetime_format' => 'nb_site_lang_full_datetime_format',
