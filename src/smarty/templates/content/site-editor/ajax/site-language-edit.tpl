@@ -26,6 +26,13 @@
             {/if}
             {nabu_form method="ajax-post" layout=vertical multiform=":root:language:{if $edit_language!==null}{$edit_language.id}{else}_new{/if}"
                        action=$url action_template=$url_tpl action_template_field=$url_field}
+                {if $edit_site.public_base_path_enabled=='T'}
+                    {nabu_form_fieldset title="{nabu_static key=tit_location}"}
+                        {nabu_form_row}
+                            {nabu_form_textbox from=$edit_language field=public_base_path label="{nabu_static key=lbl_public_base_path}" class="col-sm-12"}
+                        {/nabu_form_row}
+                    {/nabu_form_fieldset}
+                {/if}
                 {nabu_form_fieldset title="{nabu_static key=tit_language}"}
                     {nabu_form_row}
                         {nabu_form_select from=$edit_language field=language_id options=$nb_all_languages options_name=name class="col-sm-6" label="{nabu_static key=lbl_language}"}
