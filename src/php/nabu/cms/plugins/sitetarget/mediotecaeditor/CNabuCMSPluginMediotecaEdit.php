@@ -70,7 +70,7 @@ class CNabuCMSPluginMediotecaEdit extends CNabuHTTPSiteTargetPluginAdapter
     public function beforeDisplayTarget()
     {
         $render = $this->nb_response->getRender();
-        $render->smartyAssign('edit_medioteca', $this->nb_medioteca);
+        $render->smartyAssign('edit_medioteca', $this->nb_medioteca, $this->nb_language);
         $render->smartyAssign('title_part', $this->title_part);
         $render->smartyAssign('breadcrumb_part', $this->breadcrumb_part);
 
