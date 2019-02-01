@@ -49,6 +49,10 @@
                     F: "{nabu_static key=lbl_no}"
                 ]
             ]
+            title: [
+                title: "Título"
+                order: "alpha"
+            ]
         ]
         translations: [
             search_button: "{nabu_static key=btn_search}"
@@ -61,4 +65,4 @@
 {nabu_assign var=ajax_editor cta=ajax_items}
 {assign var=ajax_editor value="{$ajax_editor.translation.final_url|sprintf:$edit_medioteca.id:'%s'}"}
 {include file="content/parts/table-splitted-panels.tpl" id=items_list editor=$ajax_editor editor_mode=ajax
-         data=$edit_medioteca.items metadata=$table_metadata section=items_empty}
+         languages=$edit_medioteca.languages data=$edit_medioteca.items metadata=$table_metadata section=items_empty}
