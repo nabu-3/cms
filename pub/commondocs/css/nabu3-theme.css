@@ -18,6 +18,17 @@ cyan:      #2aa198
 green:     #859900 (V 60%) #a8bf00 (V 75%)
 */
 
+html {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: unset;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
 body {
     background-color: #fdf6e3;
     color: #586e75;

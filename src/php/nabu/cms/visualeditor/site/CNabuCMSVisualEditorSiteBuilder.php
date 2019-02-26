@@ -30,7 +30,6 @@ use nabu\data\site\CNabuSiteMapTree;
 use nabu\data\site\CNabuSiteTargetSectionLanguage;
 use nabu\visual\site\CNabuSiteVisualEditorItem;
 use nabu\visual\site\CNabuSiteVisualEditorItemList;
-use nabu\visual\site\base\CNabuSiteVisualEditorItemListBase;
 
 require_once "providers/mxgraph/mxgraph/3.7.2/mxServer.php";
 
@@ -115,7 +114,7 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
                 $parent, 'st-' . $key, $name,
                 $vr_cell->getX(), $vr_cell->getY(),
                 $vr_cell->getWidth(), $vr_cell->getHeight(),
-                "shape=$shape;edgeStyle=elbowEdgeStyle;elbow=Vertical;whiteSpace=wrap;"
+                "shape=$shape;edgeStyle=elbowEdgeStyle;elbow=Vertical;whiteSpace=wrap;strokeColor=#586e75;"
             );
             //$vertex = $this->model->cells['st-' . $key];
             $vertex->type = $shape;
@@ -196,14 +195,14 @@ class CNabuCMSVisualEditorSiteBuilder extends CNabuObject
 
             if ($nb_site_map->isUsingURIAsTarget() && is_numeric($nb_st_id = $nb_site_map->getSiteTargetId())) {
                 $from = $this->model->cells['st-' . $nb_st_id];
-                $edge = $this->graph->insertEdge($parent, 'smclues-' . $key, '', $from, $vertex, "endArrow=none;");
+                $edge = $this->graph->insertEdge($parent, 'smclues-' . $key, '', $from, $vertex, "endArrow=none;strokeColor=#cb4b16;");
                 $edge->type = 'cluster-target';
                 $edge->objectId = $key;
             }
 
             if (($nb_sm_parent_id = $nb_site_map->getParentId()) !== null) {
                 $from = $this->model->cells['smclu-' . $nb_sm_parent_id];
-                $edge = $this->graph->insertEdge($parent, 'smcluep-' . $key, '', $from, $vertex, "startArrow=oval;endArrow=block;strokeColor=#c0c0c0;");
+                $edge = $this->graph->insertEdge($parent, 'smcluep-' . $key, '', $from, $vertex, "startArrow=oval;endArrow=block;strokeColor=#93a1a1;");
                 $edge->type = 'cluster-parent';
                 $edge->objectId = $key;
             }
