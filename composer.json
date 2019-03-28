@@ -3,7 +3,7 @@
     "name": "nabu-3/cms",
     "description": "nabu-3 CMS Website to manage nabu-3 database framework entities and websites",
     "keywords": [ "nabu-3", "nabu", "cms", "framework", "database", "web", "website", "websites", "web builder" ],
-    "version": "3.0.2",
+    "version": "3.0.4",
     "license": "Apache-2.0",
     "authors": [
         {
@@ -19,12 +19,18 @@
     },
     "require": {
         "nabu-3/composer-installer-plugin": ">=3.0",
-        "nabu-3/core": ">=3.0.11",
+        "nabu-3/core": ">=3.0",
+        "nabu-3/provider-apache-httpd": ">=0.0",
         "nabu-3/provider-smarty-smarty": ">=0.0",
         "nabu-3/runtime-nbfw-lib": ">=3.0",
         "nabu-3/runtime-nbfw-visualeditor": ">=0.0",
         "nabu-3/runtime-assets-ckeditor": ">=0.0",
         "nabu-3/runtime-assets-papaparse": ">=0.0"
+    },
+    "require-dev": {
+        "nabu-3/core": "dev-Version-3.0.12",
+        "nabu-3/provider-apache-httpd": "dev-Version-0.0.9",
+        "nabu-3/provider-smarty-smarty": "dev-Version-0.1.1"
     },
     "repositories": [
         {
