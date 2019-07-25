@@ -5,10 +5,10 @@
 <div id="edit_zone" class="edit-zone" data-toggle="nabu-multiform">
     {include file="content/parts/flag-selector.tpl" lang_list=$edit_medioteca.languages default_lang=$edit_medioteca.default_language_id}
     <ul class="nav nav-tabs" role="tablist"data-toggle="tab-persistence" data-persistence-id="{$edit_medioteca.id}">
-        <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">Principal</a></li>
-        <li role="presentation"><a href="#languages" aria-controls="languages" role="tab" data-toggle="tab">Idiomas</a></li>
-        <li role="presentation"><a href="#items" aria-controls="items" role="tab" data-toggle="tab">Items</a></li>
-        <li role="presentation"><a href="#config" aria-controls="config" role="tab" data-toggle="tab">Configuración</a></li>
+        <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab"><i class="fa fa-home"></i>&nbsp;{nabu_static key=tab_main}</a></li>
+        <li role="presentation"><a href="#languages" aria-controls="languages" role="tab" data-toggle="tab"><i class="fa fa-language"></i>&nbsp;{nabu_static key=tab_languages}</a></li>
+        <li role="presentation"><a href="#items" aria-controls="items" role="tab" data-toggle="tab"><i class="fa fa-list"></i>&nbsp;Items</a></li>
+        <li role="presentation"><a href="#config" aria-controls="config" role="tab" data-toggle="tab"><i class="fa fa-cog"></i>&nbsp;Configuración</a></li>
     </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="main">

@@ -1,12 +1,6 @@
 {nabu_model model="bootstrap-3.3.7"}
 <div class="label-list">
-    {if is_array($edit_commerce)}
-        {if $edit_commerce.is_fetched}
-            <span class="label label-info">ID #{$edit_commerce.id}</span>
-            {if nb_isValidGUID($edit_commerce.hash)}<span class="label label-info">GUID {$edit_commerce.hash}</span>{/if}
-            {if nb_isValidKey($edit_commerce.key)}<span class="label label-info">KEY {$edit_commerce.key}</span>{/if}
-        {/if}
-    {/if}
+    {include file="content/parts/common-labels.tpl" data=$edit_commerce}
 </div>
 <div id="edit_zone" class="edit-zone" data-toggle="nabu-multiform">
     {include file="content/parts/flag-selector.tpl" lang_list=$edit_commerce.languages default_lang=$edit_commerce.default_language_id}
