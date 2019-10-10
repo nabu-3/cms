@@ -26,6 +26,9 @@
                     <div class="col-sm-12">
                         {nabu_form_checkbox from=$edit_site field=force_cookie_as_secure check=T uncheck=F label={nabu_static key=lbl_force_cookie_as_secure}}
                     </div>
+                    <div class="col-sm-12">
+                        {nabu_form_checkbox from=$edit_site field=force_cookie_as_httponly check=T uncheck=F label={nabu_static key=lbl_force_cookie_as_httponly}}
+                    </div>
                 {/nabu_form_row}
             {/nabu_form_fieldset}
             {nabu_form_fieldset title={nabu_static key=tit_clickjacking}}
