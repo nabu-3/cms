@@ -7,7 +7,7 @@
             {nabu_form_fieldset title={nabu_static key=tit_roles_and_users}}
                 {nabu_form_row}
                     <div class="col-sm-5 col-md-4">
-                        {nabu_form_select from=$edit_site field=default_role_id options=$edit_site.roles options_name=name label={nabu_static key=lbl_anonymous_role}}
+                        {nabu_form_select from=$edit_site field=default_role_id options=$edit_site.roles options_name=name label={nabu_static key=lbl_anonymous_role} options_default_name={nabu_static key=sel_choose_role}}
                     </div>
                 {/nabu_form_row}
             {/nabu_form_fieldset}

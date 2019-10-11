@@ -1,6 +1,5 @@
-<script type="text/javascript" src="/assets/js/jquery-3.1.0.min.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/assets/js/jquery.sprintf.min.js"></script>
 <script type="text/javascript" src="/runtime/nbfw/lib/js/nabu.min.js"></script>
 <script type="text/javascript">
