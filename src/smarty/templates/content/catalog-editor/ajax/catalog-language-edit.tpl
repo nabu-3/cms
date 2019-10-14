@@ -28,7 +28,7 @@
                        action=$url action_template=$url_tpl action_template_field=$url_field}
                 {nabu_form_fieldset title="{nabu_static key=tit_language}"}
                     {nabu_form_row}
-                        {nabu_form_select from=$edit_language field=language_id options=$nb_all_languages options_name=name class="col-sm-6" label={nabu_static key=lbl_language}}
+                        {nabu_form_select from=$edit_language field=language_id options=$nb_all_languages options_name=name class="col-sm-6" label={nabu_static key=lbl_language} options_default_name="&lt;Elige un Idioma&gt;"}
                         <div class="col-sm-6 container-checkbox">
                             {nabu_form_checkbox from=$edit_language field=status check='E' uncheck='D' label={nabu_static key=chk_active}}
                         </div>

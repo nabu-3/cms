@@ -5,11 +5,11 @@
 <div id="edit_zone" class="edit-zone catalog" data-toggle="nabu-multiform">
     {include file="content/parts/flag-selector.tpl" lang_list=$edit_catalog.languages default_lang=$edit_catalog.default_language_id}
     <ul class="nav nav-tabs" role="tablist" data-toggle="tab-persistence" data-persistence-id="{$edit_catalog.id}">
-        <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">{nabu_static key=tab_main}</a></li>
-        <li role="presentation"><a href="#languages" aria-controls="languages" role="tab" data-toggle="tab">{nabu_static key=tab_languages}</a></li>
-        <li role="presentation"><a href="#taxonomy" aria-controls="taxonomy" role="tab" data-toggle="tab">{nabu_static key=tab_taxonomies}</a></li>
-        <li role="presentation"><a href="#tags" aria-controls="tags" role="tab" data-toggle="tab">{nabu_static key=tab_labels}</a></li>
-        <li role="presentation"><a href="#items" aria-controls="items" role="tab" data-toggle="tab">{nabu_static key=tab_items}</a></li>
+        <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab"><i class="fa fa-home"></i>&nbsp;{nabu_static key=tab_main}</a></li>
+        <li role="presentation"><a href="#languages" aria-controls="languages" role="tab" data-toggle="tab"><i class="fa fa-language"></i>&nbsp;{nabu_static key=tab_languages}</a></li>
+        <li role="presentation"><a href="#taxonomy" aria-controls="taxonomy" role="tab" data-toggle="tab"><i class="fa fa-code-fork"></i>&nbsp;{nabu_static key=tab_taxonomies}</a></li>
+        <li role="presentation"><a href="#tags" aria-controls="tags" role="tab" data-toggle="tab"><i class="fa fa-tags"></i>&nbsp;{nabu_static key=tab_labels}</a></li>
+        <li role="presentation"><a href="#items" aria-controls="items" role="tab" data-toggle="tab"><i class="fa fa-list"></i>&nbsp;{nabu_static key=tab_items}</a></li>
     </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="main">

@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    <div class="box-body">
+    <div class="box-body" data-toggle="toggable-lang">
         {if is_array($api) && array_key_exists('translations', $api) && is_array($api.translations) && array_key_exists($nb_site.api_language_id, $api.translations)}
             {if $edit_category!==null}
                 {assign var=url value="{$api.translations[$nb_site.api_language_id].final_url|sprintf:$edit_commerce.id:$edit_category.id}"}
@@ -44,10 +44,14 @@
                 {/nabu_form_fieldset}
                 {nabu_form_fieldset title="{nabu_static key=tit_config}"}
                     {nabu_form_row}
-                        {nabu_form_textbox type=textarea rows=5 from=$edit_category field=attributes name=attrs label="Atributos generales" class="col-sm-12"}
+                        <div class="col-sm-12" data-toggle="ace-editor" data-ace-theme="solarized_light" data-ace-mode="json" data-ace-min-lines="5" data-ace-max-lines="20">
+                            {nabu_form_textbox type=textarea rows=5 from=$edit_category field=attributes name=attrs label="Atributos generales"}
+                        </div>
                     {/nabu_form_row}
                     {nabu_form_row}
-                        {nabu_form_textbox type=textarea rows=5 from=$edit_category field=attributes name=attrs_lang label="Atributos de idioma" multilang=$edit_commerce.languages class="col-sm-12"}
+                        <div class="col-sm-12" data-toggle="ace-editor" data-ace-theme="solarized_light" data-ace-mode="json" data-ace-min-lines="5" data-ace-max-lines="20">
+                            {nabu_form_textbox type=textarea rows=5 from=$edit_category field=attributes name=attrs_lang label="Atributos de idioma" multilang=$edit_commerce.languages}
+                        </div>
                     {/nabu_form_row}
                 {/nabu_form_fieldset}
             {/nabu_form}

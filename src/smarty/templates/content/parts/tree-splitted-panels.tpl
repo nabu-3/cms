@@ -15,7 +15,7 @@
                 {/if}
             {/if}
         {/strip}
-        {nabu_tree bordered=true scrolled=true search=true draggable=true empty_message=$empty_message
+        {nabu_tree bordered=true scrolled=true search=true draggable=true draw_empty=true empty_message=$empty_message
                    editor_mode=ajax editor_container="{$id}_editor" edit_button=line}
     </div>
     <div class="split-separator"><div class="split-separator-inner"></div></div>
